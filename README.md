@@ -1,4 +1,2 @@
-LSJ's Github Page Repository
+[LSJ's Blog](https://lsj1206.github.io/)
 =============
-[Blog Link](https://lsj1206.github.io/)
--------------
