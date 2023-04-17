@@ -721,7 +721,7 @@ $sidebar-display: 'sidebar-display';
   width: $sidebar-width;
   z-index: 99;
   background: url('/assets/img/sidebar-bg-img.jpg');
-  background-size: 100% 100%;
+  background-size: cover;
   background-position: center;
   //background: var(--sidebar-bg);
 
