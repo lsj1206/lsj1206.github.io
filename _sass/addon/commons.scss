@@ -740,7 +740,7 @@ $sidebar-display: 'sidebar-display';
     &:hover {
       @include no-text-decoration;
 
-      color: var(--sidebar-active-color) !important;
+      color: rgba(#ADD8E6, 1) !important;
     }
   }
 
@@ -750,14 +750,14 @@ $sidebar-display: 'sidebar-display';
       width: 6rem;
       height: 6rem;
       border-radius: 50%;
-      border: 2px solid rgba(222, 222, 222, 0.7);
+      border: 2px solid rgba(#ADD8E6, 1);
       overflow: hidden;
       -webkit-transform: translateZ(0);
       transform: translateZ(0); /* fixed the zoom in Safari */
       transition: border-color 0.35s ease-in-out;
 
       &:hover {
-        border-color: white;
+        border-color: rgba(#ADD8E6, 1);
       }
     }
 
@@ -784,13 +784,13 @@ $sidebar-display: 'sidebar-display';
       font-weight: 900;
       font-size: 1.5rem;
       letter-spacing: 0.5px;
-      color: rgba(134, 133, 133, 0.99);
+      color: rgba(#ADD8E6, 1);
     }
   }
 
   .site-subtitle {
     font-size: 95%;
-    color: var(--sidebar-muted-color);
+    color: rgba(#ADD8E6, 1);
     line-height: 1.25rem;
     word-spacing: 1px;
     margin: 0.2rem 1.5rem 0.5rem 1.5rem;
@@ -817,11 +817,12 @@ $sidebar-display: 'sidebar-display';
 
     &.active {
       .nav-link {
-        color: var(--sidebar-active-color);
+        color: rgba(#F0F8FF, 1);
       }
     }
 
     &:not(.active) > a {
+      color: rgba(#ADD8E6, 1);
       @extend %clickable-transition;
     }
   }
@@ -890,6 +891,7 @@ $sidebar-display: 'sidebar-display';
     @include pl-pr(1rem);
 
     %icon {
+      color : rgba(#ADD8E6, 1);
       width: 2.4rem;
       text-align: center;
     }
