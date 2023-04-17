@@ -3,29 +3,29 @@
 # ----- Commons label -----
 
 layout:
-  post: 포스트
-  category: 카테고리
-  tag: 태그
+  post: Post
+  category: Category
+  tag: Tag
 
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  home: 홈
-  categories: 카테고리
-  tags: 태그
-  archives: 아카이브
-  about: 정보
+  home: Home
+  categories: Categories
+  tags: Tags
+  archives: Archives
+  about: About
 
 # the text displayed in the search bar & search results
 search:
-  hint: 검색
-  cancel: 취소
+  hint: search
+  cancel: Cancel
   no_results: 검색 결과가 없습니다.
 
 panel:
-  lastmod: 최근 업데이트
-  trending_tags: 인기 태그
-  toc: 바로가기
+  lastmod: Recently Updated
+  trending_tags: Trending Tags
+  toc: Shortcuts
 
 copyright:
   # Shown at the bottom of the post
@@ -82,5 +82,10 @@ df:
 
 # categories page
 categories:
-  category_measure: 카테고리
-  post_measure: 포스트
+  category_measure:
+    singular: category
+    plural: categories
+  post_measure:
+    singular: post
+    plural: posts
+
