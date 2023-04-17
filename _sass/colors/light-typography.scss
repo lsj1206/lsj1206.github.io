@@ -37,11 +37,10 @@
 
   /* Sidebar */
   /* --sidebar-bg: #eeeeee; */
-  /*background: var(--sidebar-bg);*/
-  // background-image: url('/assets/img/sidebar-bg-img.jpg'); /*Img Path*/
-  // background-size: cover;  /*Resize image to fill the size*/
-  // background-repeat: no-repeat; /*Prevent image from repeating*/
   --sidebar-bg: url('/assets/img/sidebar-bg-img.jpg');
+  --sidebar-bg-size: cover;
+  --sidebar-bg-position: center;
+  --sidebar-bg-repeat: no-repeat;
   --sidebar-muted-color: #a2a19f;
   --sidebar-active-color: #424242;
   --nav-cursor-color: #757575;
