@@ -1,10 +1,10 @@
 // User Data
 const userData = {
   url: `https://lsj1206.github.io`,
-  title: "TECH.log",
-  name: "lsj1206",
-  self_introduction: "안녕하세요. 프론트 엔드 개발자 이서준입니다.",
-  email: "1007ckddjs12@gmail.com",
+  title: `TECH.log`,
+  name: `lsj1206`,
+  self_introduction: `안녕하세요. 프론트 엔드 개발자 이서준입니다.`,
+  email: `1007ckddjs12@gmail.com`,
   github_link: `https://github.com/lsj1206`,
 };
 
@@ -23,14 +23,16 @@ const gitcusData = {
 
 // Blog Development Information
 const blogData = {
-  repository: `https://github.com/lsj1206/personal.log`,
-  title: "Blog Development Information",
-  description: "React 기반의 정적 사이트 생성기(Static Site Generator)인 Gatsby를 사용하고 개발된 블로그 입니다.",
-  start_date: "2024.11.25",
-  end_date: "2024.12.17",
-  framework: "Gatsby 5.14 (React18)",
-  css: "styled-components 6.1",
-  attribution: "© Font Awesome (CC BY 4.0)",
+  repository: `https://github.com/lsj1206/lsj1206.github.io`,
+  title: `Blog Development Information`,
+  description: `React 기반의 정적 사이트 생성기(Static Site Generator)인 Gatsby를 사용하고 개발된 블로그 입니다.`,
+  start_date: `2024.11.25`,
+  end_date: `2024.12.17`,
+  framework: `Gatsby 5.14(React18)`,
+  framework_link: `https://www.gatsbyjs.com`,
+  css: `styled-components 6.1`,
+  css_link: `https://styled-components.com`,
+  attribution: `©Font Awesome(CC BY 4.0)`,
   attr_link: `https://fontawesome.com`,
 };
 

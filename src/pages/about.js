@@ -45,13 +45,15 @@ const AboutPage = () => {
               {"Repository"}
             </LinkText>
             <SmallText>
-              {blogData.framework}
-              <br />
-              {blogData.css}
-              <br />
-              <Attr href={blogData.attr_link} target="_blank" rel="noopener noreferrer nofollow">
+              <SmallAnchor href={blogData.framework_link} target="_blank" rel="noopener noreferrer nofollow">
+                {blogData.framework}
+              </SmallAnchor>
+              <SmallAnchor href={blogData.css_link} target="_blank" rel="noopener noreferrer nofollow">
+                {blogData.css}
+              </SmallAnchor>
+              <SmallAnchor href={blogData.attr_link} target="_blank" rel="noopener noreferrer nofollow">
                 {blogData.attribution}
-              </Attr>
+              </SmallAnchor>
             </SmallText>
           </BottomContainer>
         </BlogContainer>
@@ -223,10 +225,6 @@ const BottomContainer = styled.div`
 const SmallText = styled.p`
   display: flex;
   flex-direction: column;
-  color: ${({ theme }) => theme.bgText};
-  font-size: 0.9rem;
-  text-align: end;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 
   // 0 ~ 768px
   @media (max-width: 480px) {
@@ -235,7 +233,7 @@ const SmallText = styled.p`
   }
 `;
 
-const Attr = styled.a`
+const SmallAnchor = styled.a`
   color: ${({ theme }) => theme.bgText};
   font-size: 0.9rem;
   text-align: end;
