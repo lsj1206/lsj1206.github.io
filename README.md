@@ -37,7 +37,7 @@ git clone https://github.com/lsj1206/lsj1206.github.io.git
 git remote set-url origin https://github.com/[ENTER NAME]/[ENTER REPOSITORY].git
 ```
 
-#### 변경 후 확인.
+#### 변경 후 확인
 
 ```shell
 git remote -v
@@ -87,7 +87,7 @@ const userData = {
 
 ### 5. Gitcus 설정
 
-[Gitcus](https://giscus.app/ko) 주소에 접속해서 설정 순서대로 진행.
+[Gitcus](https://giscus.app/ko) 주소에 접속해서 설정 순서대로 진행
 
 ```javascript
 // user-data.js
@@ -106,7 +106,7 @@ const gitcusData = {
 
 ### 6. 포스트 작성
 
-`_posts` 폴더에 폴더를 생성하여 작성.
+`_posts` 폴더에 폴더를 생성하여 작성
 
 #### 포스트 작성 규칙
 
