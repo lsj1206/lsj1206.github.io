@@ -8,7 +8,7 @@
 
 ## 특징
 
-- **Non-DB** : Database와 서버가 없는 정적 웹사이트 구조로 더 빠르고 관리가 용이함.
+- **Non-DB** : DB와 서버가 없는 정적 웹사이트 구조로 더 빠르고 관리가 용이함.
 - **Markdown** : 간단한 텍스트 형식인 *Markdown*으로 블로그 포스트 작성.
 - **Comment** : *Github*의 _Discussions_ 기능을 사용하여 댓글 시스템 구현
 - **Responsive Web** : 반응형 웹디자인을 적용.
@@ -19,7 +19,7 @@
 
 - [**Gatsby 5.14 (React 18)**](https://www.gatsbyjs.com) : 정적 사이트 생성기
 - [**GitHub Flavored Markdown**](https://github.github.com/gfm) : GitHub에서 사용되는 확장된 Markdown
-- [**Giscus** ](https://giscus.app/ko) : Github의 Discussions 기능을 사용하는 댓글 시스템
+- [**Giscus**](https://giscus.app/ko) : Github의 Discussions 기능을 사용하는 댓글 시스템
 - [**styled-components**](https://styled-components.com) : 컴포넌트 기반의 CSS 스타일링
 - [**Font Awesome**](https://fontawesome.com) : SVG 아이콘 라이브러리 (CC BY 4.0)
 
