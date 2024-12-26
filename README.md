@@ -4,7 +4,7 @@
 
 해당 블로그는 **Gatsby**와 **GitHub Pages**를 사용해서 개발된 개인 블로그 프로젝트입니다.
 
-프로젝트는 _2024년 11월 25일_ - _2024년 12월 17일_ 동안 개발되었으며, 블로그 오픈일은 _2024년 12월 26일_ 입니다.
+프로젝트는 _2024년 11월 25일_ - _2024년 12월 17일_ 동안 개발되었으며, 블로그 배포일은 _2024년 12월 26일_ 입니다.
 
 ## 특징
 
@@ -43,10 +43,9 @@ git remote set-url origin https://github.com/[ENTER NAME]/[ENTER REPOSITORY].git
 git remote -v
 ```
 
-### 2. `deploy` 주소 수정
+### 2. package.json 파일의 `deploy` 주소 수정
 
 ```json
-// package.json
 "scripts": {
     "deploy": "gatsby build --prefix-paths && gh-pages -d public -r https://github.com/[ENTER NAME]/[ENTER REPOSITORY].git",
   },
