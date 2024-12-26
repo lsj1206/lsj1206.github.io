@@ -14,6 +14,7 @@
 - **Responsive Web** : 반응형 웹디자인을 적용.
 - **Minimal Design** : 콘텐츠에 집중할 수 있도록 간단하고 깔끔한 UI 제공.
 - **Icon Button** : 아이콘을 사용하여 텍스트를 최소화한 UI 제공.
+- **Monospace Font** : 네이버에서 개발한 프로그래밍 글꼴인 D2Coding 폰트를 사용해 가독성 향상
 
 ## 기술
 
