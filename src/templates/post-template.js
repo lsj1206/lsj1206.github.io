@@ -105,7 +105,7 @@ export const query = graphql`
         lastDate
       }
       html
-      tableOfContents(maxDepth: 2)
+      tableOfContents(maxDepth: 3)
     }
   }
 `;
