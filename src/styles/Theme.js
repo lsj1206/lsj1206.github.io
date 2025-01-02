@@ -2,7 +2,7 @@
 import * as styledComponents from "styled-components";
 
 const md = {
-  blockquote: "#989898",
+  blockquote: "#707070",
   tableBr: "#C0C0C0",
 };
 

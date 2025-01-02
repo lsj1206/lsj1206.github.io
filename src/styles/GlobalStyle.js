@@ -95,11 +95,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   blockquote {
-    margin: 0.75rem 0 0 0;
-    padding-left: 0.5rem;
+    display: flex;
+    margin: 1rem 0 0 0;
+    padding: 1rem 1.25rem;
+    background-color: ${({ theme }) => theme.bgLayout};
     color: ${({ theme }) => theme.md.blockquote};
-    font-style: italic;
-    border-left: 4px solid ${({ theme }) => theme.md.blockquote};
+    border: 0;
+    border-radius: 10px;
   }
 
   /* 수평선 */
