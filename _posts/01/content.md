@@ -991,7 +991,6 @@ Floating 구조를 가지며 반응형 디자인으로 화면크기에 따라 �
 
 ```js
 //...
-
 const TableOfContents = ({ className, toc }) => {
   const [open, setOpen] = useState(false);
 
@@ -1009,102 +1008,7 @@ const TableOfContents = ({ className, toc }) => {
     </TocWrapper>
   );
 };
-
-const TocWrapper = styled.div`
-  z-index: 500;
-  padding: 1rem;
-  position: fixed;
-  top: 15vh;
-  right: 8vw;
-  width: 250px;
-  max-height: 70vh;
-  opacity: 0.9;
-  background-color: ${({ theme }) => theme.bgLayout};
-  border-radius: 0.75rem;
-  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-
-  // 0px ~ 1440px
-  @media (max-width: 1440px) {
-    top: 50px;
-    right: 5px;
-    width: ${(props) => (props.$open ? `250px` : `auto`)};
-    height: auto;
-    padding: 0.25rem;
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin: 0 0 1rem 0;
-
-  svg {
-    flex-shrink: 0;
-    margin: 0.25rem 0.5rem 0 0;
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: ${({ theme }) => theme.btnText};
-
-    :hover {
-      fill: ${({ theme }) => theme.highlightText};
-    }
-    :active {
-      transform: scale(0.975);
-    }
-  }
-
-  // 0px ~ 1440px
-  @media (max-width: 1440px) {
-    margin: 0;
-
-    svg {
-      margin: 0;
-      fill: ${({ theme }) => theme.highlightText};
-    }
-  }
-`;
-
-const Title = styled.h3`
-  margin: 0;
-  color: ${({ theme }) => theme.btnText};
-  text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
-
-  // 0px ~ 1440px
-  @media (max-width: 1440px) {
-    display: ${(props) => (props.$open ? `flex` : `none`)};
-  }
-`;
-
-const TocContainer = styled.div`
-  color: ${({ theme }) => theme.btnText};
-  text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
-
-  a {
-    display: block;
-    color: ${({ theme }) => theme.btnText};
-    overflow: hidden;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    &:hover {
-      color: ${({ theme }) => theme.btnActive};
-      font-weight: bolder;
-    }
-    &:active {
-      color: ${({ theme }) => theme.highlightText};
-    }
-  }
-
-  // 0px ~ 1440px
-  @media (max-width: 1440px) {
-    display: ${(props) => (props.$open ? `flex` : `none`)};
-  }
-`;
-
-export default TableOfContents;
+//...
 ```
 
 `post-template.js`에 `TableofContents.js` 컴포넌트를 삽입
@@ -1132,13 +1036,8 @@ _반응형 디자인이 적용된 Floating ToC 컴포넌트_
 프로젝트를 시작하면서 계획했던 주요 기능들은 구현을 했지만, 개발 후에 이 글을 쓰면서 추가할 만한 기능들을 정리했습니다.
 
 - 공유 버튼 개발하기
-
-  저는 보통 다른 블로그나 컨텐츠를 볼 때 브라우저 자체 기능을 주로 사용해서 북마크를 사용하거나 URL자체를 복사해서 공유하고 SNS는 사용을 하지 않다보니 까먹고 있던 기능이였는데 있으면 좋은 기능이라고 생각합니다.
-
+  - 저는 보통 다른 블로그나 컨텐츠를 볼 때 브라우저 자체 기능을 주로 사용해서 북마크를 사용하거나 URL자체를 복사해서 공유하고 SNS는 사용을 하지 않다보니 까먹고 있던 기능이였는데 있으면 좋은 기능이라고 생각합니다.
 - 마크다운 확장
-
-  지금은 gfm 기반의 마크다운으로 개발되어있는데, 차트나 그래프 같은 추가적인 확장도 고려중입니다.
-
+  - 지금은 gfm 기반의 마크다운으로 개발되어있는데, 차트나 그래프 같은 추가적인 확장도 고려중입니다.
 - 연관 게시글 추천 기능
-
-  게시글과 연관된 카테고리나 태그를 가지고 있는 혹은 이어지는 게시글을 추천해주는 기능이 있다면 사용자 경험에 매우 좋은 영향이 있을거라는 생각을 했지만, 아직은 블로그에 게시글이 적어서 당장 유의미한 기능은 아니기 때문에 블로그에 글이 좀 쌓였을때 개발하면 좋을거 같다고 생각했습니다.
+  - 게시글과 연관된 카테고리나 태그를 가지고 있는 혹은 이어지는 게시글을 추천해주는 기능이 있다면 사용자 경험에 매우 좋은 영향이 있을거라는 생각을 했지만, 아직은 블로그에 게시글이 적어서 당장 유의미한 기능은 아니기 때문에 블로그에 글이 좀 쌓였을때 개발하면 좋을거 같다고 생각했습니다.
