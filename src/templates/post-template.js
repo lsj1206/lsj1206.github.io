@@ -4,7 +4,7 @@ import { graphql, navigate } from "gatsby";
 import Giscus from "@giscus/react";
 import { ThemeContext } from "../context/ThemeProvider";
 import { styled } from "../styles/Theme";
-import { gitcusData } from "../../user-data";
+import { giscusData } from "../../user-data";
 // Components
 import PostHeader from "../components/post/PostHeader";
 import TableOfContents from "../components/post/TableofContents";
@@ -27,18 +27,18 @@ const PostTemplate = ({ data }) => {
         <PostHeader postData={postData} />
         <Content dangerouslySetInnerHTML={{ __html: post.html }} />
         <BorderLine />
-        <Comment className="gitcus">
+        <Comment className="giscus">
           <Giscus
             id="comments"
-            repo={gitcusData.repo}
-            repoId={gitcusData.repo_id}
-            category={gitcusData.category}
-            categoryId={gitcusData.category_id}
-            mapping={gitcusData.mapping}
-            reactionsEnabled={gitcusData.reactions_enabled}
-            emitMetadata={gitcusData.emit_metadata}
-            inputPosition={gitcusData.input_position}
-            lang={gitcusData.lang}
+            repo={giscusData.repo}
+            repoId={giscusData.repo_id}
+            category={giscusData.category}
+            categoryId={giscusData.category_id}
+            mapping={giscusData.mapping}
+            reactionsEnabled={giscusData.reactions_enabled}
+            emitMetadata={giscusData.emit_metadata}
+            inputPosition={giscusData.input_position}
+            lang={giscusData.lang}
             theme={giscusTheme}
             loading="lazy"
           />

@@ -86,13 +86,13 @@ const userData = {
 <StaticImage src="../assets/images/Profile.png" />
 ```
 
-### 5. Gitcus 설정
+### 5. Giscus 설정
 
-[Gitcus](https://giscus.app/ko) 주소에 접속해서 설정 순서대로 진행
+[Giscus](https://giscus.app/ko) 주소에 접속해서 설정 순서대로 진행
 
 ```javascript
 // user-data.js
-const gitcusData = {
+const giscusData = {
   repo: "[ENTER REPO HERE]",
   repo_id: "[ENTER REPO ID HERE]",
   category: "[ENTER CATEGORY NAME HERE]",

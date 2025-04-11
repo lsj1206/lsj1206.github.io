@@ -1,6 +1,6 @@
 ---
 title: "Temp Post"
-coverImage: "./_assets/image1.jpg"
+coverImage: "./_assets/temp.jpg"
 category: "Temp"
 tag: ["Temporary Files", "React", "Gatsby", "styled-components"]
 createDate: "2024-11-25"

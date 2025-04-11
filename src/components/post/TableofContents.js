@@ -30,21 +30,29 @@ const TocWrapper = styled.div`
   position: fixed;
   top: 15vh;
   right: 8vw;
-  width: 250px;
+  width: 275px;
   max-height: 70vh;
-  opacity: 0.9;
+  opacity: 0.95;
   background-color: ${({ theme }) => theme.bgLayout};
   border-radius: 0.75rem;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   // 0px ~ 1440px
   @media (max-width: 1440px) {
     top: 50px;
     right: 5px;
-    width: ${(props) => (props.$open ? `250px` : `auto`)};
+    width: ${(props) => (props.$open ? `275px` : `auto`)};
     height: auto;
     padding: 0.25rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    margin-block: 0.75rem;
   }
 `;
 
@@ -98,10 +106,10 @@ const TocContainer = styled.div`
   a {
     display: block;
     color: ${({ theme }) => theme.btnText};
-    overflow: hidden;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.4;
     text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 
     &:hover {
       color: ${({ theme }) => theme.btnActive};

@@ -4,6 +4,7 @@ import * as styledComponents from "styled-components";
 const md = {
   blockquote: "#707070",
   tableBr: "#C0C0C0",
+  visitedLink: "#9370DB",
 };
 
 export const light = {
@@ -36,7 +37,7 @@ export const dark = {
   btnText: "#808080",
   btnActiveText: "#505050",
   highlightText: "#87CEEB",
-  warningText: "	#F08080",
+  warningText: "#F08080",
   md: { ...md },
 };
 

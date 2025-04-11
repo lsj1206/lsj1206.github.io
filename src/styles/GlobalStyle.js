@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
 
   /* Markdown Config */
   h1, h2, h3, h4, h5, h6 {
-    margin: 0 0 0.5rem 0;
+    margin: 0.5rem 0 0.25rem 0;
     font-weight: bolder;
   }
   h1 {
@@ -60,8 +60,25 @@ const GlobalStyle = createGlobalStyle`
     font-size: 0.75rem;
   }
 
+  a {
+    font-size: 1.05rem;
+    color:${({ theme }) => theme.highlightText};
+
+    &:hover {
+      color:${({ theme }) => theme.btnText};
+    }
+
+    &:active {
+      color:${({ theme }) => theme.btnActiveText};
+    }
+
+    &:visited {
+      color: ${({ theme }) => theme.md.visitedLink};
+    }
+  }
+
   ul, ol {
-    margin: 0.5em 0;
+    margin: 0.3em 0;
     padding-left: 1.5em;
   }
 
@@ -96,8 +113,8 @@ const GlobalStyle = createGlobalStyle`
 
   blockquote {
     display: flex;
-    margin: 1rem 0 0 0;
-    padding: 1rem 1.25rem;
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.9rem 1.1rem;
     background-color: ${({ theme }) => theme.bgLayout};
     color: ${({ theme }) => theme.md.blockquote};
     border: 0;

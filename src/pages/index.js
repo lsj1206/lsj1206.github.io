@@ -34,7 +34,7 @@ const PageWrapper = styled.div`
 `;
 
 export const query = graphql`
-  query {
+  query MainPageQuery {
     allMarkdownRemark(sort: { fields: frontmatter___createDate, order: DESC }) {
       edges {
         node {

@@ -35,18 +35,18 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #2e3440;
+  background: #404859;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: 0.1em;
+  padding: 0.175rem 0.3rem 0.1rem 0.3rem;
   border-radius: 0.3em;
   white-space: normal;
 }
 
 .token.comment {
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 .token.prolog,

@@ -8,8 +8,8 @@ const userData = {
   github_link: `https://github.com/lsj1206`,
 };
 
-// Gitcus (Comment) Config Data
-const gitcusData = {
+// Giscus (Comment) Config Data
+const giscusData = {
   repo: "lsj1206/lsj1206.github.io",
   repo_id: "R_kgDONRGoyQ",
   category: "Q&A",
@@ -39,5 +39,5 @@ const blogData = {
 // Posts List Sorting Table
 const SortTable = ["Latest", "Oldest"];
 
-export { gitcusData, blogData, SortTable };
+export { giscusData, blogData, SortTable };
 export default userData;

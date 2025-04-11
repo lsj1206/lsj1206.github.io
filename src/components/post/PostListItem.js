@@ -9,9 +9,7 @@ import { CategoryIcon, DateIcon, TagsIcon } from "../../assets/assets";
 const PostListItem = ({ className, post }) => {
   return (
     <Wrapper className={className} onClick={() => navigate(`/post/${post?.slug}`)}>
-      <ImageContainer>
-        <Img image={getImage(post?.coverImage)} alt="_thumbnail" />
-      </ImageContainer>
+      <Img image={getImage(post?.coverImage)} alt="_thumbnail" />
       <TextContainer>
         <TitleText>{post?.title}</TitleText>
         <Text>
@@ -59,7 +57,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
+const Img = styled(GatsbyImage)`
   flex-shrink: 0;
   margin: 0 1.75rem 0 0;
   width: 10rem;
@@ -72,13 +70,15 @@ const ImageContainer = styled.div`
   @media (max-width: 480px) {
     margin-left: 10%;
     width: 90%;
+    height: 9rem;
   }
-`;
 
-const Img = styled(GatsbyImage)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  img {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const TextContainer = styled.div`

@@ -1,6 +1,6 @@
 // Searching Page
 import React, { useState, useEffect } from "react";
-import { graphql, useStaticQuery, navigate } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import { useLocation } from "@reach/router"; // 쿼리스트링 읽기 위해 추가
 import queryString from "query-string"; // 쿼리스트링 파싱을 위해 추가 설치
 import { styled } from "../styles/Theme";
@@ -13,34 +13,11 @@ import usePostList from "../hooks/usePostList";
 import IconButton from "../components/buttons/IconButton";
 import PostList from "../components/post/PostList";
 
-const SearchingPage = () => {
-  const [query, setQuery] = useState(""); // 검색어
-  const data = useStaticQuery(graphql`
-    query SearchQuery {
-      allMarkdownRemark {
-        edges {
-          node {
-            frontmatter {
-              title
-              coverImage {
-                childImageSharp {
-                  gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP])
-                }
-              }
-              category
-              tag
-              createDate
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
+const SearchingPage = ({ data }) => {
+  const [query, setQuery] = useState("");
+  const location = useLocation();
+
   const posts = usePostList(data);
-  const location = useLocation(); // 현재 URL 가져오기
 
   // 중복 태그 계산
   const tagCounts = posts.reduce((acc, post) => {
@@ -49,8 +26,7 @@ const SearchingPage = () => {
     });
     return acc;
   }, {});
-  // 태그 정렬
-  const sortedTags = Object.entries(tagCounts).sort(([, countA], [, countB]) => countB - countA);
+  const sortedTags = Object.entries(tagCounts).sort(([, a], [, b]) => b - a);
 
   const searchPosts = posts.filter((post) => {
     const searchText = query.toLowerCase();
@@ -62,15 +38,14 @@ const SearchingPage = () => {
   });
 
   const onTag = (tag) => {
-    setQuery(tag); // 검색 상태 업데이트
-    navigate(`/search?tag=${encodeURIComponent(tag)}`); // URL 동기화
+    setQuery(tag);
+    navigate(`/search?tag=${encodeURIComponent(tag)}`);
   };
 
   useEffect(() => {
-    // URL 쿼리스트링에서 태그 값 가져오기
     const params = queryString.parse(location.search);
     if (params.tag) {
-      setQuery(params.tag); // 태그 검색어로 설정
+      setQuery(params.tag);
     }
   }, [location.search]);
 
@@ -95,6 +70,31 @@ const SearchingPage = () => {
     </PageWrapper>
   );
 };
+
+export const query = graphql`
+  query SearchPageQuery {
+    allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            title
+            coverImage {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP])
+              }
+            }
+            category
+            tag
+            createDate
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
 
 const PageWrapper = styled.div`
   display: flex;
