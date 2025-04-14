@@ -121,11 +121,11 @@ module.exports = {
 
 ## gatsby-source-filesystem 설정
 
-Gatsby가 로컬 파일 시스템에서 데이터를 가져오려면 gatsby-source-filesystem 플러그인을 사용해야 합니다.
+Gatsby가 로컬 파일 시스템에서 데이터를 가져오려면 `gatsby-source-filesystem`플러그인을 사용해야 합니다.
 
 저는 src내부에 포스트 컨텐츠가 들어가는것보다 src폴더와 따로 존재하는것이 좀 더 유지보수가 용이하다고 생각해서 \_posts라는 폴더를 프로젝트의 최상위 디렉토리에 두고 src 폴더는 웹사이트를 구성하는 파일들을 관리하고, \_posts 폴더에서 포스트 콘텐츠를 관리하는 구조로 만들고 싶었습니다.
 
-`gatsby-config.js` 파일에서 gatsby-source-filesystem 수정
+`gatsby-config.js` 파일에서 `gatsby-source-filesystem` 수정
 
 ```js
   plugins: [
@@ -158,7 +158,7 @@ Gatsby가 로컬 파일 시스템에서 데이터를 가져오려면 gatsby-sour
 
 ## 동적 페이지 생성 설정하기
 
-Gatsby는 GraphQL을 통해 수집된 데이터를 바탕으로 gatsby-node.js 파일 내의 createPages API를 사용하여 페이지를 동적으로 생성할 수 있습니다.
+Gatsby는 GraphQL을 통해 수집된 데이터를 바탕으로 `gatsby-node.js` 파일 내의 `createPages API`를 사용하여 페이지를 동적으로 생성할 수 있습니다.
 
 이 기능으로 \_posts 폴더 내부의 .md파일을 html구조의 페이지로 생성할 수 있습니다.
 
@@ -208,7 +208,7 @@ exports.createPages = async ({ actions, graphql }) => {
 };
 ```
 
-\_posts 폴더에서 가져오는 데이터는 frontmatter, html, slug 가 있습니다.
+\_posts 폴더에서 가져오는 데이터는 **frontmatter**, **html**, **slug** 가 있습니다.
 
 `gatsby-node.js` 파일은 Gatsby의 GraphQL 데이터 처리를 관리하고, 동적 페이지를 생성할 때 사용됩니다.
 
@@ -236,9 +236,9 @@ lastDate: "2024-12-06"
 
 html은 markdown 파일에서 frontmatter를 제외한 나머지 컨텐츠를 html로 변환시킨 것이고, `slug`는 웹사이트 내에서 각 페이지나 포스트를 고유하게 식별하는 URL의 경로 부분을 의미합니다.
 
-Gatsby에서는 gatsby-node.js 파일 내의 onCreateNode API를 사용하여 자동으로 슬러그를 생성하고, 보통 Markdown 파일의 경로나 제목 등을 슬러그로 사용하는데 저는 \_post 폴더 내부에 각 포스트 별로 폴더를 두고 각 폴더 별로 .md 파일과 \_assets 폴더를 두는 방식으로 구성할 할 생각이기 때문에 .md 파일명을 slug 사용하게된다면 중복을 방지하기 어렵기 때문에 각 폴더의 이름을 slug 로 사용했습니다.
+Gatsby에서는 `gatsby-node.js` 파일 내의 `onCreateNode API`를 사용하여 자동으로 슬러그를 생성하고, 보통 Markdown 파일의 경로나 제목 등을 슬러그로 사용하는데 저는 \_post 폴더 내부에 각 포스트 별로 폴더를 두고 각 폴더 별로 .md 파일과 \_assets 폴더를 두는 방식으로 구성할 할 생각이기 때문에 .md 파일명을 slug로 사용하게된다면 중복을 방지하기 어렵기 때문에 각 폴더명을 slug로 사용했습니다.
 
-onCreateNode API를 사용하여 각 마크다운 파일에 slug를 추가해주는 코드
+`onCreateNode API`를 사용하여 각 마크다운 파일에 slug를 추가해주는 코드
 
 ```js
 //...
@@ -257,7 +257,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 ```
 
-노드를 기반으로 createPage API를 호출하여 앞서 생성한 URL 경로(slug)와 post-template.js를 기반으로 포스트 페이지를 생성하는 코드
+노드를 기반으로 `createPage API`를 호출하여 앞서 생성한 URL 경로(slug)와 `post-template.js`를 기반으로 포스트 페이지를 생성하는 코드
 
 ```js
 //...
@@ -332,7 +332,7 @@ npm install gatsby-transformer-remark gatsby-remark-copy-linked-files gatsby-rem
 
 위의 플러그인 설정과 [동적 페이지 생성 설정](#동적-페이지-생성-설정하기)에서 작성했던 GraphQL 쿼리의 html 필드가 바로 Markdown을 HTML로 변환한 결과로, 이를 템플릿에서 렌더링하면 Markdown 본문이 브라우저에서 완전한 HTML 구조로 표시됩니다.
 
-post-template.js 파일에서 변환된 html 필드를 렌더링하는 코드
+`post-template.js`파일에서 변환된 html 필드를 렌더링하는 코드
 
 ```js
 //...
@@ -367,7 +367,7 @@ export const query = graphql`
 
 Frontmatter에 `category` 필드를 추가했다면, 이를 기반으로 카테고리별 게시글 목록 페이지를 동적으로 생성할 수 있습니다.
 
-gatsby-node.js 파일에서 Frontmatter에서 category를 추출하고 동적 페이지를 생성하는 코드
+`gatsby-node.js`파일에서 Frontmatter에서 category를 추출하고 동적 페이지를 생성하는 코드
 
 ```js
 // 카테고리 추출
@@ -390,7 +390,7 @@ categoryList.forEach((category) => {
 });
 ```
 
-category-template.js 에 작성된 카테고리별로 데이터를 조회하는 GraphQL 쿼리
+`category-template.js`에 작성된 카테고리별로 데이터를 조회하는 GraphQL 쿼리
 
 ```js
 export const query = graphql`
@@ -419,9 +419,9 @@ export const query = graphql`
 `;
 ```
 
-query ($category: String!)를 통해, 빌드 시점에 context.category 변수를 받아서 해당 카테고리에 속한 Markdown 파일만 필터링합니다.
+`query ($category: String!)`를 통해, 빌드 시점에 `context.category`변수를 받아서 해당 카테고리에 속한 Markdown 파일만 필터링합니다.
 
-allMarkdownRemark(filter: { frontmatter: { category: { eq: $category } } }) 구문이 핵심이며, 카테고리 값이 일치하는 게시글만 가져옵니다.
+`allMarkdownRemark(filter: { frontmatter: { category: { eq: $category } } })` 구문에서 카테고리 값이 일치하는 게시글만 가져옵니다.
 
 ---
 
@@ -593,7 +593,7 @@ export default GlobalStyle;
 
 > `createGlobalStyle` <br> styled-components에서 GlobalStyle을 적용하는 방법
 
-웹 브라우저 마다 기본적으로 HTML요소에 CSS 스타일이 적용되어 있습니다.
+웹 브라우저마다 기본적으로 HTML요소에 CSS 스타일이 적용되어 있습니다.
 
 그래서 브라우저에 영향받지 않고 공통된 UI/UX를 제공하기 위해서는 CSS 리셋(Reset)을 통해 기본 스타일을 제공하고 프로젝트에 공통된 스타일을 적용하기 위해서 `React`에서는 `GlobalStyle`을 사용합니다.
 
@@ -618,9 +618,9 @@ export const wrapPageElement = ({ element, props }) => {
 };
 ```
 
-Gatsby의 루트(Root) 요소를 감싸는 함수인 wrapRootElement으로 ThemeProvider로 감싸, 전역적으로 테마를 적용할 수 있게 합니다.
+Gatsby의 루트(Root) 요소를 감싸는 함수인 `wrapRootElement`으로 `ThemeProvider`로 감싸, 전역적으로 테마를 적용할 수 있게 합니다.
 
-페이지별 요소를 감싸는 함수인 wrapPageElement으로 Layout을 감싸 모든 페이지에 공통 레이아웃을 적용합니다.
+페이지별 요소를 감싸는 함수인 `wrapPageElement`으로 `Layout`을 감싸 모든 페이지에 공통 레이아웃을 적용합니다.
 
 `gatsby-browser.js` 파일은 Gatsby가 브라우저에서 실행될 때 적용되는 설정 파일입니다.
 주로 전역 스타일을 정의하거나, 페이지 전환 효과 등을 추가하는 데 사용됩니다.
