@@ -38,13 +38,15 @@ const GlobalStyle = createGlobalStyle`
 
   /* Markdown Config */
   h1, h2, h3, h4, h5, h6 {
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0.75rem 0 0.5rem 0;
     font-weight: bolder;
   }
   h1 {
+    margin: 1.75rem 0 0.5rem 0;
     font-size: 2rem;
   }
   h2 {
+    margin: 1.5rem 0 0.5rem 0;
     font-size: 1.75rem;
   }
   h3 {
@@ -53,11 +55,16 @@ const GlobalStyle = createGlobalStyle`
   h4 {
     font-size: 1.25rem;
   }
-  h5, p {
+  h5 {
     font-size: 1rem;
   }
   h6 {
     font-size: 0.75rem;
+  }
+
+  p {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
   }
 
   a {
@@ -113,7 +120,7 @@ const GlobalStyle = createGlobalStyle`
 
   blockquote {
     display: flex;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0.75rem 0 0.75rem 0;
     padding: 0.9rem 1.1rem;
     background-color: ${({ theme }) => theme.bgLayout};
     color: ${({ theme }) => theme.md.blockquote};
