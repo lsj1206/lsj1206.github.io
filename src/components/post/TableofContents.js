@@ -15,7 +15,7 @@ const TableOfContents = ({ className, toc }) => {
 
   return (
     <TocWrapper className={className} $open={open}>
-      <Header>
+      <Header $open={open}>
         <IconButton size={[32, 32]} icon={TableIcon} onClick={toggleOpen} />
         <Title $open={open}>{"목차"}</Title>
       </Header>
@@ -26,7 +26,7 @@ const TableOfContents = ({ className, toc }) => {
 
 const TocWrapper = styled.div`
   z-index: 500;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   position: fixed;
   top: 15vh;
   right: 8vw;
@@ -46,6 +46,7 @@ const TocWrapper = styled.div`
     width: ${(props) => (props.$open ? `275px` : `auto`)};
     height: auto;
     padding: 0.25rem;
+    padding-top: ${(props) => (props.$open ? `0` : `0.25rem`)};
   }
 
   &::-webkit-scrollbar {
@@ -57,10 +58,15 @@ const TocWrapper = styled.div`
 `;
 
 const Header = styled.div`
+  z-index: 501;
   display: flex;
+  position: sticky;
+  top: 0;
   align-items: center;
   flex-direction: row;
-  margin: 0 0 1rem 0;
+  padding-top: ${(props) => (props.$open ? `0.5rem` : `0`)};
+  padding-bottom: ${(props) => (props.$open ? `0.5rem` : `0`)};
+  background-color: ${({ theme }) => theme.bgLayout};
 
   svg {
     flex-shrink: 0;
@@ -79,8 +85,6 @@ const Header = styled.div`
 
   // 0px ~ 1440px
   @media (max-width: 1440px) {
-    margin: 0;
-
     svg {
       margin: 0;
       fill: ${({ theme }) => theme.highlightText};
