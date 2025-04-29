@@ -51,7 +51,7 @@ const Sidebar = ({ className, open, setOpen }) => {
 };
 
 const SidebarContainer = styled.div`
-  z-index: 600;
+  z-index: ${(props) => (props.$open ? `600` : `400`)};
   position: fixed;
   top: 100px;
   right: 0;
