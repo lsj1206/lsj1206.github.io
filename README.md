@@ -1,4 +1,6 @@
-> ### [→ TECH.log / lsj1206](https://lsj1206.github.io)
+> ## [→ TECH.log/lsj1206](https://lsj1206.github.io)
+
+[![IMG](./static/readme/homepage.png)](https://lsj1206.github.io)
 
 ## 개요
 
@@ -140,7 +142,9 @@ lastDate: "2024-12-12" // 최종 수정일
 ```
 
 #### 7. Github Pages 설정
+
 이제 레포지토리에서 GitHub Pages를 활성화해야 합니다.
+
 1. 레포지토리로 이동합니다.
 2. 상단의 Settings 탭으로 이동해서, 왼쪽 메뉴에서 Pages를 클릭합니다.
 3. Source 옵션에서 gh-pages 브랜치를 선택하고, Save를 클릭하여 변경사항을 저장합니다.
