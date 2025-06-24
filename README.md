@@ -1,6 +1,6 @@
 > ## [→ TECH.log/lsj1206](https://lsj1206.github.io)
 
-[![IMG](./static/readme/homepage.png)](https://lsj1206.github.io)
+[![IMG](./static/image/homepage.jpg)](https://lsj1206.github.io)
 
 ## 개요
 
