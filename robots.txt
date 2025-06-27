@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /about/
+Sitemap: https://lsj1206.github.io/sitemap.xml
+Host: https://lsj1206.github.io
