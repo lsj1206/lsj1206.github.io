@@ -105,6 +105,10 @@ export const query = graphql`
         lastDate
       }
       html
+      fields {
+        slug
+      }
+      excerpt(pruneLength: 160)
       tableOfContents(maxDepth: 3)
     }
   }
@@ -112,7 +116,31 @@ export const query = graphql`
 
 export const Head = ({ data }) => {
   const post = data?.markdownRemark;
-  return <title>{post?.frontmatter.title || "Title"}</title>;
+  const frontmatter = post?.frontmatter || {};
+  const title = frontmatter.title || "Empty title..";
+  const description = post?.excerpt || title;
+  const url = `https://lsj1206.github.io${post?.fields?.slug || "/"}`;
+  const image = frontmatter.coverImage?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
+
+  return (
+    <>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href={url} />
+      {/* Open Graph 메타 태그: 페이스북, 카카오톡 등 소셜 미디어 공유용 */}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={url} />
+      {image && <meta property="og:image" content={image} />}
+      {/* Twitter Card 메타 태그: 트위터 공유용 */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      {image && <meta name="twitter:image" content={image} />}
+    </>
+  );
 };
 
 export default PostTemplate;

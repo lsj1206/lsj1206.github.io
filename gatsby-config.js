@@ -1,11 +1,13 @@
 // gatsby config
-const userData = require(`./user-data.js`);
-
 module.exports = {
   pathPrefix: "/",
   siteMetadata: {
-    title: "TECH.log",
-    siteUrl: "https://lsj1206.github.io",
+    title: `TECH.log`,
+    description: `기술 블로그에 오신 것을 환영합니다.`,
+    author: `Lee SeoJun`,
+    siteUrl: `https://lsj1206.github.io`,
+    defaultImage: `./static/image/homepage.jpg`,
+    language: `ko`,
   },
   plugins: [
     `gatsby-plugin-styled-components`,
@@ -61,6 +63,20 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        output: "/sitemap.xml",
+        exclude: [`/about/`],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://lsj1206.github.io",
+        sitemap: "https://lsj1206.github.io/sitemap.xml",
+        policy: [{ userAgent: "*", disallow: "/about/" }],
+      },
+    },
   ],
 };
