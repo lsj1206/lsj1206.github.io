@@ -66,8 +66,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
-        output: "/sitemap.xml",
-        exclude: [`/about/`],
+        exclude: [`/category/*`, `/about/`, `/search/`, `/404/`, `/dev-404-page/`],
       },
     },
     {
@@ -75,7 +74,13 @@ module.exports = {
       options: {
         host: "https://lsj1206.github.io",
         sitemap: "https://lsj1206.github.io/sitemap-index.xml",
-        policy: [{ userAgent: "*", disallow: "/about/" }],
+        policy: [
+          {
+            userAgent: "*",
+            allow: ["/", "/post/"],
+            disallow: ["/category/", "/about/", "/search/", "/404/", "/dev-404-page/"],
+          },
+        ],
       },
     },
   ],
