@@ -1,5 +1,5 @@
 ---
-title: "Gastby로 개인 기술 블로그 개발하기"
+title: "Gatsby로 개인 기술 블로그 개발하기"
 coverImage: "./_assets/blog_homepage.jpg"
 category: "React"
 tag: ["React", "Gatsby", "styled-components", "Markdown"]
