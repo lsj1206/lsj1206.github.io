@@ -1026,7 +1026,7 @@ const PostTemplate = ({ data }) => {
 ```
 
 _반응형 디자인이 적용된 Floating ToC 컴포넌트_
-![tableOfContents](./_assets/toc.gif)
+![tableOfContents](./_assets/toc.webp)
 기본 Floating Toc ↔ 토글 기능이 포함된 Floating Toc
 
 ---
