@@ -58,6 +58,15 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => <title>{userData.title}</title>;
+export const Head = () => {
+  return (
+    <>
+      <title>{userData.title}</title>
+      <link rel="canonical" href={userData.url} />
+      <meta name="description" content={userData.blog_description} />
+      <meta name="robots" content="index, follow" />
+    </>
+  );
+};
 
 export default IndexPage;

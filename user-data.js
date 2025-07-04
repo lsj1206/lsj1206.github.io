@@ -2,6 +2,7 @@
 const userData = {
   url: `https://lsj1206.github.io`,
   title: `TECH.log`,
+  blog_description: `lsj1206의 개인 기술 블로그 입니다.`,
   name: `lsj1206`,
   self_introduction: `안녕하세요. 프론트 엔드 개발자 이서준입니다.`,
   email: `1007ckddjs12@gmail.com`,
