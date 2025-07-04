@@ -119,7 +119,7 @@ export const Head = ({ data }) => {
   const frontmatter = post?.frontmatter || {};
   const title = frontmatter.title || "Empty title..";
   const description = post?.excerpt || title;
-  const url = `https://lsj1206.github.io${post?.fields?.slug || "/"}`;
+  const url = `https://lsj1206.github.io/post/${post?.fields?.slug}`;
   const image = frontmatter.coverImage?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
 
   return (
