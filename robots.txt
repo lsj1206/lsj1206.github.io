@@ -1,9 +1,6 @@
 User-agent: *
 Allow: /
 Allow: /post/
-Disallow: /category/
-Disallow: /about/
-Disallow: /search/
 Disallow: /404/
 Disallow: /dev-404-page/
 Sitemap: https://lsj1206.github.io/sitemap-index.xml
