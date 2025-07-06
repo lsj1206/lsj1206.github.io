@@ -63,21 +63,21 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-sitemap",
+      resolve: `gatsby-plugin-sitemap`,
       options: {
-        exclude: [`/category/*`, `/about/`, `/search/`, `/404/`, `/dev-404-page/`],
+        exclude: [`/404/`, `/dev-404-page/`],
       },
     },
     {
-      resolve: "gatsby-plugin-robots-txt",
+      resolve: `gatsby-plugin-robots-txt`,
       options: {
-        host: "https://lsj1206.github.io",
-        sitemap: "https://lsj1206.github.io/sitemap-index.xml",
+        host: `https://lsj1206.github.io`,
+        sitemap: `https://lsj1206.github.io/sitemap-index.xml`,
         policy: [
           {
-            userAgent: "*",
-            allow: ["/", "/post/"],
-            disallow: ["/category/", "/about/", "/search/", "/404/", "/dev-404-page/"],
+            userAgent: `*`,
+            allow: [`/`, `/post/`],
+            disallow: [`/404/`, `/dev-404-page/`],
           },
         ],
       },
