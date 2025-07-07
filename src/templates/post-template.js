@@ -119,15 +119,15 @@ export const Head = ({ data }) => {
   const frontmatter = post?.frontmatter || {};
   const title = frontmatter.title || "Empty title..";
   const description = post?.excerpt || title;
-  const url = `https://lsj1206.github.io/post/${post?.fields?.slug}`;
+  const url = `https://lsj1206.github.io/post/${post?.fields?.slug}/`;
   const image = frontmatter.coverImage?.childImageSharp?.gatsbyImageData?.images?.fallback?.src;
 
   return (
     <>
       <title>{title}</title>
+      <link rel="canonical" href={url} />
       <meta name="description" content={description} />
       <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={url} />
       {/* Open Graph 메타 태그: 페이스북, 카카오톡 등 소셜 미디어 공유용 */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
