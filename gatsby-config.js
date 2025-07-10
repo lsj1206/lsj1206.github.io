@@ -41,6 +41,7 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         gfm: true,
+        excerpt_separator: `<!-- end -->`,
         plugins: [
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-autolink-headers`,
