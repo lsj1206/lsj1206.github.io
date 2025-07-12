@@ -1,0 +1,597 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.14.0"/><meta name="google-site-verification" content="5vTm1MVlmRNKBITz7_BNAkzI9YOP6FO5Qgun-tlMe8o"/><meta name="description" content="GitHub Pages 기반의 Gatsby 블로그에 SEO를 적용하는 내용을 담은 포스트입니다.
+
+관련 플러그인 설정부터 Google Search Console을 적용하는 과정을 담았습니다." data-gatsby-head="true"/><meta name="robots" content="index, follow" data-gatsby-head="true"/><meta property="og:title" content="Gatsby 블로그에 SEO 적용하기-(1)" data-gatsby-head="true"/><meta property="og:description" content="GitHub Pages 기반의 Gatsby 블로그에 SEO를 적용하는 내용을 담은 포스트입니다.
+
+관련 플러그인 설정부터 Google Search Console을 적용하는 과정을 담았습니다." data-gatsby-head="true"/><meta property="og:type" content="article" data-gatsby-head="true"/><meta property="og:url" content="https://lsj1206.github.io/post/02/" data-gatsby-head="true"/><meta property="og:image" content="/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg" data-gatsby-head="true"/><meta name="twitter:card" content="summary_large_image" data-gatsby-head="true"/><meta name="twitter:title" content="Gatsby 블로그에 SEO 적용하기-(1)" data-gatsby-head="true"/><meta name="twitter:description" content="GitHub Pages 기반의 Gatsby 블로그에 SEO를 적용하는 내용을 담은 포스트입니다.
+
+관련 플러그인 설정부터 Google Search Console을 적용하는 과정을 담았습니다." data-gatsby-head="true"/><meta name="twitter:image" content="/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg" data-gatsby-head="true"/><style data-href="/styles.a26dd897e8c89e92c275.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#f8f8f2;font-family:D2Coding,Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#404859}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.175rem .3rem .1rem;white-space:normal}.token.comment{color:#9f9f9f}.token.cdata,.token.doctype,.token.prolog{color:#636f88}.token.punctuation{color:#81a1c1}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#81a1c1}.token.number{color:#b48ead}.token.boolean{color:#81a1c1}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a3be8c}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#81a1c1}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#88c0d0}.token.keyword{color:#81a1c1}.token.important,.token.regex{color:#ebcb8b}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><style data-styled="" data-styled-version="6.1.13">.jJzVYQ{z-index:10;display:flex;align-items:center;justify-content:center;padding:5px;width:32px;height:32px;background-color:transparent;border:none;cursor:pointer;}/*!sc*/
+.jJzVYQ svg{width:100%;height:100%;}/*!sc*/
+.jJzVYQ svg:active{transform:scale(0.95);}/*!sc*/
+data-styled.g1[id="sc-blHHSb"]{content:"jJzVYQ,"}/*!sc*/
+.cpKqkw{display:flex;flex-direction:column;width:100%;}/*!sc*/
+data-styled.g26[id="sc-geXuza"]{content:"cpKqkw,"}/*!sc*/
+.fABRiL{margin-bottom:10px;height:1px;}/*!sc*/
+data-styled.g27[id="sc-hJRrWL"]{content:"fABRiL,"}/*!sc*/
+.lfJWOO{margin:0;}/*!sc*/
+data-styled.g28[id="sc-fwzISk"]{content:"lfJWOO,"}/*!sc*/
+.fCivAt{display:flex;justify-content:space-between;margin-bottom:10px;}/*!sc*/
+@media (max-width: 768px){.fCivAt{flex-direction:column;justify-content:flex-start;}}/*!sc*/
+data-styled.g29[id="sc-hbtGpV"]{content:"fCivAt,"}/*!sc*/
+.iqoQAv{display:flex;align-items:center;margin-right:0.5rem;font-weight:bolder;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);}/*!sc*/
+.iqoQAv svg{flex-shrink:0;margin:0 0.5rem 0 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g30[id="sc-bMTdWJ"]{content:"iqoQAv,"}/*!sc*/
+.YThQL{flex:1;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);cursor:pointer;}/*!sc*/
+.YThQL svg{margin:0 0.5rem 0 0;}/*!sc*/
+.YThQL:hover{transform:scale(1.025);}/*!sc*/
+.YThQL:active{transform:scale(0.975);}/*!sc*/
+data-styled.g31[id="sc-jhZTHU"]{content:"YThQL,"}/*!sc*/
+.iGfRrF{display:flex;flex-direction:row;flex-wrap:wrap;width:100%;min-height:1.75rem;}/*!sc*/
+.iGfRrF svg{flex-shrink:0;margin:0.25rem 0.5rem 0.5rem 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g32[id="sc-epnzzT"]{content:"iGfRrF,"}/*!sc*/
+.bnSlcB{display:flex;align-items:center;margin:0 0.5rem 0.5rem 0;padding:0 0.5rem;min-height:1.5rem;font-size:0.9rem;font-weight:bolder;border-radius:0.25rem;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);cursor:pointer;}/*!sc*/
+.bnSlcB:hover{transform:scale(1.025);}/*!sc*/
+.bnSlcB:active{transform:scale(0.975);}/*!sc*/
+data-styled.g33[id="sc-uYFMi"]{content:"bnSlcB,"}/*!sc*/
+.erlqYf{flex-shrink:0;margin:0.75rem 0 0.25rem 0;width:100%;height:15rem;border-radius:0.75rem;overflow:hidden;}/*!sc*/
+data-styled.g34[id="sc-bbQqnZ"]{content:"erlqYf,"}/*!sc*/
+.iZisKQ{width:100%;height:100%;object-fit:cover;}/*!sc*/
+data-styled.g35[id="sc-iwXfZk"]{content:"iZisKQ,"}/*!sc*/
+.cGcpJS{z-index:500;padding:0 1rem 1rem 1rem;position:fixed;top:15vh;right:8vw;width:275px;max-height:70vh;opacity:0.95;border-radius:0.75rem;box-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);overflow-x:hidden;overflow-y:auto;}/*!sc*/
+@media (max-width: 1440px){.cGcpJS{top:50px;right:5px;width:auto;height:auto;padding:0.25rem;padding-top:0.25rem;}}/*!sc*/
+.cGcpJS::-webkit-scrollbar{width:3px;}/*!sc*/
+.cGcpJS::-webkit-scrollbar-track{margin-block:0.75rem;}/*!sc*/
+data-styled.g36[id="sc-dEkLRj"]{content:"cGcpJS,"}/*!sc*/
+.fSvquJ{z-index:501;display:flex;position:sticky;top:0;align-items:center;flex-direction:row;padding-top:0;padding-bottom:0;}/*!sc*/
+.fSvquJ svg{flex-shrink:0;margin:0.25rem 0.5rem 0 0;width:1.25rem;height:1.25rem;}/*!sc*/
+.fSvquJ svg :active{transform:scale(0.975);}/*!sc*/
+@media (max-width: 1440px){.fSvquJ svg{margin:0;}}/*!sc*/
+data-styled.g37[id="sc-kZrBCu"]{content:"fSvquJ,"}/*!sc*/
+.jmJGFq{margin:0;text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+@media (max-width: 1440px){.jmJGFq{display:none;}}/*!sc*/
+data-styled.g38[id="sc-diYFot"]{content:"jmJGFq,"}/*!sc*/
+.QztIu{text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+.QztIu a{display:block;word-break:break-word;white-space:normal;line-height:1.4;text-decoration:none;}/*!sc*/
+.QztIu a:hover{font-weight:bolder;}/*!sc*/
+@media (max-width: 1440px){.QztIu{display:none;}}/*!sc*/
+data-styled.g39[id="sc-kEfuZE"]{content:"QztIu,"}/*!sc*/
+.dPonAB{display:flex;flex-direction:row;}/*!sc*/
+data-styled.g40[id="sc-dhCplO"]{content:"dPonAB,"}/*!sc*/
+.bXIEPC{display:flex;flex-direction:column;padding-top:30px;width:768px;}/*!sc*/
+@media (max-width: 1279px){.bXIEPC{width:66vw;}}/*!sc*/
+@media (max-width: 768px){.bXIEPC{width:75vw;}}/*!sc*/
+data-styled.g41[id="sc-eMwmJz"]{content:"bXIEPC,"}/*!sc*/
+.gnqMvA{margin:5px 0 15px 0;width:100%;height:1px;}/*!sc*/
+data-styled.g42[id="sc-drVZOg"]{content:"gnqMvA,"}/*!sc*/
+.hxfQZm{margin:2rem 0;}/*!sc*/
+.hxfQZm img{border:1px solid;border-radius:0.3rem;}/*!sc*/
+data-styled.g43[id="sc-eWPXlR"]{content:"hxfQZm,"}/*!sc*/
+</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/><title data-gatsby-head="true">Gatsby 블로그에 SEO 적용하기-(1)</title><link rel="canonical" href="https://lsj1206.github.io/post/02/" data-gatsby-head="true"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><article class="sc-dhCplO dPonAB"><div class="sc-eMwmJz bXIEPC"><div class="sc-geXuza cpKqkw"><h2 class="sc-fwzISk lfJWOO">Gatsby 블로그에 SEO 적용하기-(1)</h2><div class="sc-hJRrWL fABRiL"></div><div class="sc-hbtGpV fCivAt"><p class="sc-bMTdWJ sc-jhZTHU iqoQAv YThQL"><svg viewBox="0 0 576 512"><path d="M88.7 223.8L0 375.8 0 96C0 60.7 28.7 32 64 32l117.5 0c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7L416 96c35.3 0 64 28.7 64 64l0 32-336 0c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224l400 0c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480L32 480c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z"></path></svg>React</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"></path></svg>2025-07-12</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path></svg>2025-07-12</p></div><div class="sc-epnzzT iGfRrF"><svg viewBox="0 0 512 512"><path d="M345 39.1L472.8 168.4c52.4 53 52.4 138.2 0 191.2L360.8 472.9c-9.3 9.4-24.5 9.5-33.9 .2s-9.5-24.5-.2-33.9L438.6 325.9c33.9-34.3 33.9-89.4 0-123.7L310.9 72.9c-9.3-9.4-9.2-24.6 .2-33.9s24.6-9.2 33.9 .2zM0 229.5L0 80C0 53.5 21.5 32 48 32l149.5 0c17 0 33.3 6.7 45.3 18.7l168 168c25 25 25 65.5 0 90.5L277.3 442.7c-25 25-65.5 25-90.5 0l-168-168C6.7 262.7 0 246.5 0 229.5zM144 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg><p class="sc-uYFMi bnSlcB">SEO</p><p class="sc-uYFMi bnSlcB">Google Search Console</p><p class="sc-uYFMi bnSlcB">React</p><p class="sc-uYFMi bnSlcB">Gatsby</p></div><div class="sc-bbQqnZ erlqYf"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained sc-iwXfZk iZisKQ"><div style="max-width:1441px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;1024&#x27;%20width=&#x27;1441&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><img aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear" decoding="async" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwT/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB0QiM3AJ//8QAGRAAAgMBAAAAAAAAAAAAAAAAAREAAjES/9oACAEBAAEFAm4alDCJXpjP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAGRABAQADAQAAAAAAAAAAAAAAAQACECEy/9oACAEBAAY/AnG9RKXXX//EABwQAQACAQUAAAAAAAAAAAAAAAEAERAhQVGhwf/aAAgBAQABPyE0ShN4BeJ1pVYpTjCQlGf/2gAMAwEAAgADAAAAEOjv/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAAMBAAMAAAAAAAAAAAAAAQARIUExUZH/2gAIAQEAAT8QPwFubY0H3WNWdUXEpFE9Z6ZcaM0ouEFFMs7P/9k=" alt=""/><picture><source type="image/webp" data-srcset="/static/4102bb6d44426649e0f6e7c2df74a23d/30d3c/seo_ai.webp 360w,/static/4102bb6d44426649e0f6e7c2df74a23d/108d1/seo_ai.webp 721w,/static/4102bb6d44426649e0f6e7c2df74a23d/e6520/seo_ai.webp 1441w" sizes="(min-width: 1441px) 1441px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 1441px) 1441px, 100vw" decoding="async" loading="lazy" data-src="/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg" data-srcset="/static/4102bb6d44426649e0f6e7c2df74a23d/398de/seo_ai.jpg 360w,/static/4102bb6d44426649e0f6e7c2df74a23d/6752d/seo_ai.jpg 721w,/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg 1441w" alt="_coverImage"/></picture><noscript><picture><source type="image/webp" srcSet="/static/4102bb6d44426649e0f6e7c2df74a23d/30d3c/seo_ai.webp 360w,/static/4102bb6d44426649e0f6e7c2df74a23d/108d1/seo_ai.webp 721w,/static/4102bb6d44426649e0f6e7c2df74a23d/e6520/seo_ai.webp 1441w" sizes="(min-width: 1441px) 1441px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 1441px) 1441px, 100vw" decoding="async" loading="lazy" src="/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg" srcSet="/static/4102bb6d44426649e0f6e7c2df74a23d/398de/seo_ai.jpg 360w,/static/4102bb6d44426649e0f6e7c2df74a23d/6752d/seo_ai.jpg 721w,/static/4102bb6d44426649e0f6e7c2df74a23d/16f6e/seo_ai.jpg 1441w" alt="_coverImage"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div></div><div class="sc-eWPXlR hxfQZm"><p>GitHub Pages 기반의 Gatsby 블로그에 SEO를 적용하는 내용을 담은 포스트입니다.
+<br>
+관련 플러그인 설정부터 Google Search Console을 적용하는 과정을 담았습니다.</p>
+<!-- end -->
+<h1 id="seo란" style="position:relative;"><a href="#seo%EB%9E%80" aria-label="seo란 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SEO란?</h1>
+<p><strong>Search Engine Optimization</strong>, 즉 '<strong>검색 엔진 최적화</strong>'라는 뜻으로,
+웹사이트가 구글이나 네이버 같은 검색엔진에 더 잘 노출되도록 구조와 콘텐츠를 개선하는 일련의 과정을 말합니다.</p>
+<p>아무리 좋은 웹사이트를 개발해도 검색에 노출되지 않으면 의미가 없기에 SEO는 웹사이트에 활기를 넣어주는 역할을 합니다.</p>
+<h1 id="seo-설정하기" style="position:relative;"><a href="#seo-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0" aria-label="seo 설정하기 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SEO 설정하기</h1>
+<h2 id="관련-플러그인-설치-및-설정" style="position:relative;"><a href="#%EA%B4%80%EB%A0%A8-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95" aria-label="관련 플러그인 설치 및 설정 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>관련 플러그인 설치 및 설정</h2>
+<p>검색엔진이 내 사이트의 구조를 이해하도록 도와주는 두 가지 핵심 파일은 다음과 같습니다.</p>
+<ul>
+<li><code class="language-text">sitemap.xml</code>: 어떤 페이지들이 있는지 구조적으로 정리된 파일</li>
+<li><code class="language-text">robots.txt</code>: 어떤 경로는 검색엔진이 크롤링해도 되는지 여부를 지정</li>
+</ul>
+<p>gatsby에 제공하는 각 파일에 대응되는 플러그인을 설치합니다.</p>
+<div class="gatsby-highlight" data-language="shell"><pre class="language-shell"><code class="language-shell"><span class="token function">npm</span> <span class="token function">install</span> gatsby-plugin-sitemap gatsby-plugin-robots-txt</code></pre></div>
+<p><code class="language-text">gatsby-config.js</code>에서 설치한 플러그인을 설정합니다.</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">siteMetadata</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">siteUrl</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://lsj1206.github.io</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token comment">// 사이트 도메인</span>
+    <span class="token comment">//...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">gatsby-plugin-sitemap</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">exclude</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/404/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/dev-404-page/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">gatsby-plugin-robots-txt</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://lsj1206.github.io</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">sitemap</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://lsj1206.github.io/sitemap-index.xml</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">policy</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            <span class="token literal-property property">userAgent</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">*</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            <span class="token literal-property property">allow</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/post/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">disallow</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/404/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/dev-404-page/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
+<h2 id="seo-태그-적용하기" style="position:relative;"><a href="#seo-%ED%83%9C%EA%B7%B8-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0" aria-label="seo 태그 적용하기 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SEO 태그 적용하기</h2>
+<p><code class="language-text">post-template.js</code>파일에서 <strong>Head export</strong>를 수정합니다.</p>
+<ul>
+<li>Gatsby v4 이상에서는 <code class="language-text">&lt;Head></code>컴포넌트에서 <code class="language-text">&lt;meta></code>정보를 설정할 수 있습니다.</li>
+</ul>
+<p><code class="language-text">query</code>에서 가져오는 정보를 바탕으로 <code class="language-text">&lt;meta></code>태그에 정보를 삽입</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">Head</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> data <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> post <span class="token operator">=</span> data<span class="token operator">?.</span>markdownRemark<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> frontmatter <span class="token operator">=</span> post<span class="token operator">?.</span>frontmatter <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> title <span class="token operator">=</span> frontmatter<span class="token punctuation">.</span>title <span class="token operator">||</span> <span class="token string">"Empty title.."</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> description <span class="token operator">=</span> post<span class="token operator">?.</span>excerpt <span class="token operator">||</span> title<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> url <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://lsj1206.github.io/post/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>post<span class="token operator">?.</span>fields<span class="token operator">?.</span>slug<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> image <span class="token operator">=</span> frontmatter<span class="token punctuation">.</span>coverImage<span class="token operator">?.</span>childImageSharp<span class="token operator">?.</span>gatsbyImageData<span class="token operator">?.</span>images<span class="token operator">?.</span>fallback<span class="token operator">?.</span>src<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>title<span class="token operator">></span><span class="token punctuation">{</span>title<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+      <span class="token operator">&lt;</span>link rel<span class="token operator">=</span><span class="token string">"canonical"</span> href<span class="token operator">=</span><span class="token punctuation">{</span>url<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"description"</span> content<span class="token operator">=</span><span class="token punctuation">{</span>description<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span>
+      <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"robots"</span> content<span class="token operator">=</span><span class="token string">"index, follow"</span> <span class="token operator">/</span><span class="token operator">></span>
+      <span class="token punctuation">{</span><span class="token comment">/*Open Graph 메타 태그 ...*/</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span><span class="token comment">/* Twitter Card 메타 태그 ...*/</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
+<p><code class="language-text">&lt;meta name="description"></code> 태그가 존재하는데, 해당 태그는 검색 화면에서 제목 아래에 보여지면서 해당 웹사이트의 내용을 요약해주는 역할을 합니다.</p>
+<p>해당 태그의 <code class="language-text">content</code>에 본문을 삽입하게 위해 <code class="language-text">query</code>를 수정하였습니다.</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> query <span class="token operator">=</span> graphql<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+  query ($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      ...
+      excerpt(pruneLength: 160)
+      ...
+    }
+  }
+</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span></code></pre></div>
+<p><strong>description</strong>태그에 어떤 데이터를 넣어야하는지에 대한 두가지 방안이 있었습니다. <br>
+하나는 <em>frontmatter</em>에 <strong>description</strong>을 추가하고 그걸 사용하는 방안과 포스트 본문의 일부를 사용하는 방안이였습니다.</p>
+<p>저는 <em>frontmatter</em>에서 description을 사용하지 않기도 하고, 글의 내용을 보여주는게 자연스럽다고 생각을 해서 Gatsby의 GraphQL에 내장되어 있는 <code class="language-text">excerpt</code>필드를 사용하여 포스트 본문의 일부를 사용하는 방식으로 작성하였습니다.</p>
+<ul>
+<li><code class="language-text">excerpt</code>필드는 콘텐츠의 본문 중 일부를 자동으로 잘라내 요약해 문자열로 반환합니다.
+<ul>
+<li><code class="language-text">pruneLength</code>옵션으로 원하는 글자 수만큼만 잘라오도록 설정하였습니다.</li>
+</ul>
+</li>
+</ul>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">//...</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">gatsby-transformer-remark</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+      <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">//...</span>
+        <span class="token literal-property property">excerpt_separator</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;!-- end --></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token comment">//...</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
+<p>또한, <em>gatsby-transformer-remark</em> 플러그인의 <strong>excerpt_separator</strong>옵션을 추가하여 커스텀 마커로 <code class="language-text">excerpt</code>의 엔드 포인트를 지정해 이중으로 description을 가져오도록 설정했습니다. <br></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/680701defd880d96d221a06020f9f875/ec5dd/ex-endpoint_used.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 13.496932515337424%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAADABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAcqFgH//xAAVEAEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAQABBQKv/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAEP/aAAgBAQAGPwJ//8QAFxABAQEBAAAAAAAAAAAAAAAAABEBUf/aAAgBAQABPyGurqv/2gAMAwEAAgADAAAAEPvv/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGBAAAwEBAAAAAAAAAAAAAAAAAAERMVH/2gAIAQEAAT8QddFtbK6f/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/680701defd880d96d221a06020f9f875/94563/ex-endpoint_used.webp 163w,
+/static/680701defd880d96d221a06020f9f875/647a8/ex-endpoint_used.webp 325w,
+/static/680701defd880d96d221a06020f9f875/c1dc5/ex-endpoint_used.webp 650w,
+/static/680701defd880d96d221a06020f9f875/ce5c2/ex-endpoint_used.webp 941w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/680701defd880d96d221a06020f9f875/d2f63/ex-endpoint_used.jpg 163w,
+/static/680701defd880d96d221a06020f9f875/c989d/ex-endpoint_used.jpg 325w,
+/static/680701defd880d96d221a06020f9f875/6aca1/ex-endpoint_used.jpg 650w,
+/static/680701defd880d96d221a06020f9f875/ec5dd/ex-endpoint_used.jpg 941w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/680701defd880d96d221a06020f9f875/6aca1/ex-endpoint_used.jpg"
+            alt="ex-endpoint_used_image"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<p>사진과 같이 Markdown본문에서 지정한 엔드포인트를 사용하면 아래의 내용은 가져오지 않습니다.</p>
+<blockquote>
+<p><strong>excerpt_separator</strong>와 <strong>pruneLength</strong>를 같이 사용하는 경우, <strong>excerpt_separator</strong>가 1차적으로 범위를 지정하고 이후에 텍스트의 길이를 제한합니다.<br> <span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/4482341669d7eaee27a7b1ae77c4e8ea/b8284/ex-excerpt.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 47.852760736196316%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAKABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAYBAgX/xAAVAQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEAMQAAAB0oX6IziuF//EABkQAAIDAQAAAAAAAAAAAAAAAAEDAAITIP/aAAgBAQABBQItSbaIm6eP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFREBAQAAAAAAAAAAAAAAAAAAEBH/2gAIAQIBAT8Bp//EABkQAAIDAQAAAAAAAAAAAAAAAAAzASCRof/aAAgBAQAGPwJnRkaMjaf/xAAZEAEBAQADAAAAAAAAAAAAAAABABEQkfH/2gAIAQEAAT8hSKO97mCMOE2X/9oADAMBAAIAAwAAABB3/wD/xAAWEQADAAAAAAAAAAAAAAAAAAABEBH/2gAIAQMBAT8QgX//xAAWEQADAAAAAAAAAAAAAAAAAAAQEVH/2gAIAQIBAT8Qaj//xAAbEAEAAgMBAQAAAAAAAAAAAAABABEhMaGBkf/aAAgBAQABPxBG2zQAeDHJi5dh+jCi7SgvBCXoiL0fJ//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/4482341669d7eaee27a7b1ae77c4e8ea/94563/ex-excerpt.webp 163w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/647a8/ex-excerpt.webp 325w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/c1dc5/ex-excerpt.webp 650w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/1e975/ex-excerpt.webp 975w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/8a0f1/ex-excerpt.webp 985w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/4482341669d7eaee27a7b1ae77c4e8ea/d2f63/ex-excerpt.jpg 163w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/c989d/ex-excerpt.jpg 325w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/6aca1/ex-excerpt.jpg 650w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/7c09c/ex-excerpt.jpg 975w,
+/static/4482341669d7eaee27a7b1ae77c4e8ea/b8284/ex-excerpt.jpg 985w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/4482341669d7eaee27a7b1ae77c4e8ea/6aca1/ex-excerpt.jpg"
+            alt="ex-excerpt_image"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+</blockquote>
+<p>추가적으로 SEO를 적용하고 싶은 다른 페이지는 별도로 해당 파일 내에서 Head export에 태그 등을 설정해야 합니다.
+저는 index.js 페이지에 일부 태그를 적용했습니다.</p>
+<p>지금까지는 Gatsby 블로그 내부에서 SEO 정보를 설정하는 내용이였습니다. <br>
+이제부터는 외부에서 SEO가 잘 반영되고 있는지를 확인하는 과정을 설명하는 내용입니다.</p>
+<h1 id="google-search-console" style="position:relative;"><a href="#google-search-console" aria-label="google search console permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Google Search Console</h1>
+<p><strong>Google Search Console</strong>은 구글에서 제공하는 도구로, 내 웹사이트가 검색엔진에 어떻게 인식되고 있는지, 어떤 페이지가 <strong>검색 색인</strong>(index)에 포함되었는지를 확인하고 관리할 수 있습니다.</p>
+<h2 id="google-search-console에-website-등록하기" style="position:relative;"><a href="#google-search-console%EC%97%90-website-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0" aria-label="google search console에 website 등록하기 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Google Search Console에 Website 등록하기</h2>
+<ol>
+<li>
+<p><a href="https://search.google.com/search-console/about" target="_blank" rel="nofollow noopener noreferrer">Google Search Console</a>에 접속</p>
+</li>
+<li>
+<p>속성 유형을 선택하고 Website주소 입력하기</p>
+<p><em>GitHub Pages</em>를 사용하는 경우 <strong>URL 접두어 방식</strong>을 사용해서 진행할 수 있습니다.
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/63dcff89ec1c4cbfaca9686253895479/307d7/GSC_setting_01.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 80.3680981595092%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAQABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHUXelJioP/xAAaEAEBAAIDAAAAAAAAAAAAAAABAwACEBMh/9oACAEBAAEFAuiWMZCQnxsehn//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAWEAEBAQAAAAAAAAAAAAAAAAAyACD/2gAIAQEABj8CMY4//8QAGxABAAICAwAAAAAAAAAAAAAAAQAREDFxkbH/2gAIAQEAAT8hbg9srOnLEmvbh21Rg1P/2gAMAwEAAgADAAAAEN8//8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oACAEDAQE/ELGP/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8Qqv/EAB0QAQACAgIDAAAAAAAAAAAAAAEAESGhMUFRsfD/2gAIAQEAAT8QtgurcvwlPI+4kXm+Mys3E4sVFg9p/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/63dcff89ec1c4cbfaca9686253895479/94563/GSC_setting_01.webp 163w,
+/static/63dcff89ec1c4cbfaca9686253895479/647a8/GSC_setting_01.webp 325w,
+/static/63dcff89ec1c4cbfaca9686253895479/c1dc5/GSC_setting_01.webp 650w,
+/static/63dcff89ec1c4cbfaca9686253895479/9046c/GSC_setting_01.webp 760w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/63dcff89ec1c4cbfaca9686253895479/d2f63/GSC_setting_01.jpg 163w,
+/static/63dcff89ec1c4cbfaca9686253895479/c989d/GSC_setting_01.jpg 325w,
+/static/63dcff89ec1c4cbfaca9686253895479/6aca1/GSC_setting_01.jpg 650w,
+/static/63dcff89ec1c4cbfaca9686253895479/307d7/GSC_setting_01.jpg 760w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/63dcff89ec1c4cbfaca9686253895479/6aca1/GSC_setting_01.jpg"
+            alt="gsc-setting_01"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>도메인 방식</th>
+<th>URL 접두어 방식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>인증 범위</td>
+<td>전체 도메인 (<code class="language-text">www</code>, <code class="language-text">http</code>, <code class="language-text">https</code> 모두 포함)</td>
+<td>특정 프로토콜 + 하위 경로만 (<code class="language-text">https://example.com/blog/</code> 등)</td>
+</tr>
+<tr>
+<td>소유권 인증 방법</td>
+<td>DNS 레코드 설정 필요</td>
+<td>HTML 파일 업로드, meta 태그 등 간단한 방법 가능</td>
+</tr>
+<tr>
+<td>장점</td>
+<td>서브도메인까지 포함하는 통합 관리 가능</td>
+<td>인증과 설정이 간단하고 빠름</td>
+</tr>
+<tr>
+<td>단점</td>
+<td>DNS 접근 권한이 필요</td>
+<td>동일 사이트 내 다른 경로는 별도로 등록 필요</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>소유권 확인하기</p>
+<p>속성 유형을 선택한 뒤에는, 내가 해당 사이트의 진짜 소유자인지 구글에 증명하는 과정을 해야합니다.
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 643px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/37e3a7e31397e8ddab9a78d96ffb27df/e3f06/GSC_setting_02.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 125.76687116564416%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAZABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECBAX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB306EJjbhIWVB/8QAGxAAAgEFAAAAAAAAAAAAAAAAAAMUAhESIDH/2gAIAQEAAQUCirIyiIssYlPNv//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQMBAT8BH//EABQRAQAAAAAAAAAAAAAAAAAAACD/2gAIAQIBAT8BH//EAB0QAAECBwAAAAAAAAAAAAAAAAEAMQIQESAhMpH/2gAIAQEABj8CcrY9TxTyKX//xAAfEAACAQIHAAAAAAAAAAAAAAAAAREgMUFRcZGhwfH/2gAIAQEAAT8hdh76Glw1PQewObkjlwS7AxFT/9oADAMBAAIAAwAAABD/ADYM/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAEREP/aAAgBAwEBPxCIi3//xAAXEQADAQAAAAAAAAAAAAAAAAAAAREQ/9oACAECAQE/EKyvf//EAB4QAQADAAICAwAAAAAAAAAAAAEAETEhoRCBscHR/9oACAEBAAE/EFcBWcH1A7xgkvUELG9PyA9uoq2hTGkT0Lyj8QeU15cYZP/Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/37e3a7e31397e8ddab9a78d96ffb27df/94563/GSC_setting_02.webp 163w,
+/static/37e3a7e31397e8ddab9a78d96ffb27df/647a8/GSC_setting_02.webp 325w,
+/static/37e3a7e31397e8ddab9a78d96ffb27df/b1337/GSC_setting_02.webp 643w"
+              sizes="(max-width: 643px) 100vw, 643px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/37e3a7e31397e8ddab9a78d96ffb27df/d2f63/GSC_setting_02.jpg 163w,
+/static/37e3a7e31397e8ddab9a78d96ffb27df/c989d/GSC_setting_02.jpg 325w,
+/static/37e3a7e31397e8ddab9a78d96ffb27df/e3f06/GSC_setting_02.jpg 643w"
+            sizes="(max-width: 643px) 100vw, 643px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/37e3a7e31397e8ddab9a78d96ffb27df/e3f06/GSC_setting_02.jpg"
+            alt="gsc-setting_02"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<p>GSC에서는 다양한 확인 방법을 제공하고 있는데,저는 가장 간편한 방식인 <strong>HTML 태그</strong>를 삽입하는 방식을 선택하였습니다.
+<code class="language-text">gatsby-ssr.js</code>파일에서 해당 코드를 통해 태그를 삽입했습니다.</p>
+<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">onRenderBody</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> setHeadComponents <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token function">setHeadComponents</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"google-site-verification"</span> content<span class="token operator">=</span><span class="token string">"제공 하는 코드"</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre></div>
+</li>
+<li>
+<p>Sitemap 제출하기</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/4297e46ba4e77132cbc3e13bf5a5294c/1dfd6/GSC_setting_03.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 41.104294478527606%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAIABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAdyiAf/EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEAAQUCf//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEABj8Cf//EABUQAQEAAAAAAAAAAAAAAAAAAAEQ/9oACAEBAAE/IS//2gAMAwEAAgADAAAAEH//AP/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABgQAQEAAwAAAAAAAAAAAAAAAAEAETHx/9oACAEBAAE/ENDMIclL/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/4297e46ba4e77132cbc3e13bf5a5294c/94563/GSC_setting_03.webp 163w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/647a8/GSC_setting_03.webp 325w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/c1dc5/GSC_setting_03.webp 650w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/1e975/GSC_setting_03.webp 975w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/063bf/GSC_setting_03.webp 1300w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/ff501/GSC_setting_03.webp 1595w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/4297e46ba4e77132cbc3e13bf5a5294c/d2f63/GSC_setting_03.jpg 163w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/c989d/GSC_setting_03.jpg 325w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/6aca1/GSC_setting_03.jpg 650w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/7c09c/GSC_setting_03.jpg 975w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/01ab0/GSC_setting_03.jpg 1300w,
+/static/4297e46ba4e77132cbc3e13bf5a5294c/1dfd6/GSC_setting_03.jpg 1595w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/4297e46ba4e77132cbc3e13bf5a5294c/6aca1/GSC_setting_03.jpg"
+            alt="gsc-setting_03"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span>
+앞서 Gatsby 설정에서 <code class="language-text">gatsby-plugin-sitemap</code> 플러그인을 사용해 sitemap파일을 자동 생성했습니다.
+이 경우 보통 다음과 같은 두 종류의 파일이 생성됩니다:</p>
+<ul>
+<li><code class="language-text">sitemap-index.xml</code> : 여러 sitemap 파일을 묶는 목차 역할을 합니다. <br>
+이 파일 안에는 <code class="language-text">sitemap-0.xml</code>, <code class="language-text">sitemap-1.xml</code> 등 실제 sitemap들이 링크되어 있습니다.</li>
+<li><code class="language-text">sitemap-0.xml</code> : 실제 URL들이 담긴 세부 sitemap 파일입니다. <br>
+사이트 내부의 실질적인 주소 목록이 이 파일에 기록됩니다.</li>
+</ul>
+<p>브라우저에서 <a href="https://%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%A3%BC%EC%86%8C/sitemap-index.xml" target="_blank" rel="nofollow noopener noreferrer">https://사이트주소/sitemap-index.xml</a> 로 접속해서 잘 열리는지 확인하고, 구조는 정상적인지 체크한뒤에 해당 주소를 <strong>새 사이트맵 추가</strong> 입력창에 제출하면 완료됩니다.</p>
+<p>저는 제출 전, 아래 사이트를 활용하여 구조를 검증했습니다. <br>
+<a href="https://www.xml-sitemaps.com/validate-xml-sitemap.html" target="_blank" rel="nofollow noopener noreferrer">xml-sitemaps.com</a></p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/65f04c82e61aab61f6bd8f5333b5da57/49221/sitemap-validation.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMBAgX/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/2gAMAwEAAhADEAAAAdazpMqGk//EABkQAAMAAwAAAAAAAAAAAAAAAAACEQMSIP/aAAgBAQABBQLVyZCPx//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/AYj/xAAVEQEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAgEBPwGH/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAEykSD/2gAIAQEABj8CpFLClnH/xAAZEAADAAMAAAAAAAAAAAAAAAABECERQZH/2gAIAQEAAT8hGCcEYbEKv//aAAwDAQACAAMAAAAQ5y//xAAVEQEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAwEBPxCR/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8QI//EAB0QAAICAgMBAAAAAAAAAAAAAAABESFx0UGRwfD/2gAIAQEAAT8Qi6Sq32fZ2Kq654h6JNUmowZLoUn/2Q=='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/65f04c82e61aab61f6bd8f5333b5da57/94563/sitemap-validation.webp 163w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/647a8/sitemap-validation.webp 325w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/c1dc5/sitemap-validation.webp 650w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/f7ebd/sitemap-validation.webp 746w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/65f04c82e61aab61f6bd8f5333b5da57/d2f63/sitemap-validation.jpg 163w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/c989d/sitemap-validation.jpg 325w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/6aca1/sitemap-validation.jpg 650w,
+/static/65f04c82e61aab61f6bd8f5333b5da57/49221/sitemap-validation.jpg 746w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/65f04c82e61aab61f6bd8f5333b5da57/6aca1/sitemap-validation.jpg"
+            alt="sitemap-validation"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+</li>
+<li>
+<p>제출 후 대기 시간</p>
+<p>사이트맵을 제출하더라도, 색인이 바로 완료되지는 않습니다.</p>
+<p>저는 메인페이지가 색인까지 3일정도 소요되었고, sitemap은 아직도 해결되지 않았습니다.</p>
+</li>
+</ol>
+<p>이렇게 Gatsby 블로그에 SEO를 적용하고, <strong>Google Search Console</strong>까지의 과정을 정리해봤습니다.</p>
+<p>하지만 실제로는 색인 오류, canonical 주소 문제, sitemap 누락 등의 다양한 문제가 발생할 수 있습니다.<br>
+직접 겪었던 문제들과 그 해결 과정은 다음 포스트에서 다루겠습니다.</p></div><div class="sc-drVZOg gnqMvA"></div><div class="sc-jIyAiq bbisrQ giscus"></div></div><div class="sc-dEkLRj cGcpJS"><div class="sc-kZrBCu fSvquJ"><button width="32" height="32" class="sc-blHHSb jJzVYQ"><svg viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zm64 0l0 64 64 0 0-64L64 96zm384 0L192 96l0 64 256 0 0-64zM64 224l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64zM64 352l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64z"></path></svg></button><h3 class="sc-diYFot jmJGFq">목차</h3></div><div class="sc-kEfuZE QztIu"><ul>
+<li>
+<p><a href="#seo%EB%9E%80">SEO란?</a></p>
+</li>
+<li>
+<p><a href="#seo-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0">SEO 설정하기</a></p>
+<ul>
+<li><a href="#%EA%B4%80%EB%A0%A8-%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95">관련 플러그인 설치 및 설정</a></li>
+<li><a href="#seo-%ED%83%9C%EA%B7%B8-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0">SEO 태그 적용하기</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#google-search-console">Google Search Console</a></p>
+<ul>
+<li><a href="#google-search-console%EC%97%90-website-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0">Google Search Console에 Website 등록하기</a></li>
+</ul>
+</li>
+</ul></div></div></article></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/post/02/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-8d9b3211922090f5a049.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-79e53f6051d389951a8f.js\"],\"component---src-pages-about-js\":[\"/component---src-pages-about-js-2db541a804b8d7836e0e.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-49d505776a701e376923.js\"],\"component---src-pages-search-js\":[\"/component---src-pages-search-js-65ed6ad5adde7da79873.js\"],\"component---src-templates-category-template-js\":[\"/component---src-templates-category-template-js-4b033d4628284d020ce6.js\"],\"component---src-templates-post-template-js\":[\"/component---src-templates-post-template-js-f51656638ccd0a9e3d4f.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="5bc5874e011dc2295bae";</script><script src="/webpack-runtime-bb511f298f7573c52606.js" async></script><script src="/framework-fa9a75ceb59e8cf58443.js" async></script><script src="/app-8d9b3211922090f5a049.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
