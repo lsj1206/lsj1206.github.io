@@ -67,6 +67,10 @@ module.exports = {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         exclude: [`/404/`, `/dev-404-page/`],
+        serialize: ({ path }) => ({
+          url: path,
+          lastmod: new Date().toISOString(), // 빌드 시각 기준으로 lastmod 설정
+        }),
       },
     },
     {
