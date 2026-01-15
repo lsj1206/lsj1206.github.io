@@ -1,0 +1,722 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.14.0"/><meta name="google-site-verification" content="5vTm1MVlmRNKBITz7_BNAkzI9YOP6FO5Qgun-tlMe8o"/><meta name="description" content="Windows에서 사용가능한 파일명 일괄 변경 프로그램인 TagNamer의 개발과정을 담은 포스트의
+첫 페이지 입니다.
+
+개발 배경과 인터페이스 설계, 파일/폴더 추가, 리스트 구현 및 정렬 기능 구현등에 대한 내용을 담고 있습니다." data-gatsby-head="true"/><meta name="robots" content="index, follow" data-gatsby-head="true"/><meta property="og:title" content="TagNamer 개발일지-(01)" data-gatsby-head="true"/><meta property="og:description" content="Windows에서 사용가능한 파일명 일괄 변경 프로그램인 TagNamer의 개발과정을 담은 포스트의
+첫 페이지 입니다.
+
+개발 배경과 인터페이스 설계, 파일/폴더 추가, 리스트 구현 및 정렬 기능 구현등에 대한 내용을 담고 있습니다." data-gatsby-head="true"/><meta property="og:type" content="article" data-gatsby-head="true"/><meta property="og:url" content="https://lsj1206.github.io/post/03/" data-gatsby-head="true"/><meta property="og:image" content="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg" data-gatsby-head="true"/><meta name="twitter:card" content="summary_large_image" data-gatsby-head="true"/><meta name="twitter:title" content="TagNamer 개발일지-(01)" data-gatsby-head="true"/><meta name="twitter:description" content="Windows에서 사용가능한 파일명 일괄 변경 프로그램인 TagNamer의 개발과정을 담은 포스트의
+첫 페이지 입니다.
+
+개발 배경과 인터페이스 설계, 파일/폴더 추가, 리스트 구현 및 정렬 기능 구현등에 대한 내용을 담고 있습니다." data-gatsby-head="true"/><meta name="twitter:image" content="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg" data-gatsby-head="true"/><style data-href="/styles.a26dd897e8c89e92c275.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#f8f8f2;font-family:D2Coding,Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#404859}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.175rem .3rem .1rem;white-space:normal}.token.comment{color:#9f9f9f}.token.cdata,.token.doctype,.token.prolog{color:#636f88}.token.punctuation{color:#81a1c1}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#81a1c1}.token.number{color:#b48ead}.token.boolean{color:#81a1c1}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a3be8c}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#81a1c1}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#88c0d0}.token.keyword{color:#81a1c1}.token.important,.token.regex{color:#ebcb8b}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><style data-styled="" data-styled-version="6.1.13">.jJzVYQ{z-index:10;display:flex;align-items:center;justify-content:center;padding:5px;width:32px;height:32px;background-color:transparent;border:none;cursor:pointer;}/*!sc*/
+.jJzVYQ svg{width:100%;height:100%;}/*!sc*/
+.jJzVYQ svg:active{transform:scale(0.95);}/*!sc*/
+data-styled.g1[id="sc-blHHSb"]{content:"jJzVYQ,"}/*!sc*/
+.cpKqkw{display:flex;flex-direction:column;width:100%;}/*!sc*/
+data-styled.g26[id="sc-geXuza"]{content:"cpKqkw,"}/*!sc*/
+.fABRiL{margin-bottom:10px;height:1px;}/*!sc*/
+data-styled.g27[id="sc-hJRrWL"]{content:"fABRiL,"}/*!sc*/
+.lfJWOO{margin:0;}/*!sc*/
+data-styled.g28[id="sc-fwzISk"]{content:"lfJWOO,"}/*!sc*/
+.fCivAt{display:flex;justify-content:space-between;margin-bottom:10px;}/*!sc*/
+@media (max-width: 768px){.fCivAt{flex-direction:column;justify-content:flex-start;}}/*!sc*/
+data-styled.g29[id="sc-hbtGpV"]{content:"fCivAt,"}/*!sc*/
+.iqoQAv{display:flex;align-items:center;margin-right:0.5rem;font-weight:bolder;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);}/*!sc*/
+.iqoQAv svg{flex-shrink:0;margin:0 0.5rem 0 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g30[id="sc-bMTdWJ"]{content:"iqoQAv,"}/*!sc*/
+.YThQL{flex:1;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);cursor:pointer;}/*!sc*/
+.YThQL svg{margin:0 0.5rem 0 0;}/*!sc*/
+.YThQL:hover{transform:scale(1.025);}/*!sc*/
+.YThQL:active{transform:scale(0.975);}/*!sc*/
+data-styled.g31[id="sc-jhZTHU"]{content:"YThQL,"}/*!sc*/
+.iGfRrF{display:flex;flex-direction:row;flex-wrap:wrap;width:100%;min-height:1.75rem;}/*!sc*/
+.iGfRrF svg{flex-shrink:0;margin:0.25rem 0.5rem 0.5rem 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g32[id="sc-epnzzT"]{content:"iGfRrF,"}/*!sc*/
+.bnSlcB{display:flex;align-items:center;margin:0 0.5rem 0.5rem 0;padding:0 0.5rem;min-height:1.5rem;font-size:0.9rem;font-weight:bolder;border-radius:0.25rem;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);cursor:pointer;}/*!sc*/
+.bnSlcB:hover{transform:scale(1.025);}/*!sc*/
+.bnSlcB:active{transform:scale(0.975);}/*!sc*/
+data-styled.g33[id="sc-uYFMi"]{content:"bnSlcB,"}/*!sc*/
+.erlqYf{flex-shrink:0;margin:0.75rem 0 0.25rem 0;width:100%;height:15rem;border-radius:0.75rem;overflow:hidden;}/*!sc*/
+data-styled.g34[id="sc-bbQqnZ"]{content:"erlqYf,"}/*!sc*/
+.iZisKQ{width:100%;height:100%;object-fit:cover;}/*!sc*/
+data-styled.g35[id="sc-iwXfZk"]{content:"iZisKQ,"}/*!sc*/
+.cGcpJS{z-index:500;padding:0 1rem 1rem 1rem;position:fixed;top:15vh;right:8vw;width:275px;max-height:70vh;opacity:0.95;border-radius:0.75rem;box-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);overflow-x:hidden;overflow-y:auto;}/*!sc*/
+@media (max-width: 1440px){.cGcpJS{top:50px;right:5px;width:auto;height:auto;padding:0.25rem;padding-top:0.25rem;}}/*!sc*/
+.cGcpJS::-webkit-scrollbar{width:3px;}/*!sc*/
+.cGcpJS::-webkit-scrollbar-track{margin-block:0.75rem;}/*!sc*/
+data-styled.g36[id="sc-dEkLRj"]{content:"cGcpJS,"}/*!sc*/
+.fSvquJ{z-index:501;display:flex;position:sticky;top:0;align-items:center;flex-direction:row;padding-top:0;padding-bottom:0;}/*!sc*/
+.fSvquJ svg{flex-shrink:0;margin:0.25rem 0.5rem 0 0;width:1.25rem;height:1.25rem;}/*!sc*/
+.fSvquJ svg :active{transform:scale(0.975);}/*!sc*/
+@media (max-width: 1440px){.fSvquJ svg{margin:0;}}/*!sc*/
+data-styled.g37[id="sc-kZrBCu"]{content:"fSvquJ,"}/*!sc*/
+.jmJGFq{margin:0;text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+@media (max-width: 1440px){.jmJGFq{display:none;}}/*!sc*/
+data-styled.g38[id="sc-diYFot"]{content:"jmJGFq,"}/*!sc*/
+.QztIu{text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+.QztIu a{display:block;word-break:break-word;white-space:normal;line-height:1.4;text-decoration:none;}/*!sc*/
+.QztIu a:hover{font-weight:bolder;}/*!sc*/
+@media (max-width: 1440px){.QztIu{display:none;}}/*!sc*/
+data-styled.g39[id="sc-kEfuZE"]{content:"QztIu,"}/*!sc*/
+.dPonAB{display:flex;flex-direction:row;}/*!sc*/
+data-styled.g40[id="sc-dhCplO"]{content:"dPonAB,"}/*!sc*/
+.bXIEPC{display:flex;flex-direction:column;padding-top:30px;width:768px;}/*!sc*/
+@media (max-width: 1279px){.bXIEPC{width:66vw;}}/*!sc*/
+@media (max-width: 768px){.bXIEPC{width:75vw;}}/*!sc*/
+data-styled.g41[id="sc-eMwmJz"]{content:"bXIEPC,"}/*!sc*/
+.gnqMvA{margin:5px 0 15px 0;width:100%;height:1px;}/*!sc*/
+data-styled.g42[id="sc-drVZOg"]{content:"gnqMvA,"}/*!sc*/
+.hxfQZm{margin:2rem 0;}/*!sc*/
+.hxfQZm img{border:1px solid;border-radius:0.3rem;}/*!sc*/
+data-styled.g43[id="sc-eWPXlR"]{content:"hxfQZm,"}/*!sc*/
+</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/><title data-gatsby-head="true">TagNamer 개발일지-(01)</title><link rel="canonical" href="https://lsj1206.github.io/post/03/" data-gatsby-head="true"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><article class="sc-dhCplO dPonAB"><div class="sc-eMwmJz bXIEPC"><div class="sc-geXuza cpKqkw"><h2 class="sc-fwzISk lfJWOO">TagNamer 개발일지-(01)</h2><div class="sc-hJRrWL fABRiL"></div><div class="sc-hbtGpV fCivAt"><p class="sc-bMTdWJ sc-jhZTHU iqoQAv YThQL"><svg viewBox="0 0 576 512"><path d="M88.7 223.8L0 375.8 0 96C0 60.7 28.7 32 64 32l117.5 0c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7L416 96c35.3 0 64 28.7 64 64l0 32-336 0c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224l400 0c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480L32 480c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z"></path></svg>C#</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"></path></svg>2026-01-15</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path></svg>2026-01-15</p></div><div class="sc-epnzzT iGfRrF"><svg viewBox="0 0 512 512"><path d="M345 39.1L472.8 168.4c52.4 53 52.4 138.2 0 191.2L360.8 472.9c-9.3 9.4-24.5 9.5-33.9 .2s-9.5-24.5-.2-33.9L438.6 325.9c33.9-34.3 33.9-89.4 0-123.7L310.9 72.9c-9.3-9.4-9.2-24.6 .2-33.9s24.6-9.2 33.9 .2zM0 229.5L0 80C0 53.5 21.5 32 48 32l149.5 0c17 0 33.3 6.7 45.3 18.7l168 168c25 25 25 65.5 0 90.5L277.3 442.7c-25 25-65.5 25-90.5 0l-168-168C6.7 262.7 0 246.5 0 229.5zM144 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg><p class="sc-uYFMi bnSlcB">C#</p><p class="sc-uYFMi bnSlcB">.NET10</p><p class="sc-uYFMi bnSlcB">ModernWpf</p><p class="sc-uYFMi bnSlcB">TagNamer</p></div><div class="sc-bbQqnZ erlqYf"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained sc-iwXfZk iZisKQ"><div style="max-width:953px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;597&#x27;%20width=&#x27;953&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><img aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear" decoding="async" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHt3Gghh//EABUQAQEAAAAAAAAAAAAAAAAAAAIQ/9oACAEBAAEFAjTf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGRAAAgMBAAAAAAAAAAAAAAAAABEBECEx/9oACAEBAAE/IWlmo05v/9oADAMBAAIAAwAAABCwz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQACAgMAAAAAAAAAAAAAAAEAESExQaHR/9oACAEBAAE/EFkK09QNhmByJs9ly5//2Q==" alt=""/><picture><source type="image/webp" data-srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/a41a4/TagNamer_01.webp 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/f82b4/TagNamer_01.webp 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/d27b2/TagNamer_01.webp 953w" sizes="(min-width: 953px) 953px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 953px) 953px, 100vw" decoding="async" loading="lazy" data-src="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg" data-srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/28fc8/TagNamer_01.jpg 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/952d6/TagNamer_01.jpg 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg 953w" alt="_coverImage"/></picture><noscript><picture><source type="image/webp" srcSet="/static/9436aaa750d99ff82cf4c58f32a97a6a/a41a4/TagNamer_01.webp 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/f82b4/TagNamer_01.webp 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/d27b2/TagNamer_01.webp 953w" sizes="(min-width: 953px) 953px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 953px) 953px, 100vw" decoding="async" loading="lazy" src="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg" srcSet="/static/9436aaa750d99ff82cf4c58f32a97a6a/28fc8/TagNamer_01.jpg 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/952d6/TagNamer_01.jpg 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_01.jpg 953w" alt="_coverImage"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div></div><div class="sc-eWPXlR hxfQZm"><p>Windows에서 사용가능한 파일명 일괄 변경 프로그램인 <strong>TagNamer</strong>의 개발과정을 담은 포스트의
+첫 페이지 입니다.
+<br>
+개발 배경과 인터페이스 설계, 파일/폴더 추가, 리스트 구현 및 정렬 기능 구현등에 대한 내용을 담고 있습니다.</p>
+<!-- end -->
+<h1 id="다운로드" style="position:relative;"><a href="#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C" aria-label="다운로드 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>다운로드</h1>
+<ul>
+<li><a href="https://github.com/lsj1206/TagNamer/releases/tag/v1.0.0" target="_blank" rel="nofollow noopener noreferrer">TagNamer v1.0.0 다운로드 링크</a></li>
+<li>자세한 정보 : <a href="https://github.com/lsj1206/TagNamer" target="_blank" rel="nofollow noopener noreferrer">GitHub</a></li>
+<li>라이센스 : <a href="https://github.com/lsj1206/TagNamer?tab=License-1-ov-file" target="_blank" rel="nofollow noopener noreferrer">MIT License</a></li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9436aaa750d99ff82cf4c58f32a97a6a/35969/TagNamer_01.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIBBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe5U2YD/xAAXEAADAQAAAAAAAAAAAAAAAAABEDEC/9oACAEBAAEFAhFmL//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABkQAAIDAQAAAAAAAAAAAAAAAAARASAhcf/aAAgBAQABPyF5Go7Q/9oADAMBAAIAAwAAABAwz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABkQAAMBAQEAAAAAAAAAAAAAAAABIRFBcf/aAAgBAQABPxB9j1umYSiTyKT0/TRun//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/94563/TagNamer_01.webp 163w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/647a8/TagNamer_01.webp 325w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/c1dc5/TagNamer_01.webp 650w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/5bf28/TagNamer_01.webp 953w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/d2f63/TagNamer_01.jpg 163w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/c989d/TagNamer_01.jpg 325w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/6aca1/TagNamer_01.jpg 650w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/35969/TagNamer_01.jpg 953w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/9436aaa750d99ff82cf4c58f32a97a6a/6aca1/TagNamer_01.jpg"
+            alt="TagNamer_01"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h1 id="개발-배경" style="position:relative;"><a href="#%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD" aria-label="개발 배경 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>개발 배경</h1>
+<ol>
+<li>새로 Google에서 출시된 Antigravity 사용해보기</li>
+<li>기존에 사용하던 비슷한 프로그램을 대체해서 직접 실사용할 목적</li>
+</ol>
+<p>이렇게 두가지 목적에 맞춰 사용 언어로는 <code class="language-text">C#</code>을 선택하고,
+IDE로는 Antigravity와 보조해줄 Visual Studio를 설치한 후에 개발을 시작하게 되었습니다.</p>
+<h2 id="기획서-작성" style="position:relative;"><a href="#%EA%B8%B0%ED%9A%8D%EC%84%9C-%EC%9E%91%EC%84%B1" aria-label="기획서 작성 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>기획서 작성</h2>
+<p>가장먼저 간단하게 기획서를 작성했습니다.</p>
+<p>가장 중요하게 생각했던 포인트는 두 가지로 기존 프로그램처럼 가볍고 직관적인 UI/UX 가지면서,
+기존 프로그램과 차별점으로 같은 규칙을 가지는 파일들을 여러번 변경할때 효율적인 작업이 가능해야 한다는 부분이었습니다.</p>
+<p>그래서 추가되는 리스트에 공통적으로 적용할 규칙을 설정하고, 그 규칙을 적용하는 방식으로 설계를 시작했습니다.</p>
+<h3 id="개발-목표" style="position:relative;"><a href="#%EA%B0%9C%EB%B0%9C-%EB%AA%A9%ED%91%9C" aria-label="개발 목표 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>개발 목표</h3>
+<p>개발목표로 아래 7가지를 정했습니다.</p>
+<ol>
+<li>직관적이고 빠른 UI/UX</li>
+<li>규칙 기반 이름 변경</li>
+<li>드래그&#x26;드롭으로 파일(들) 추가 및 목록 순서 변경</li>
+<li>실시간 미리보기</li>
+<li>적용 되돌리기</li>
+<li>대용량·다량 파일 안정적 처리</li>
+<li>무설치, 포터블 구조 배포</li>
+</ol>
+<h3 id="핵심-기능-구조" style="position:relative;"><a href="#%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%EC%A1%B0" aria-label="핵심 기능 구조 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>핵심 기능 구조</h3>
+<p>개발 목표를 기반으로 아래와 같이 핵심 기능의 구조를 작성했습니다.</p>
+<ol>
+<li>파일/폴더 추가</li>
+</ol>
+<ul>
+<li>파일 선택창으로 추가</li>
+<li>드래그&#x26;드롭으로 추가</li>
+</ul>
+<ol start="2">
+<li>파일 목록</li>
+</ol>
+<ul>
+<li>표 필수 항목: 번호, 이름, 변경될 이름, 크기, 경로</li>
+</ul>
+<ol start="3">
+<li>이름 변경</li>
+</ol>
+<ul>
+<li>기본 Tag와 옵션이 있는 Tag 제공</li>
+<li>Tag와 텍스트를 조합한 규칙 작성 (예시:<code class="language-text">[tag1] tag2_tag3 (tag4)</code>)</li>
+<li>규칙 적용시 리스트 위에서부터 아래로 적용</li>
+<li>작성 규칙은 프로그램 종료 전까지 유지</li>
+</ul>
+<ol start="4">
+<li>리스트 정렬</li>
+</ol>
+<ul>
+<li>기본 정렬 기준으로 파일 추가 순</li>
+<li>정렬 요소: 파일 추가 순, 파일 이름, 파일 생성일, 파일 수정일, 파일 크기</li>
+<li>드롭다운 + 오름차순/내림차순 버튼 제공</li>
+</ul>
+<ol start="5">
+<li>확장자 수정</li>
+</ol>
+<ul>
+<li>확장자 표시 ON/OFF 토글</li>
+<li>확장자 변경 기능 제공</li>
+</ul>
+<h3 id="인터페이스-설계" style="position:relative;"><a href="#%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84" aria-label="인터페이스 설계 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>인터페이스 설계</h3>
+<p>마지막으로 인터페이스 설계를 하고 계획서를 마무리했습니다.</p>
+<ol>
+<li>헤더 (Global Navigation Bar)</li>
+</ol>
+<ul>
+<li>현재 적용 중인 규칙 표시</li>
+<li>우측 끝에 버전 표시</li>
+</ul>
+<ol start="2">
+<li>좌측 사이드 패널</li>
+</ol>
+<ul>
+<li>파일 추가</li>
+<li>목록 초기화</li>
+<li>변경 적용/취소</li>
+<li>규칙 설정</li>
+<li>태그 설정</li>
+</ul>
+<ul>
+<li>정렬 기준/방향</li>
+<li>삭제 팝업 표시</li>
+<li>확장자 변경</li>
+<li>확장자 표시</li>
+</ul>
+<ol start="3">
+<li>모달</li>
+</ol>
+<ul>
+<li>규칙 설정 버튼 클릭 → 모달 창 열림</li>
+<li>모달창에서 규칙 설정 과 태그 관리 진행</li>
+</ul>
+<h1 id="개발-과정" style="position:relative;"><a href="#%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95" aria-label="개발 과정 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>개발 과정</h1>
+<p>C# .NET 환경에서 사용가능한 다양한 UI 프레임워크들 사이에서 WPF를 선택했습니다.
+다른 운영체제는 고려하지 않아 Windows에서만 잘 돌아가면 되기 때문에 <code class="language-text">MAUI</code>는 제외하고, <code class="language-text">WinForms</code>은 너무 구형이라 제외했습니다.</p>
+<p>최신 Windows 디자인으로 구현할 생각이였기 때문에 마지막까지 <code class="language-text">WinUI 3</code>를 고민했었는데, 포터블 exe 배포과정이 정식지원이 아니고 복잡하다고 해서 최종적으로 <code class="language-text">WPF</code>에 <code class="language-text">ModernWPF</code>를 사용하는 방안으로 선택했습니다.</p>
+<h2 id="ui-개발" style="position:relative;"><a href="#ui-%EA%B0%9C%EB%B0%9C" aria-label="ui 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UI 개발</h2>
+<p>제일 먼저 아래같은 구성의 목업 UI를 구현했습니다.</p>
+<ul>
+<li>메뉴 바</li>
+<li>헤더</li>
+<li>좌측 사이드 패널</li>
+<li>우측 리스트</li>
+<li>상태 표시줄</li>
+</ul>
+<p>리스트를 구현하면서 적합한 구조를 찾아야 했습니다.</p>
+<p>처음에는 <code class="language-text">DataGrid</code> 방식으로 구현을 했습니다.
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c13870c1676abd625a91189050979762/e5166/list_alpha.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 60.122699386503065%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAMABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIBBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe1SyWj/xAAXEAADAQAAAAAAAAAAAAAAAAABAhAx/9oACAEBAAEFAhVyf//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABkQAAMAAwAAAAAAAAAAAAAAAAABERAhMf/aAAgBAQABPyG4Oi5vBRs//9oADAMBAAIAAwAAABCgD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABkQAQEBAAMAAAAAAAAAAAAAAAERACFRkf/aAAgBAQABPxDjVWr5mQl1IauUjp1ZLv/Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/c13870c1676abd625a91189050979762/94563/list_alpha.webp 163w,
+/static/c13870c1676abd625a91189050979762/647a8/list_alpha.webp 325w,
+/static/c13870c1676abd625a91189050979762/c1dc5/list_alpha.webp 650w,
+/static/c13870c1676abd625a91189050979762/1e975/list_alpha.webp 975w,
+/static/c13870c1676abd625a91189050979762/92f8c/list_alpha.webp 1200w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/c13870c1676abd625a91189050979762/d2f63/list_alpha.jpg 163w,
+/static/c13870c1676abd625a91189050979762/c989d/list_alpha.jpg 325w,
+/static/c13870c1676abd625a91189050979762/6aca1/list_alpha.jpg 650w,
+/static/c13870c1676abd625a91189050979762/7c09c/list_alpha.jpg 975w,
+/static/c13870c1676abd625a91189050979762/e5166/list_alpha.jpg 1200w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/c13870c1676abd625a91189050979762/6aca1/list_alpha.jpg"
+            alt="임시 데이터로 구현했던 초기 리스트"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<p>파일의 경로상 마지막 폴더를 조작이 불가능한 행으로 추가해서 같은 폴더라면 하나의 폴더 아래에 표시되고, 다른 폴더의 파일끼리는 폴더 행으로 구분감을 주는 구현을 하려는 목적이였습니다.</p>
+<p>리스트 구현을 완성하기 위해서 실제 파일과 여러 상호작용들을 구현하고 확인하기 위해 파일 추가 기능을 구현하게 되었습니다.</p>
+<h2 id="파일-추가-개발" style="position:relative;"><a href="#%ED%8C%8C%EC%9D%BC-%EC%B6%94%EA%B0%80-%EA%B0%9C%EB%B0%9C" aria-label="파일 추가 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>파일 추가 개발</h2>
+<p>먼저 파일 선택창(다이얼로그)방식을 구현하고, 그 다음으로 드래그&#x26;드롭 방식을 구현했습니다.</p>
+<h3 id="파일-선택창-기능-추가" style="position:relative;"><a href="#%ED%8C%8C%EC%9D%BC-%EC%84%A0%ED%83%9D%EC%B0%BD-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80" aria-label="파일 선택창 기능 추가 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>파일 선택창 기능 추가</h3>
+<p>이때 파일을 추가할때 여러개의 폴더속 파일들을 한번에 추가할 수 있도록 구현하고 싶었습니다.</p>
+<p>윈도우 표준 다이얼로그는 파일을 선택하는 창에서는 폴더를 선택할 수 없고, 폴더를 선택하는 창에서는 파일을 개별적으로 고를 수 없었습니다.</p>
+<p>그래서 WindowsAPICodePack, Ookii.Dialogs.Wpf 등을 사용해서 시도를 해봤지만 결국 이 라이브러리들도 불가능했고 남은 선택지가 표준 기능이 아니였기 때문에 구현을 포기하고 <code class="language-text">Microsoft-WindowsAPICodePack-Shell</code>를 사용해서 파일 추가와 폴더 추가로 분리해서 구현했습니다.</p>
+<h3 id="dragdrop-파일-추가-개발" style="position:relative;"><a href="#dragdrop-%ED%8C%8C%EC%9D%BC-%EC%B6%94%EA%B0%80-%EA%B0%9C%EB%B0%9C" aria-label="dragdrop 파일 추가 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Drag&#x26;Drop 파일 추가 개발</h3>
+<p>파일 선택창 방식을 추가했지만, 이전에 사용하던 프로그램에서 파일을 추가할때 가장 많이 사용했던 방식은 Drag&#x26;Drop 방식이였고, Drag&#x26;Drop 방식이 더 편리하고 기본적으로 지원해야하는 기능이라고 생각했습니다.</p>
+<p>그래서 WPF에서 기본적으로 지원하는 기능에 Drop 이벤트로 들어온 데이터를 파일인지 폴더인지 구별해서 별개로 동작하는 로직을 작성했습니다.</p>
+<h2 id="리스트-순서-변경-기능-개발" style="position:relative;"><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%88%9C%EC%84%9C-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EB%B0%9C" aria-label="리스트 순서 변경 기능 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>리스트 순서 변경 기능 개발</h2>
+<p>Drag&#x26;Drop으로 파일 추가 기능을 개발한 김에 이어서 Drag&#x26;Drop으로 리스트 순서를 변경하는 기능을 개발하려고 했습니다.</p>
+<p>필수로 구현하려고 했던 기능은 두가지 입니다.</p>
+<ol>
+<li>다중 선택
+<ul>
+<li>Ctrl + 클릭으로 다중 선택</li>
+<li>Shift + 클릭으로 범위 선택</li>
+<li>드래그 상태에서 자동 스크롤</li>
+</ul>
+</li>
+<li>드롭 위치에 대한 정확한 시각화</li>
+</ol>
+<h3 id="다중-선택-구현" style="position:relative;"><a href="#%EB%8B%A4%EC%A4%91-%EC%84%A0%ED%83%9D-%EA%B5%AC%ED%98%84" aria-label="다중 선택 구현 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>다중 선택 구현</h3>
+<p>여러개의 파일을 Drag&#x26;Drop하는 기능은 쉽게 구현했지만,계속해서 Drag당시 선택한 항목만 Drop되고 다른 항목은 이동되지 않는 문제가 발생했습니다.</p>
+<p>코드 흐름이나 구조상으로는 문제가 없는데 AI도 원인을 찾지 못하고 있었기 때문에 AI에게 다른 관점에서 접근해달라고 요청했습니다.
+그래서 WPF의 기본 동작과 충돌한다는것을 알게 되었습니다.</p>
+<p>WPF 내부 로직이 마우스 클릭 시점에 다른 선택을 해제해 버리는데, 시각적으로는 남아서 여러개가 선택된걸로 보이고 실제로는 하나만 선택되어있는 문제였습니다.</p>
+<p>그래서 이벤트를 가로채서 WPF 기본 로직이 작동하는걸 막는 방식으로 다중 선택을 구현했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp">    <span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">FileListView_PreviewMouseLeftButtonDown</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> sender<span class="token punctuation">,</span> <span class="token class-name">MouseButtonEventArgs</span> e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        _startPoint <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">GetPosition</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        _isPotentialDrag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">ListViewItem<span class="token punctuation">?</span></span> listViewItem <span class="token operator">=</span> <span class="token generic-method"><span class="token function">FindAnchestor</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>ListViewItem<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>DependencyObject<span class="token punctuation">)</span>e<span class="token punctuation">.</span>OriginalSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>listViewItem <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> listViewItem<span class="token punctuation">.</span>IsSelected<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// 더블 클릭일 때는 이벤트를 가로채지 않습니다.</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>ClickCount <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// 이미 선택된 항목을 클릭한 경우 WPF의 기본 동작을 방지하기 위해 처리</span>
+            _isPotentialDrag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            e<span class="token punctuation">.</span>Handled <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p><code class="language-text">PreviewMouseLeftButtonDown</code>에서 클릭된 항목이 이미 선택된 상태라면, WPF가 이벤트를 처리하지 못하도록 <code class="language-text">e.Handled = true</code>를 선언</p>
+</blockquote>
+<p>이벤트를 막아버리면 드래그는 되지만, 단일 아이템을 선택하고 싶을 때의 동작이 망가지게됩니다.
+이를 해결하기 위해 <strong>마우스를 뗄 때</strong>의 로직을 별도로 설계했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp">    <span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">FileListView_PreviewMouseLeftButtonUp</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> sender<span class="token punctuation">,</span> <span class="token class-name">MouseButtonEventArgs</span> e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>_isPotentialDrag <span class="token operator">&amp;&amp;</span> sender <span class="token keyword">is</span> <span class="token class-name">ListView</span> listView<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token class-name">ListViewItem<span class="token punctuation">?</span></span> listViewItem <span class="token operator">=</span> <span class="token generic-method"><span class="token function">FindAnchestor</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>ListViewItem<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>DependencyObject<span class="token punctuation">)</span>e<span class="token punctuation">.</span>OriginalSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>listViewItem <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token comment">// 드래그가 발생하지 않고 버튼을 뗐다면, 마우스 이벤트가 핸들링되어 선택이 안 바뀌었으므로</span>
+                <span class="token comment">// 여기서 수동으로 클릭한 하나만 선택되게 함 (WPF 기본 동작 재현)</span>
+                <span class="token class-name"><span class="token keyword">var</span></span> item <span class="token operator">=</span> listView<span class="token punctuation">.</span>ItemContainerGenerator<span class="token punctuation">.</span><span class="token function">ItemFromContainer</span><span class="token punctuation">(</span>listViewItem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                listView<span class="token punctuation">.</span>SelectedItems<span class="token punctuation">.</span><span class="token function">Clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                listView<span class="token punctuation">.</span>SelectedItems<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        _isPotentialDrag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">FileListView_MouseMove</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> sender<span class="token punctuation">,</span> <span class="token class-name">MouseEventArgs</span> e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>LeftButton <span class="token operator">==</span> MouseButtonState<span class="token punctuation">.</span>Pressed <span class="token operator">&amp;&amp;</span> sender <span class="token keyword">is</span> <span class="token class-name">ListView</span> listView<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token class-name">Point</span> mousePos <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">GetPosition</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">Vector</span> diff <span class="token operator">=</span> _startPoint <span class="token operator">-</span> mousePos<span class="token punctuation">;</span>
+
+            <span class="token comment">// 일정 거리 이상 움직였을 때만 드래그 시작</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>diff<span class="token punctuation">.</span>X<span class="token punctuation">)</span> <span class="token operator">></span> SystemParameters<span class="token punctuation">.</span>MinimumHorizontalDragDistance <span class="token operator">||</span>
+                Math<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>diff<span class="token punctuation">.</span>Y<span class="token punctuation">)</span> <span class="token operator">></span> SystemParameters<span class="token punctuation">.</span>MinimumVerticalDragDistance<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token class-name">ListViewItem<span class="token punctuation">?</span></span> listViewItem <span class="token operator">=</span> <span class="token generic-method"><span class="token function">FindAnchestor</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>ListViewItem<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>DependencyObject<span class="token punctuation">)</span>e<span class="token punctuation">.</span>OriginalSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>listViewItem <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    <span class="token comment">// 클릭한 아이템이 이미 선택되어 있다면 선택된 모든 항목을 이동 대상으로 함</span>
+                    <span class="token class-name"><span class="token keyword">var</span></span> selectedItems <span class="token operator">=</span> listView<span class="token punctuation">.</span>SelectedItems<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Cast</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>TagNamer<span class="token punctuation">.</span>Models<span class="token punctuation">.</span>FileItem<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name"><span class="token keyword">var</span></span> clickedItem <span class="token operator">=</span> listView<span class="token punctuation">.</span>ItemContainerGenerator<span class="token punctuation">.</span><span class="token function">ItemFromContainer</span><span class="token punctuation">(</span>listViewItem<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token class-name">TagNamer<span class="token punctuation">.</span>Models<span class="token punctuation">.</span>FileItem</span><span class="token punctuation">;</span>
+
+                    <span class="token comment">// 만약 단일 클릭 후 바로 드래그 중이라면 해당 아이템만 대상으로 함</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>clickedItem <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>selectedItems<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>clickedItem<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">{</span>
+                        selectedItems <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">System<span class="token punctuation">.</span>Collections<span class="token punctuation">.</span>Generic<span class="token punctuation">.</span>List<span class="token punctuation">&lt;</span>TagNamer<span class="token punctuation">.</span>Models<span class="token punctuation">.</span>FileItem<span class="token punctuation">></span></span> <span class="token punctuation">{</span> clickedItem <span class="token punctuation">}</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>selectedItems<span class="token punctuation">.</span>Count <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">{</span>
+                        _isPotentialDrag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                        <span class="token class-name"><span class="token keyword">var</span></span> dragData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">DataObject</span><span class="token punctuation">(</span><span class="token string">"InternalMove"</span><span class="token punctuation">,</span> selectedItems<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        DragDrop<span class="token punctuation">.</span><span class="token function">DoDragDrop</span><span class="token punctuation">(</span>listViewItem<span class="token punctuation">,</span> dragData<span class="token punctuation">,</span> DragDropEffects<span class="token punctuation">.</span>Move<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre></div>
+<blockquote>
+<p>드래그 상황: 마우스 이동 거리가 일정 수준(<code class="language-text">SystemParameters.MinimumHorizontalDragDistance</code>)을 넘으면, 현재 선택된 모든 항목을 데이터에 담아 드래그를 시작</p>
+</blockquote>
+<blockquote>
+<p>단순 클릭 상황 : 마우스 이동이 없었다면 드래그가 아닌 것으로 판단하고 수동으로 해당 항목만 선택</p>
+</blockquote>
+<p>그리고 목록이 길어 Drag한 위치와 Drop하는 위치가 멀 경우를 대비하여 리스트의 상/하단에 닿을경우에 <strong>자동 스크롤</strong> 기능을 구현했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">HandleAutoScroll</span><span class="token punctuation">(</span><span class="token class-name">DragEventArgs</span> e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name"><span class="token keyword">var</span></span> scrollViewer <span class="token operator">=</span> <span class="token generic-method"><span class="token function">FindChild</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>ScrollViewer<span class="token punctuation">></span></span></span><span class="token punctuation">(</span>FileListView<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// FileListView 내부의 ScrollViewer 찾기</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scrollViewer <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+        <span class="token class-name"><span class="token keyword">double</span></span> tolerance <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span> <span class="token comment">// 스크롤을 감지할 상/하단 너비</span>
+        <span class="token class-name">Point</span> position <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">GetPosition</span><span class="token punctuation">(</span>FileListView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>position<span class="token punctuation">.</span>Y <span class="token operator">&lt;</span> tolerance<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// 상단 영역에 있으면 위로 스크롤 (이동속도: 2)</span>
+            scrollViewer<span class="token punctuation">.</span><span class="token function">ScrollToVerticalOffset</span><span class="token punctuation">(</span>scrollViewer<span class="token punctuation">.</span>VerticalOffset <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>position<span class="token punctuation">.</span>Y <span class="token operator">></span> FileListView<span class="token punctuation">.</span>ActualHeight <span class="token operator">-</span> tolerance<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// 하단 영역에 있으면 아래로 스크롤 (이동속도: 2)</span>
+            scrollViewer<span class="token punctuation">.</span><span class="token function">ScrollToVerticalOffset</span><span class="token punctuation">(</span>scrollViewer<span class="token punctuation">.</span>VerticalOffset <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p>PreviewDragOver 이벤트에서 마우스의 Y좌표를 계산하고 리스트 상/하단 30px 영역을 '스크롤 구간'으로 정의하고 마우스가 이 구간에 머물면 스크롤이 작동</p>
+</blockquote>
+<h3 id="리스트-구조-변경" style="position:relative;"><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD" aria-label="리스트 구조 변경 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>리스트 구조 변경</h3>
+<p>Drag&#x26;Drop으로 순서 변경 기능과 드롭 위치에 대한 인디케이터를 구현하는 과정에서 <code class="language-text">DataGrid</code> 구조가
+순서 변경이 복잡하고 인디케이터를 넣기에 너무 경직된 구조여서 변경할 필요성을 느껴 <code class="language-text">ListView + GridView</code>로 구조를 전환했습니다.</p>
+<p>또한, 기존의 폴더 행으로 구분감을 주는 표현이 리스트 구현 난이도를 너무 어렵게 하면서 순서 변경과 충돌하는 난해한 부분들도 많았습니다.</p>
+<p>예를 들면,</p>
+<ul>
+<li>Drop 위치가 폴더 행이라면?</li>
+<li>순서를 변경하는데 Drag위치와 Drop위치가 다른 폴더라면 어떻게 동작할것인가?</li>
+</ul>
+<p>이런 여러가지 애매한 부분들이 있었고 해결방법들이 아쉬운 부분들이 많아서 오히려 UX적인 측면에서 마이너스 요소라고 판단하게되어 수정을 했습니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9e643401d0bca9e662fe9846d0c12ae8/72e01/list_beta.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 60.122699386503065%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAMABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAdtlkjD/xAAWEAEBAQAAAAAAAAAAAAAAAAAQAQL/2gAIAQEAAQUCjl//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAYEAACAwAAAAAAAAAAAAAAAAAQEQAhMf/aAAgBAQABPyF6jGD/AP/aAAwDAQACAAMAAAAQY8//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAbEAEAAgIDAAAAAAAAAAAAAAABABEhQTFRkf/aAAgBAQABPxBgtm18lq3NFkBrw4lHRGf/2Q=='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/9e643401d0bca9e662fe9846d0c12ae8/94563/list_beta.webp 163w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/647a8/list_beta.webp 325w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/c1dc5/list_beta.webp 650w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/1e975/list_beta.webp 975w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/a9a89/list_beta.webp 1024w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/9e643401d0bca9e662fe9846d0c12ae8/d2f63/list_beta.jpg 163w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/c989d/list_beta.jpg 325w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/6aca1/list_beta.jpg 650w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/7c09c/list_beta.jpg 975w,
+/static/9e643401d0bca9e662fe9846d0c12ae8/72e01/list_beta.jpg 1024w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/9e643401d0bca9e662fe9846d0c12ae8/6aca1/list_beta.jpg"
+            alt="ListView + GridView 구조의 리스트"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<p>초기 기획에서는 폴더를 구분하는 UI의 역할로만 보고있었는데, 그 역할을 수정하면서 간과하고있던 폴더도 하나의 이름 변경 대상이라는걸 깨달아</p>
+<p>폴더 추가 버튼으로 폴더를 추가할떄 내부 파일을 추가할껀지, 폴더 자체를 추가할껀지 묻는 다이얼로그를 추가하고 기존엔 파일만 번호를 부여하는 기획을 수정해서 폴더 또한 파일과 동일하게 취급하는 방식으로 변경하였습니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 340px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/a9568a437e86be3b743889ba9a3b919d/d30a3/Folder_Dialog.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 55.828220858895705%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHccGlggf/EABkQAAMAAwAAAAAAAAAAAAAAAAABAgMQMf/aAAgBAQABBQLbxRTUSjh//8QAFREBAQAAAAAAAAAAAAAAAAAAECH/2gAIAQMBAT8Bp//EABURAQEAAAAAAAAAAAAAAAAAABAh/9oACAECAQE/AYf/xAAaEAABBQEAAAAAAAAAAAAAAAAQAAECETEh/9oACAEBAAY/AtNvHqwf/8QAHBABAAICAwEAAAAAAAAAAAAAAQARMUEQIYGR/9oACAEBAAE/IXOH2F1p94YCVuDUEgAo6J//2gAMAwEAAgADAAAAEJDP/8QAFhEBAQEAAAAAAAAAAAAAAAAAIQEQ/9oACAEDAQE/EInP/8QAFhEBAQEAAAAAAAAAAAAAAAAAIQEQ/9oACAECAQE/EKDP/8QAGxABAAIDAQEAAAAAAAAAAAAAAQARITFhQdH/2gAIAQEAAT8QaPBxpUdWe0efJsqAlzBQwKIYOjQT/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/a9568a437e86be3b743889ba9a3b919d/94563/Folder_Dialog.webp 163w,
+/static/a9568a437e86be3b743889ba9a3b919d/647a8/Folder_Dialog.webp 325w,
+/static/a9568a437e86be3b743889ba9a3b919d/8ae5a/Folder_Dialog.webp 340w"
+              sizes="(max-width: 340px) 100vw, 340px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/a9568a437e86be3b743889ba9a3b919d/d2f63/Folder_Dialog.jpg 163w,
+/static/a9568a437e86be3b743889ba9a3b919d/c989d/Folder_Dialog.jpg 325w,
+/static/a9568a437e86be3b743889ba9a3b919d/d30a3/Folder_Dialog.jpg 340w"
+            sizes="(max-width: 340px) 100vw, 340px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/a9568a437e86be3b743889ba9a3b919d/d30a3/Folder_Dialog.jpg"
+            alt="폴더 추가 다이얼로그"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h2 id="리스트-자동-정렬-기능" style="position:relative;"><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%9E%90%EB%8F%99-%EC%A0%95%EB%A0%AC-%EA%B8%B0%EB%8A%A5" aria-label="리스트 자동 정렬 기능 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>리스트 자동 정렬 기능</h2>
+<p>리스트 자동 정렬 부분의 경우에는 기존에 사용하던 프로그램에서 불편함이 있던 부분 중 하나였기에 기획단계부터 어느정도 틀을 잡아놓은 상황이였습니다.</p>
+<ol>
+<li>
+<p>리스트의 기본 정렬은 목록에 추가되는 순서대로 정렬</p>
+<ul>
+<li>리스트의 번호 항목이 추가되는 순서로 부여받는 구조로 설계해둠</li>
+</ul>
+</li>
+<li>
+<p>동시에 여러 파일이 추가되는 경우에는 이름순서대로 추가</p>
+<ul>
+<li>정렬 기준을 1차 2차로 두어 최대한 사용자가 편리하도록 설계</li>
+</ul>
+</li>
+<li>
+<p>2번 상황에서 이름에 숫자가 있고 자리 수가 다를때 첫 자리수만 비교하는게 아니라 1 다음 2 9 다음 10 99다음 100이 오도록 설계</p>
+<ul>
+<li>이 문제는 수동으로 정렬을 해야하는 불편함이 있고 해당 문제를 인지하지 못하고 일괄적으로 이름을 변경하게되면 파일의 순서가 섞여버림</li>
+</ul>
+</li>
+<li>
+<p>사용자가 Drag&#x26;Drop으로 수동으로 순서를 변경한 것을 고정시킬수 있는 기능 필요</p>
+<ul>
+<li>리스트 항목의 번호가 해당 역할도 하도록 번호 재정렬할 수 있는 기능 추가</li>
+</ul>
+</li>
+</ol>
+<p>기획 단계와 UI 설계 단계에서 드롭다운 메뉴에 오름차/내림차 순 버튼을 사용하고,
+드롭다운 메뉴의 항목에는 추가, 이름, 생성일, 수정일, 크기가 들어간다는걸 설계를 해두었지만,
+시작하기에 앞서 정렬 옵션을 좀 더 디테일하게 설정을 해야 했습니다.</p>
+<p>추가 순서에 따라 번호를 지정하고 번호를 변경하게 설계할 예정이기 때문에 추가 순을 번호 순으로 변경하고 가장 상단에 두고 기본값으로 설정했습니다.</p>
+<p>폴더 별로 볼 수 있게 경로 순 옵션을 추가했습니다.
+그리고 이름, 경로 옵션은 동일한 케이스가 빈번하게 있기 때문에 2차 정렬 기준으로 번호,경로 순으로 까지 선택해서 정렬가능하도록 설계했습니다.</p>
+<blockquote>
+<p>안정성을 위해 크기, 생성일, 수정일의 2차 정렬 기준은 번호순으로 설정해두었습니다.</p>
+</blockquote>
+<p>최종적으로 8개의 옵션을 제공하는 드롭다운 메뉴를 구현하였습니다.</p>
+<ul>
+<li>번호</li>
+<li>이름-번호,경로</li>
+<li>경로-번호,이름</li>
+<li>크기</li>
+<li>생성일</li>
+<li>수정일</li>
+</ul>
+<blockquote>
+<p>리스트 헤더를 클릭해서 정렬하는 기능은 의도적으로 제외했습니다. <br> 클릭 실수로 인해 정렬이 변경되는 불편함을 예방하는게 더 좋은 UX를 제공할 것이라 판단했습니다.</p>
+</blockquote>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp">	<span class="token keyword">public</span> <span class="token return-type class-name">IEnumerable<span class="token punctuation">&lt;</span>FileItem<span class="token punctuation">></span></span> <span class="token function">Sort</span><span class="token punctuation">(</span><span class="token class-name">IEnumerable<span class="token punctuation">&lt;</span>FileItem<span class="token punctuation">></span></span> items<span class="token punctuation">,</span> <span class="token class-name">SortOption</span> option<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">bool</span></span> isAscending<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+		<span class="token comment">//...</span>
+        <span class="token comment">// 1차 정렬: 사용자가 선택한 주 정렬 기준</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span>option<span class="token punctuation">.</span>Type<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> SortType<span class="token punctuation">.</span>NameNumber<span class="token punctuation">:</span>
+            <span class="token keyword">case</span> SortType<span class="token punctuation">.</span>NamePath<span class="token punctuation">:</span>
+                <span class="token comment">// 윈도우 탐색기 방식의 자연스러운 정렬(숫자 인식 등) 적용</span>
+                sortedItems <span class="token operator">=</span> <span class="token return-type class-name">isAscending
+                    <span class="token punctuation">?</span></span> itemList<span class="token punctuation">.</span><span class="token function">OrderBy</span><span class="token punctuation">(</span>x <span class="token operator">=></span> x<span class="token punctuation">.</span>BaseName<span class="token punctuation">,</span> _naturalComparer<span class="token punctuation">)</span>
+                    <span class="token punctuation">:</span> itemList<span class="token punctuation">.</span><span class="token function">OrderByDescending</span><span class="token punctuation">(</span>x <span class="token operator">=></span> x<span class="token punctuation">.</span>BaseName<span class="token punctuation">,</span> _naturalComparer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+			<span class="token comment">//...</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 2차 정렬: 1차 기준이 같을 때 적용되는 보조 정렬 기준</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span>option<span class="token punctuation">.</span>Type<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+			<span class="token comment">//...</span>
+            <span class="token keyword">case</span> SortType<span class="token punctuation">.</span>ModifiedDate<span class="token punctuation">:</span>
+                <span class="token comment">// 대부분의 경우 중복 시 번호(AddIndex) 순으로 정렬하여 일관성 유지</span>
+                sortedItems <span class="token operator">=</span> <span class="token return-type class-name">isAscending
+                    <span class="token punctuation">?</span></span> sortedItems<span class="token punctuation">.</span><span class="token function">ThenBy</span><span class="token punctuation">(</span>x <span class="token operator">=></span> x<span class="token punctuation">.</span>AddIndex<span class="token punctuation">)</span>
+                    <span class="token punctuation">:</span> sortedItems<span class="token punctuation">.</span><span class="token function">ThenByDescending</span><span class="token punctuation">(</span>x <span class="token operator">=></span> x<span class="token punctuation">.</span>AddIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+			<span class="token comment">//...</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> sortedItems<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>LINQ</strong>를 사용하여 로직을 구현했습니다.</p>
+</blockquote>
+<h3 id="windows-11-스타일-고급-정렬" style="position:relative;"><a href="#windows-11-%EC%8A%A4%ED%83%80%EC%9D%BC-%EA%B3%A0%EA%B8%89-%EC%A0%95%EB%A0%AC" aria-label="windows 11 스타일 고급 정렬 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Windows 11 스타일 고급 정렬</h3>
+<p>기획 단계부터 Windows 11 탐색기와 정렬 방식을 동일하게 구현하는걸 목표로 했었는데,
+윈도우 시스템 API를 사용하는 방식으로 간편하게 구현할 수 있었습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WindowsNaturalComparer</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">IComparer<span class="token punctuation">&lt;</span><span class="token keyword">string</span><span class="token punctuation">></span></span></span>
+<span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">DllImport</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token string">"shlwapi.dll"</span><span class="token punctuation">,</span> CharSet <span class="token operator">=</span> CharSet<span class="token punctuation">.</span>Unicode<span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">extern</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> <span class="token function">StrCmpLogicalW</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> psz1<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">string</span></span> psz2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> <span class="token function">Compare</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">?</span></span> x<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">?</span></span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> y <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token function">StrCmpLogicalW</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p>Windows의 <code class="language-text">shlwapi.dll</code> 라이브러리에서 논리적 문자열 비교(<code class="language-text">StrCmpLogicalW</code>) 함수를 가져옵니다.</p>
+</blockquote>
+<p><strong>번호 재정렬 기능</strong>
+Drag&#x26;Drop으로 사용자가 변경한 리스트의 항목을 유지시켜주는 기능을 제공하기위해 기존의 파일의 추가순서였던 <code class="language-text">AddIndex</code>(번호)를 재사용하는게 좋겠다는 생각이 들어서 사용자가 임의로 변경한 순서를 고정시켜줄 수 있는 번호 재정렬 기능을 구현하였습니다.</p>
+<hr>
+<p>지금까지 TagNamer의 기본적인 UI와 리스트 및 리스트와 연관된 기능을 구현하는 과정을 정리하였습니다.
+<br>
+이어지는 다음 포스트에서는 태그를 사용한 이름 변경 시스템 개발과 태그 개발에 대해 중점적으로 다룰 예정입니다.</p></div><div class="sc-drVZOg gnqMvA"></div><div class="sc-jIyAiq bbisrQ giscus"></div></div><div class="sc-dEkLRj cGcpJS"><div class="sc-kZrBCu fSvquJ"><button width="32" height="32" class="sc-blHHSb jJzVYQ"><svg viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zm64 0l0 64 64 0 0-64L64 96zm384 0L192 96l0 64 256 0 0-64zM64 224l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64zM64 352l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64z"></path></svg></button><h3 class="sc-diYFot jmJGFq">목차</h3></div><div class="sc-kEfuZE QztIu"><ul>
+<li>
+<p><a href="#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C">다운로드</a></p>
+</li>
+<li>
+<p><a href="#%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD">개발 배경</a></p>
+<ul>
+<li>
+<p><a href="#%EA%B8%B0%ED%9A%8D%EC%84%9C-%EC%9E%91%EC%84%B1">기획서 작성</a></p>
+<ul>
+<li><a href="#%EA%B0%9C%EB%B0%9C-%EB%AA%A9%ED%91%9C">개발 목표</a></li>
+<li><a href="#%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%EC%A1%B0">핵심 기능 구조</a></li>
+<li><a href="#%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EC%84%A4%EA%B3%84">인터페이스 설계</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95">개발 과정</a></p>
+<ul>
+<li>
+<p><a href="#ui-%EA%B0%9C%EB%B0%9C">UI 개발</a></p>
+</li>
+<li>
+<p><a href="#%ED%8C%8C%EC%9D%BC-%EC%B6%94%EA%B0%80-%EA%B0%9C%EB%B0%9C">파일 추가 개발</a></p>
+<ul>
+<li><a href="#%ED%8C%8C%EC%9D%BC-%EC%84%A0%ED%83%9D%EC%B0%BD-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80">파일 선택창 기능 추가</a></li>
+<li><a href="#dragdrop-%ED%8C%8C%EC%9D%BC-%EC%B6%94%EA%B0%80-%EA%B0%9C%EB%B0%9C">Drag&#x26;Drop 파일 추가 개발</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%88%9C%EC%84%9C-%EB%B3%80%EA%B2%BD-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EB%B0%9C">리스트 순서 변경 기능 개발</a></p>
+<ul>
+<li><a href="#%EB%8B%A4%EC%A4%91-%EC%84%A0%ED%83%9D-%EA%B5%AC%ED%98%84">다중 선택 구현</a></li>
+<li><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD">리스트 구조 변경</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%9E%90%EB%8F%99-%EC%A0%95%EB%A0%AC-%EA%B8%B0%EB%8A%A5">리스트 자동 정렬 기능</a></p>
+<ul>
+<li><a href="#windows-11-%EC%8A%A4%ED%83%80%EC%9D%BC-%EA%B3%A0%EA%B8%89-%EC%A0%95%EB%A0%AC">Windows 11 스타일 고급 정렬</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></div></div></article></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/post/03/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-8d9b3211922090f5a049.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-79e53f6051d389951a8f.js\"],\"component---src-pages-about-js\":[\"/component---src-pages-about-js-2db541a804b8d7836e0e.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-49d505776a701e376923.js\"],\"component---src-pages-search-js\":[\"/component---src-pages-search-js-65ed6ad5adde7da79873.js\"],\"component---src-templates-category-template-js\":[\"/component---src-templates-category-template-js-4b033d4628284d020ce6.js\"],\"component---src-templates-post-template-js\":[\"/component---src-templates-post-template-js-f51656638ccd0a9e3d4f.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="5bc5874e011dc2295bae";</script><script src="/webpack-runtime-bb511f298f7573c52606.js" async></script><script src="/framework-fa9a75ceb59e8cf58443.js" async></script><script src="/app-8d9b3211922090f5a049.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
