@@ -68,8 +68,8 @@ module.exports = {
       options: {
         exclude: [`/404/`, `/dev-404-page/`],
         serialize: ({ path }) => ({
-          url: path,
-          lastmod: new Date().toISOString(), // 빌드 시각 기준으로 lastmod 설정
+          url: `https://lsj1206.github.io${path}`, // 도메인을 강제
+          lastmod: new Date().toISOString().split(".")[0] + "Z", // 밀리초 제거 (권장 규격)
         }),
       },
     },
