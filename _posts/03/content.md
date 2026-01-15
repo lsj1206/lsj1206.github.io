@@ -1,8 +1,8 @@
 ---
 title: "TagNamer 개발일지-(01)"
 coverImage: "./_assets/TagNamer_01.jpg"
-category: "C#"
-tag: ["C#", ".NET10", "ModernWpf", "TagNamer"]
+category: "C-sharp"
+tag: ["C-sharp", ".NET10", "ModernWpf", "TagNamer"]
 createDate: "2026-01-15"
 lastDate: "2026-01-15"
 ---
