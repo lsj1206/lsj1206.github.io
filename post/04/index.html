@@ -1,0 +1,882 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.14.0"/><meta name="google-site-verification" content="5vTm1MVlmRNKBITz7_BNAkzI9YOP6FO5Qgun-tlMe8o"/><meta name="description" content="Windows에서 사용가능한 파일명 변경 프로그램인 TagNamer의 개발과정을 담은 두 번째 포스트입니다.
+
+태그를 사용한 이름 변경 시스템과 태그 시스템, 보조 기능과 최적화에 대해서 정리했습니다." data-gatsby-head="true"/><meta name="robots" content="index, follow" data-gatsby-head="true"/><meta property="og:title" content="TagNamer 개발일지-(02)" data-gatsby-head="true"/><meta property="og:description" content="Windows에서 사용가능한 파일명 변경 프로그램인 TagNamer의 개발과정을 담은 두 번째 포스트입니다.
+
+태그를 사용한 이름 변경 시스템과 태그 시스템, 보조 기능과 최적화에 대해서 정리했습니다." data-gatsby-head="true"/><meta property="og:type" content="article" data-gatsby-head="true"/><meta property="og:url" content="https://lsj1206.github.io/post/04/" data-gatsby-head="true"/><meta property="og:image" content="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg" data-gatsby-head="true"/><meta name="twitter:card" content="summary_large_image" data-gatsby-head="true"/><meta name="twitter:title" content="TagNamer 개발일지-(02)" data-gatsby-head="true"/><meta name="twitter:description" content="Windows에서 사용가능한 파일명 변경 프로그램인 TagNamer의 개발과정을 담은 두 번째 포스트입니다.
+
+태그를 사용한 이름 변경 시스템과 태그 시스템, 보조 기능과 최적화에 대해서 정리했습니다." data-gatsby-head="true"/><meta name="twitter:image" content="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg" data-gatsby-head="true"/><style data-href="/styles.a26dd897e8c89e92c275.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#f8f8f2;font-family:D2Coding,Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#404859}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.175rem .3rem .1rem;white-space:normal}.token.comment{color:#9f9f9f}.token.cdata,.token.doctype,.token.prolog{color:#636f88}.token.punctuation{color:#81a1c1}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#81a1c1}.token.number{color:#b48ead}.token.boolean{color:#81a1c1}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a3be8c}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#81a1c1}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#88c0d0}.token.keyword{color:#81a1c1}.token.important,.token.regex{color:#ebcb8b}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><style data-styled="" data-styled-version="6.1.13">.jJzVYQ{z-index:10;display:flex;align-items:center;justify-content:center;padding:5px;width:32px;height:32px;background-color:transparent;border:none;cursor:pointer;}/*!sc*/
+.jJzVYQ svg{width:100%;height:100%;}/*!sc*/
+.jJzVYQ svg:active{transform:scale(0.95);}/*!sc*/
+data-styled.g1[id="sc-blHHSb"]{content:"jJzVYQ,"}/*!sc*/
+.cpKqkw{display:flex;flex-direction:column;width:100%;}/*!sc*/
+data-styled.g26[id="sc-geXuza"]{content:"cpKqkw,"}/*!sc*/
+.fABRiL{margin-bottom:10px;height:1px;}/*!sc*/
+data-styled.g27[id="sc-hJRrWL"]{content:"fABRiL,"}/*!sc*/
+.lfJWOO{margin:0;}/*!sc*/
+data-styled.g28[id="sc-fwzISk"]{content:"lfJWOO,"}/*!sc*/
+.fCivAt{display:flex;justify-content:space-between;margin-bottom:10px;}/*!sc*/
+@media (max-width: 768px){.fCivAt{flex-direction:column;justify-content:flex-start;}}/*!sc*/
+data-styled.g29[id="sc-hbtGpV"]{content:"fCivAt,"}/*!sc*/
+.iqoQAv{display:flex;align-items:center;margin-right:0.5rem;font-weight:bolder;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);}/*!sc*/
+.iqoQAv svg{flex-shrink:0;margin:0 0.5rem 0 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g30[id="sc-bMTdWJ"]{content:"iqoQAv,"}/*!sc*/
+.YThQL{flex:1;text-shadow:0px 1px 3px rgba(0, 0, 0, 0.1);cursor:pointer;}/*!sc*/
+.YThQL svg{margin:0 0.5rem 0 0;}/*!sc*/
+.YThQL:hover{transform:scale(1.025);}/*!sc*/
+.YThQL:active{transform:scale(0.975);}/*!sc*/
+data-styled.g31[id="sc-jhZTHU"]{content:"YThQL,"}/*!sc*/
+.iGfRrF{display:flex;flex-direction:row;flex-wrap:wrap;width:100%;min-height:1.75rem;}/*!sc*/
+.iGfRrF svg{flex-shrink:0;margin:0.25rem 0.5rem 0.5rem 0;width:1rem;height:1rem;}/*!sc*/
+data-styled.g32[id="sc-epnzzT"]{content:"iGfRrF,"}/*!sc*/
+.bnSlcB{display:flex;align-items:center;margin:0 0.5rem 0.5rem 0;padding:0 0.5rem;min-height:1.5rem;font-size:0.9rem;font-weight:bolder;border-radius:0.25rem;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);cursor:pointer;}/*!sc*/
+.bnSlcB:hover{transform:scale(1.025);}/*!sc*/
+.bnSlcB:active{transform:scale(0.975);}/*!sc*/
+data-styled.g33[id="sc-uYFMi"]{content:"bnSlcB,"}/*!sc*/
+.erlqYf{flex-shrink:0;margin:0.75rem 0 0.25rem 0;width:100%;height:15rem;border-radius:0.75rem;overflow:hidden;}/*!sc*/
+data-styled.g34[id="sc-bbQqnZ"]{content:"erlqYf,"}/*!sc*/
+.iZisKQ{width:100%;height:100%;object-fit:cover;}/*!sc*/
+data-styled.g35[id="sc-iwXfZk"]{content:"iZisKQ,"}/*!sc*/
+.cGcpJS{z-index:500;padding:0 1rem 1rem 1rem;position:fixed;top:15vh;right:8vw;width:275px;max-height:70vh;opacity:0.95;border-radius:0.75rem;box-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);overflow-x:hidden;overflow-y:auto;}/*!sc*/
+@media (max-width: 1440px){.cGcpJS{top:50px;right:5px;width:auto;height:auto;padding:0.25rem;padding-top:0.25rem;}}/*!sc*/
+.cGcpJS::-webkit-scrollbar{width:3px;}/*!sc*/
+.cGcpJS::-webkit-scrollbar-track{margin-block:0.75rem;}/*!sc*/
+data-styled.g36[id="sc-dEkLRj"]{content:"cGcpJS,"}/*!sc*/
+.fSvquJ{z-index:501;display:flex;position:sticky;top:0;align-items:center;flex-direction:row;padding-top:0;padding-bottom:0;}/*!sc*/
+.fSvquJ svg{flex-shrink:0;margin:0.25rem 0.5rem 0 0;width:1.25rem;height:1.25rem;}/*!sc*/
+.fSvquJ svg :active{transform:scale(0.975);}/*!sc*/
+@media (max-width: 1440px){.fSvquJ svg{margin:0;}}/*!sc*/
+data-styled.g37[id="sc-kZrBCu"]{content:"fSvquJ,"}/*!sc*/
+.jmJGFq{margin:0;text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+@media (max-width: 1440px){.jmJGFq{display:none;}}/*!sc*/
+data-styled.g38[id="sc-diYFot"]{content:"jmJGFq,"}/*!sc*/
+.QztIu{text-shadow:1px 3px 5px rgba(0, 0, 0, 0.25);}/*!sc*/
+.QztIu a{display:block;word-break:break-word;white-space:normal;line-height:1.4;text-decoration:none;}/*!sc*/
+.QztIu a:hover{font-weight:bolder;}/*!sc*/
+@media (max-width: 1440px){.QztIu{display:none;}}/*!sc*/
+data-styled.g39[id="sc-kEfuZE"]{content:"QztIu,"}/*!sc*/
+.dPonAB{display:flex;flex-direction:row;}/*!sc*/
+data-styled.g40[id="sc-dhCplO"]{content:"dPonAB,"}/*!sc*/
+.bXIEPC{display:flex;flex-direction:column;padding-top:30px;width:768px;}/*!sc*/
+@media (max-width: 1279px){.bXIEPC{width:66vw;}}/*!sc*/
+@media (max-width: 768px){.bXIEPC{width:75vw;}}/*!sc*/
+data-styled.g41[id="sc-eMwmJz"]{content:"bXIEPC,"}/*!sc*/
+.gnqMvA{margin:5px 0 15px 0;width:100%;height:1px;}/*!sc*/
+data-styled.g42[id="sc-drVZOg"]{content:"gnqMvA,"}/*!sc*/
+.hxfQZm{margin:2rem 0;}/*!sc*/
+.hxfQZm img{border:1px solid;border-radius:0.3rem;}/*!sc*/
+data-styled.g43[id="sc-eWPXlR"]{content:"hxfQZm,"}/*!sc*/
+</style><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/><title data-gatsby-head="true">TagNamer 개발일지-(02)</title><link rel="canonical" href="https://lsj1206.github.io/post/04/" data-gatsby-head="true"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><article class="sc-dhCplO dPonAB"><div class="sc-eMwmJz bXIEPC"><div class="sc-geXuza cpKqkw"><h2 class="sc-fwzISk lfJWOO">TagNamer 개발일지-(02)</h2><div class="sc-hJRrWL fABRiL"></div><div class="sc-hbtGpV fCivAt"><p class="sc-bMTdWJ sc-jhZTHU iqoQAv YThQL"><svg viewBox="0 0 576 512"><path d="M88.7 223.8L0 375.8 0 96C0 60.7 28.7 32 64 32l117.5 0c17 0 33.3 6.7 45.3 18.7l26.5 26.5c12 12 28.3 18.7 45.3 18.7L416 96c35.3 0 64 28.7 64 64l0 32-336 0c-22.8 0-43.8 12.1-55.3 31.8zm27.6 16.1C122.1 230 132.6 224 144 224l400 0c11.5 0 22 6.1 27.7 16.1s5.7 22.2-.1 32.1l-112 192C453.9 474 443.4 480 432 480L32 480c-11.5 0-22-6.1-27.7-16.1s-5.7-22.2 .1-32.1l112-192z"></path></svg>C-sharp</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z"></path></svg>2026-01-17</p><p class="sc-bMTdWJ iqoQAv"><svg viewBox="0 0 448 512"><path d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"></path></svg>2026-01-17</p></div><div class="sc-epnzzT iGfRrF"><svg viewBox="0 0 512 512"><path d="M345 39.1L472.8 168.4c52.4 53 52.4 138.2 0 191.2L360.8 472.9c-9.3 9.4-24.5 9.5-33.9 .2s-9.5-24.5-.2-33.9L438.6 325.9c33.9-34.3 33.9-89.4 0-123.7L310.9 72.9c-9.3-9.4-9.2-24.6 .2-33.9s24.6-9.2 33.9 .2zM0 229.5L0 80C0 53.5 21.5 32 48 32l149.5 0c17 0 33.3 6.7 45.3 18.7l168 168c25 25 25 65.5 0 90.5L277.3 442.7c-25 25-65.5 25-90.5 0l-168-168C6.7 262.7 0 246.5 0 229.5zM144 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg><p class="sc-uYFMi bnSlcB">C-sharp</p><p class="sc-uYFMi bnSlcB">.NET10</p><p class="sc-uYFMi bnSlcB">ModernWpf</p><p class="sc-uYFMi bnSlcB">TagNamer</p></div><div class="sc-bbQqnZ erlqYf"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained sc-iwXfZk iZisKQ"><div style="max-width:953px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;597&#x27;%20width=&#x27;953&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><img aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear" decoding="async" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAECAwX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHt3Gghh//EABUQAQEAAAAAAAAAAAAAAAAAAAIQ/9oACAEBAAEFAjTf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGRAAAgMBAAAAAAAAAAAAAAAAABEBECEx/9oACAEBAAE/IWlmo05v/9oADAMBAAIAAwAAABCwz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAQACAgMAAAAAAAAAAAAAAAEAESExQaHR/9oACAEBAAE/EFkK09QNhmByJs9ly5//2Q==" alt=""/><picture><source type="image/webp" data-srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/a41a4/TagNamer_cover.webp 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/f82b4/TagNamer_cover.webp 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/d27b2/TagNamer_cover.webp 953w" sizes="(min-width: 953px) 953px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 953px) 953px, 100vw" decoding="async" loading="lazy" data-src="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg" data-srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/28fc8/TagNamer_cover.jpg 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/952d6/TagNamer_cover.jpg 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg 953w" alt="_coverImage"/></picture><noscript><picture><source type="image/webp" srcSet="/static/9436aaa750d99ff82cf4c58f32a97a6a/a41a4/TagNamer_cover.webp 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/f82b4/TagNamer_cover.webp 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/d27b2/TagNamer_cover.webp 953w" sizes="(min-width: 953px) 953px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 953px) 953px, 100vw" decoding="async" loading="lazy" src="/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg" srcSet="/static/9436aaa750d99ff82cf4c58f32a97a6a/28fc8/TagNamer_cover.jpg 238w,/static/9436aaa750d99ff82cf4c58f32a97a6a/952d6/TagNamer_cover.jpg 477w,/static/9436aaa750d99ff82cf4c58f32a97a6a/481e2/TagNamer_cover.jpg 953w" alt="_coverImage"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div></div><div class="sc-eWPXlR hxfQZm"><p>Windows에서 사용가능한 파일명 변경 프로그램인 <strong>TagNamer</strong>의 개발과정을 담은 두 번째 포스트입니다.
+<br>
+태그를 사용한 이름 변경 시스템과 태그 시스템, 보조 기능과 최적화에 대해서 정리했습니다.</p>
+<!-- end -->
+<h1 id="다운로드" style="position:relative;"><a href="#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C" aria-label="다운로드 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>다운로드</h1>
+<ul>
+<li><a href="https://github.com/lsj1206/TagNamer/releases/tag/v1.0.0" target="_blank" rel="nofollow noopener noreferrer">TagNamer v1.0.0 다운로드 링크</a></li>
+<li>자세한 정보 : <a href="https://github.com/lsj1206/TagNamer" target="_blank" rel="nofollow noopener noreferrer">GitHub</a></li>
+<li>라이센스 : <a href="https://github.com/lsj1206/TagNamer?tab=License-1-ov-file" target="_blank" rel="nofollow noopener noreferrer">MIT License</a></li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9436aaa750d99ff82cf4c58f32a97a6a/35969/TagNamer_cover.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAIBBf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAe5U2YD/xAAXEAADAQAAAAAAAAAAAAAAAAABEDEC/9oACAEBAAEFAhFmL//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABkQAAIDAQAAAAAAAAAAAAAAAAARASAhcf/aAAgBAQABPyF5Go7Q/9oADAMBAAIAAwAAABAwz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABkQAAMBAQEAAAAAAAAAAAAAAAABIRFBcf/aAAgBAQABPxB9j1umYSiTyKT0/TRun//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/94563/TagNamer_cover.webp 163w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/647a8/TagNamer_cover.webp 325w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/c1dc5/TagNamer_cover.webp 650w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/5bf28/TagNamer_cover.webp 953w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/9436aaa750d99ff82cf4c58f32a97a6a/d2f63/TagNamer_cover.jpg 163w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/c989d/TagNamer_cover.jpg 325w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/6aca1/TagNamer_cover.jpg 650w,
+/static/9436aaa750d99ff82cf4c58f32a97a6a/35969/TagNamer_cover.jpg 953w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/9436aaa750d99ff82cf4c58f32a97a6a/6aca1/TagNamer_cover.jpg"
+            alt="TagNamer_cover"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h3 id="들어가기에-앞서" style="position:relative;"><a href="#%EB%93%A4%EC%96%B4%EA%B0%80%EA%B8%B0%EC%97%90-%EC%95%9E%EC%84%9C" aria-label="들어가기에 앞서 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>들어가기에 앞서</h3>
+<p>1부는 대략적인 시간 순서에 따라 리스트와 UI의 변천사를 다루었지만, 2부는 **'태그 시스템'**을 중심으로 연계되는 기능에 초점을 맞춰 정리했습니다.</p>
+<h1 id="규칙-설정-화면-구성" style="position:relative;"><a href="#%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95-%ED%99%94%EB%A9%B4-%EA%B5%AC%EC%84%B1" aria-label="규칙 설정 화면 구성 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>규칙 설정 화면 구성</h1>
+<p>복잡한 규칙 설정과 태그 관리를 메인 화면에 모두 넣으면 UI가 너무 산만해질 우려가 있었습니다.
+그래서 '규칙 설정'은 별도의 윈도우(<code class="language-text">RenameWindow</code>)로 분리하여 집중할 수 있는 환경을 만들었습니다.</p>
+<p><strong>화면 구성</strong></p>
+<ul>
+<li><strong>상단 (Rule Input)</strong>: 규칙과 태그를 입력하는 <code class="language-text">FilterTextBox</code>를 배치했습니다.</li>
+<li><strong>중단 (Tag List)</strong>: 사용가능한 태그 목록을 보여주며, 우클릭을 통해 컨텍스트 메뉴를 호출할 수 있습니다.</li>
+<li><strong>하단 (Tag Creation)</strong>: 옵션 태그를 생성하는 영역입니다. 선택한 태그 타입에 따라 필요한 옵션 입력 UI가 동적으로 바뀝니다.</li>
+</ul>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c8ab0f0be8949d7d488b5fdb860b770a/c1eae/RenameWindow_release.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB3LigD//EABcQAAMBAAAAAAAAAAAAAAAAAAIQETH/2gAIAQEAAQUCGscX/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGBABAQADAAAAAAAAAAAAAAAAAREQICH/2gAIAQEAAT8hoXQSk7j/2gAMAwEAAgADAAAAEDPP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGxABAAICAwAAAAAAAAAAAAAAAQARQVEhcZH/2gAIAQEAAT8QQUj3OdEBzBs+wlsLyNMWqn//2Q=='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/c8ab0f0be8949d7d488b5fdb860b770a/94563/RenameWindow_release.webp 163w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/647a8/RenameWindow_release.webp 325w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/c1dc5/RenameWindow_release.webp 650w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/108af/RenameWindow_release.webp 949w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/c8ab0f0be8949d7d488b5fdb860b770a/d2f63/RenameWindow_release.jpg 163w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/c989d/RenameWindow_release.jpg 325w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/6aca1/RenameWindow_release.jpg 650w,
+/static/c8ab0f0be8949d7d488b5fdb860b770a/c1eae/RenameWindow_release.jpg 949w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/c8ab0f0be8949d7d488b5fdb860b770a/6aca1/RenameWindow_release.jpg"
+            alt="RenameWindow_release"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h2 id="규칙-텍스트-박스" style="position:relative;"><a href="#%EA%B7%9C%EC%B9%99-%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%B0%95%EC%8A%A4" aria-label="규칙 텍스트 박스 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>규칙 텍스트 박스</h2>
+<p>규칙 텍스트 박스는 사용자가 파일명을 변경할 규칙을 입력하는 핵심 컨트롤입니다.
+단순한 텍스트 입력뿐만 아니라, <code class="language-text">[Tag]</code> 형태의 태그를 삽입하여 동적인 이름 변경을 지원합니다.</p>
+<p>사용자가 텍스트를 입력하면 실시간으로 미리보기(Preview)에 반영됩니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/2bdc0c9ac11ba2628f573254b92d3860/288ea/RuleTextBox_release.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 30.061349693251532%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAGABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAdqxAP/EABUQAQEAAAAAAAAAAAAAAAAAAAEQ/9oACAEBAAEFAhv/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAQ/9oACAEBAAY/An//xAAYEAADAQEAAAAAAAAAAAAAAAAAAREhcf/aAAgBAQABPyFm1l6U/9oADAMBAAIAAwAAABD/AP8A/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8QV//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAECAQE/EEf/xAAYEAADAQEAAAAAAAAAAAAAAAAAAREhYf/aAAgBAQABPxDUY48hLjonp//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/2bdc0c9ac11ba2628f573254b92d3860/94563/RuleTextBox_release.webp 163w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/647a8/RuleTextBox_release.webp 325w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/c1dc5/RuleTextBox_release.webp 650w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/d02c2/RuleTextBox_release.webp 841w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/2bdc0c9ac11ba2628f573254b92d3860/d2f63/RuleTextBox_release.jpg 163w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/c989d/RuleTextBox_release.jpg 325w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/6aca1/RuleTextBox_release.jpg 650w,
+/static/2bdc0c9ac11ba2628f573254b92d3860/288ea/RuleTextBox_release.jpg 841w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/2bdc0c9ac11ba2628f573254b92d3860/6aca1/RuleTextBox_release.jpg"
+            alt="RuleTextBox_release"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h2 id="태그-시스템-설계" style="position:relative;"><a href="#%ED%83%9C%EA%B7%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84" aria-label="태그 시스템 설계 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>태그 시스템 설계</h2>
+<p>기존에 사용하던 프로그램은 하나의 목록을 한 두번 변경하기엔 효율적인 구조지만, 여러 개의 파일목록을 다룰때에는 비효율적 부분이 존재했습니다.</p>
+<p>기획단계에서 여러개의 목록을 다룰때 효율적인 구조를 생각하다 정규식을 떠올렸지만 정규식은 복잡하고 직관적이지 않아 비슷하면서 더 직관적이고 효율적인 시스템으로 태그를 생각하게 되었습니다.</p>
+<p>태그는 세가지 종류로 구성됩니다.</p>
+<ol>
+<li>기본태그
+<ul>
+<li>특별한 옵션이 없어 사용만 하면 되는 태그</li>
+</ul>
+</li>
+<li>Unique 속성을 가지는 기본태그
+<ul>
+<li>위치와 상관없이 작동하고 규칙 전체에 동작하는 기본태그</li>
+</ul>
+</li>
+<li>옵션태그
+<ul>
+<li>옵션이 있어 사용자가 커스텀해서 사용하는 태그</li>
+</ul>
+</li>
+</ol>
+<p><code class="language-text">MVVM</code> 구조의 모델로 <code class="language-text">TagItem</code>을 구현하고 기본태그와 옵션태그 모두 <code class="language-text">TagItem</code>을 상속받지만,</p>
+<ul>
+<li>기본 태그는 처음부터 하드코딩으로 태그 리스트에 생성</li>
+<li>옵션 태그는 사용자가 옵션을 설정후 생성하면 태그 리스트에 [태그이름+번호] 형태로 추가</li>
+</ul>
+<p>하는 구조로 설계했습니다.</p>
+<h3 id="number-atoz-태그-개발" style="position:relative;"><a href="#number-atoz-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C" aria-label="number atoz 태그 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>[Number], [AtoZ] 태그 개발</h3>
+<p>[Number]와 [AtoZ] 태그는 가장 기본이라고 볼 수 있는 번호 매기기 로직으로 작동하는 태그입니다.</p>
+<p>두 태그 공통적으로, 시작 값과 자리 수가 옵션이고 [AtoZ] 태그는 소문자 수라는 옵션도 추가했습니다.</p>
+<h4 id="filtertextbox-구현" style="position:relative;"><a href="#filtertextbox-%EA%B5%AC%ED%98%84" aria-label="filtertextbox 구현 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FilterTextBox 구현</h4>
+<p>자리 수 옵션이나 소문자 수 옵션은 숫자만 유효하고, [Number] 태그의 시작 값은 숫자만, [AtoZ] 태그는 알파벳만 유효합니다.
+나머지 문자들은 예외처리를 해야하는데 입력을 받고 처리하는것보다 더 효율적 UI 입력 단계에서 차단을 하고싶었습니다.</p>
+<p>기본적인 구조에서는 차단하는 방법은 간단했지만 텍스트박스에 입력자체가 안되다보니 UX적으로 별로라고 생각해서 어떤 문자들이 입력이 가능한건지 알려주는 UX가 필요했습니다.</p>
+<p>그런데 툴팁을 사용하자니 직관적으로 알려준다는 생각이 들지 않아서 입력은 되지만 차단되는 문자는 입력즉시 삭제하는 UX를 구현하고 싶어서 <code class="language-text">FilterTextBox</code>를 구현했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">OnTextChanged</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">object</span></span> sender<span class="token punctuation">,</span> <span class="token class-name">TextChangedEventArgs</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_isFiltering<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    _isFiltering <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 딜레이를 사용해서 입력불가를 UX로 표현 (깜빡이는 듯한 효과)</span>
+    Dispatcher<span class="token punctuation">.</span><span class="token function">BeginInvoke</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">try</span>
+        <span class="token punctuation">{</span>
+            <span class="token function">ApplyFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">finally</span>
+        <span class="token punctuation">{</span>
+            _isFiltering <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> System<span class="token punctuation">.</span>Windows<span class="token punctuation">.</span>Threading<span class="token punctuation">.</span>DispatcherPriority<span class="token punctuation">.</span>Background<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p>텍스트가 변경될 때마다(<code class="language-text">OnTextChanged</code>) 비동기(<code class="language-text">Dispatcher.BeginInvoke</code>)로 필터링 로직을 수행합니다.</p>
+</blockquote>
+<p>이렇게 하면 사용자가 잘못된 문자를 입력했을 때, <strong>문자가 잠시 나타났다가 사라지는 시각적 효과</strong>를 줄 수 있어 "입력이 거부되었다"는 느낌을 직관적으로 전달할 수 있습니다.</p>
+<p>또한 단순히 하드코딩된 필터링이 아니라, <code class="language-text">Enum</code>을 활용해 재사용 가능한 구조의 필터를 구현했습니다.
+<code class="language-text">Filter</code> 열거형으로 문자 집합을 정의하고, <code class="language-text">FilterMode</code>로 이를 허용할지(Allow/Whitelist) 차단할지(Block/Blacklist) 결정합니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">Filter</span>
+<span class="token punctuation">{</span>
+    None<span class="token punctuation">,</span>           <span class="token comment">// 필터 사용 안 함</span>
+    ValidSpecial<span class="token punctuation">,</span>   <span class="token comment">// Windows 파일명 허용 특수문자</span>
+    InvalidSpecial<span class="token punctuation">,</span> <span class="token comment">// Windows 파일명 금지 특수문자 (&lt; > : " / \ | ? *)</span>
+    Digits<span class="token punctuation">,</span>         <span class="token comment">// 숫자 (0-9)</span>
+    Alpha<span class="token punctuation">,</span>          <span class="token comment">// 영문자</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">FilterMode</span>
+<span class="token punctuation">{</span>
+    Allow<span class="token punctuation">,</span> <span class="token comment">// 해당 문자들만 입력 가능</span>
+    Block  <span class="token comment">// 해당 문자들은 입력 불가</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// FilterTextBox.cs 내부</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">OnFilterChanged</span><span class="token punctuation">(</span><span class="token class-name">DependencyObject</span> d<span class="token punctuation">,</span> <span class="token class-name">DependencyPropertyChangedEventArgs</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+    <span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">?</span></span> characterSet <span class="token operator">=</span> <span class="token function">GetCharacterSet</span><span class="token punctuation">(</span>filter<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Enum에 따라 문자열 반환</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>mode <span class="token operator">==</span> FilterMode<span class="token punctuation">.</span>Allow<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        textBox<span class="token punctuation">.</span>AllowedCharacters <span class="token operator">=</span> characterSet<span class="token punctuation">;</span>
+        textBox<span class="token punctuation">.</span>BlockedCharacters <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token comment">// FilterMode.Block</span>
+    <span class="token punctuation">{</span>
+        textBox<span class="token punctuation">.</span>AllowedCharacters <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        textBox<span class="token punctuation">.</span>BlockedCharacters <span class="token operator">=</span> characterSet<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>규칙 텍스트 박스도 <code class="language-text">FilterTextBox</code>로 교체하고 Windows 파일명에서 사용 불가능한 특수문자 (&#x3C; > : " / \ | ? *)를 차단해서 예외처리했습니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 641px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/9c240438e29cc2d1096fbfbe3e2029e3/4b9ef/tag_number.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 23.31288343558282%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAFABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAEDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHekKxZ/8QAFxABAAMAAAAAAAAAAAAAAAAAAQIQEf/aAAgBAQABBQKmGv8A/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8BR//EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAgBAgEBPwFtf//EABgQAAIDAAAAAAAAAAAAAAAAAAACEDKR/9oACAEBAAY/Aos2n//EABkQAAEFAAAAAAAAAAAAAAAAAAABEBEhcf/aAAgBAQABPyFGsIMH/9oADAMBAAIAAwAAABBwL//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/EEv/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/EC//xAAbEAACAQUAAAAAAAAAAAAAAAABEQAhQXGBkf/aAAgBAQABPxAEEGos9gjVmygNT//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/9c240438e29cc2d1096fbfbe3e2029e3/94563/tag_number.webp 163w,
+/static/9c240438e29cc2d1096fbfbe3e2029e3/647a8/tag_number.webp 325w,
+/static/9c240438e29cc2d1096fbfbe3e2029e3/de042/tag_number.webp 641w"
+              sizes="(max-width: 641px) 100vw, 641px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/9c240438e29cc2d1096fbfbe3e2029e3/d2f63/tag_number.jpg 163w,
+/static/9c240438e29cc2d1096fbfbe3e2029e3/c989d/tag_number.jpg 325w,
+/static/9c240438e29cc2d1096fbfbe3e2029e3/4b9ef/tag_number.jpg 641w"
+            sizes="(max-width: 641px) 100vw, 641px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/9c240438e29cc2d1096fbfbe3e2029e3/4b9ef/tag_number.jpg"
+            alt="tag_number"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span>
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 641px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/3ec5056ca4cd412210fa1752505caf6d/4b9ef/tag_atoz.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 23.926380368098158%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAFABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAEDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHekKxZ/8QAFhAAAwAAAAAAAAAAAAAAAAAAABAS/9oACAEBAAEFAlJ//8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8BR//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAECAQE/AVf/xAAXEAADAQAAAAAAAAAAAAAAAAAAARAx/9oACAEBAAY/AprP/8QAGBAAAgMAAAAAAAAAAAAAAAAAAAEQMbH/2gAIAQEAAT8hiz3P/9oADAMBAAIAAwAAABADz//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/EEP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAgBAgEBPxBT/8QAGRAAAwEBAQAAAAAAAAAAAAAAAAERMUFx/9oACAEBAAE/EEoosENaaOznw//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/3ec5056ca4cd412210fa1752505caf6d/94563/tag_atoz.webp 163w,
+/static/3ec5056ca4cd412210fa1752505caf6d/647a8/tag_atoz.webp 325w,
+/static/3ec5056ca4cd412210fa1752505caf6d/de042/tag_atoz.webp 641w"
+              sizes="(max-width: 641px) 100vw, 641px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/3ec5056ca4cd412210fa1752505caf6d/d2f63/tag_atoz.jpg 163w,
+/static/3ec5056ca4cd412210fa1752505caf6d/c989d/tag_atoz.jpg 325w,
+/static/3ec5056ca4cd412210fa1752505caf6d/4b9ef/tag_atoz.jpg 641w"
+            sizes="(max-width: 641px) 100vw, 641px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/3ec5056ca4cd412210fa1752505caf6d/4b9ef/tag_atoz.jpg"
+            alt="tag_atoz"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h4 id="시작-값과-자리-수-옵션의-예외처리" style="position:relative;"><a href="#%EC%8B%9C%EC%9E%91-%EA%B0%92%EA%B3%BC-%EC%9E%90%EB%A6%AC-%EC%88%98-%EC%98%B5%EC%85%98%EC%9D%98-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC" aria-label="시작 값과 자리 수 옵션의 예외처리 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>시작 값과 자리 수 옵션의 예외처리</h4>
+<p>윈도우에서 파일명의 최대 길이는 확장자 포함 255자입니다.
+그래서 자리 수 옵션과 소문자 수 옵션의 최대값을 100로 제한했습니다.</p>
+<p>개발 중 <code class="language-text">TextBox</code>의 값이 바인딩된 속성에 즉시 업데이트되지 않아 발생한 버그가 있었습니다.
+예를 들어, 사용자가 자리 수에 '3'을 입력하고 포커스를 옮기지 않은 채 바로 [생성] 버튼을 누르면, ViewModel에 예외처리로 적용된 최소값(0 또는 1)이 전달되어 '001'이 아닌 '1'로 태그가 생성되는 문제였습니다.</p>
+<p>처음에는 View 단계에서 <code class="language-text">UpdateSourceTrigger=PropertyChanged</code>를 사용하여 입력을 할 때마다 즉시 바인딩을 업데이트하도록 해결했습니다.</p>
+<p>하지만 이 방식은 입력 중간 단계의 불완전한 값까지 검증 로직을 태우게 되어 불필요한 오버헤드가 발생하거나, <code class="language-text">FilterTextBox</code>의 UX를 제공할 수 없었습니다.</p>
+<p>최종적으로는 <code class="language-text">FilterTextBox</code> 내부 로직에서 포커스를 잃거나 특정 이벤트 시점에서 강제로 <code class="language-text">BindingExpression.UpdateSource()</code>를 호출하여, 버튼 클릭 시점에는 확실하게 데이터가 동기화되도록 수정했습니다.</p>
+<h3 id="today-timenow-태그-개발" style="position:relative;"><a href="#today-timenow-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C" aria-label="today timenow 태그 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>[Today], [Time.now] 태그 개발</h3>
+<p>날짜와 시간을 입력하는 태그입니다. 사용자가 원하는 포맷(예: <code class="language-text">YYYY-MM-DD</code>, <code class="language-text">YY.MM.DD</code> 등)을 자유롭게 구성할 수 있어야 했습니다.</p>
+<p>처음에는 드롭다운 메뉴와 텍스트 박스를 교차 배치했습니다.</p>
+<ul>
+<li>구성: <code class="language-text">[드롭다운1]</code> <code class="language-text">[구분자1]</code> <code class="language-text">[드롭다운2]</code> <code class="language-text">[구분자2]</code> <code class="language-text">[드롭다운3]</code></li>
+<li>예: <code class="language-text">YYYY</code> <code class="language-text">-</code> <code class="language-text">MM</code> <code class="language-text">-</code> <code class="language-text">DD</code> -> "2026-01-17"</li>
+</ul>
+<p>그리고 유연성을 주기위해 드롭다운에 미선택 상태를 추가해서 DDYY-MM, MMYY 이렇게 다양한 순서배치와 조합을 사용할 수 있도록 했습니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 642px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/023709b040c4437dd7d013d512332e01/46b1b/tag_today.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 23.31288343558282%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAFABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAECBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHdkKCz/8QAFxABAAMAAAAAAAAAAAAAAAAAAQIQEf/aAAgBAQABBQKmGv8A/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8BR//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAECAQE/AVf/xAAYEAACAwAAAAAAAAAAAAAAAAAAAhAykf/aAAgBAQAGPwKLNp//xAAYEAACAwAAAAAAAAAAAAAAAAAAAREhYf/aAAgBAQABPyERYQYh/9oADAMBAAIAAwAAABDwL//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/EEP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAgBAgEBPxBb/8QAGRABAAMBAQAAAAAAAAAAAAAAAQARIUFR/9oACAEBAAE/EDABancutnxBP//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/023709b040c4437dd7d013d512332e01/94563/tag_today.webp 163w,
+/static/023709b040c4437dd7d013d512332e01/647a8/tag_today.webp 325w,
+/static/023709b040c4437dd7d013d512332e01/7eb86/tag_today.webp 642w"
+              sizes="(max-width: 642px) 100vw, 642px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/023709b040c4437dd7d013d512332e01/d2f63/tag_today.jpg 163w,
+/static/023709b040c4437dd7d013d512332e01/c989d/tag_today.jpg 325w,
+/static/023709b040c4437dd7d013d512332e01/46b1b/tag_today.jpg 642w"
+            sizes="(max-width: 642px) 100vw, 642px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/023709b040c4437dd7d013d512332e01/46b1b/tag_today.jpg"
+            alt="tag_today"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span>
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 640px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/e70c0f5ed4ee255a5a796966dbb13fc7/c08c5/tag_now.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 23.926380368098158%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAFABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHdkFYs/8QAFhAAAwAAAAAAAAAAAAAAAAAAABAS/9oACAEBAAEFAlJ//8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8BR//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAECAQE/AVf/xAAYEAACAwAAAAAAAAAAAAAAAAAAARAxkf/aAAgBAQAGPwKLen//xAAWEAEBAQAAAAAAAAAAAAAAAAAAATH/2gAIAQEAAT8hRqt//9oADAMBAAIAAwAAABCDz//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAEDAQE/EEP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAgBAgEBPxBT/8QAGhABAQACAwAAAAAAAAAAAAAAAREAITFBcf/aAAgBAQABPxAIAOsWsmnK2dPM/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/e70c0f5ed4ee255a5a796966dbb13fc7/94563/tag_now.webp 163w,
+/static/e70c0f5ed4ee255a5a796966dbb13fc7/647a8/tag_now.webp 325w,
+/static/e70c0f5ed4ee255a5a796966dbb13fc7/0ba47/tag_now.webp 640w"
+              sizes="(max-width: 640px) 100vw, 640px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/e70c0f5ed4ee255a5a796966dbb13fc7/d2f63/tag_now.jpg 163w,
+/static/e70c0f5ed4ee255a5a796966dbb13fc7/c989d/tag_now.jpg 325w,
+/static/e70c0f5ed4ee255a5a796966dbb13fc7/c08c5/tag_now.jpg 640w"
+            sizes="(max-width: 640px) 100vw, 640px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/e70c0f5ed4ee255a5a796966dbb13fc7/c08c5/tag_now.jpg"
+            alt="tag_time.now"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h3 id="toupper-tolower-태그-개발" style="position:relative;"><a href="#toupper-tolower-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C" aria-label="toupper tolower 태그 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>[ToUpper], [ToLower] 태그 개발</h3>
+<p>파일명의 포함된 알파벳의 대소문자를 일괄 변경하는 태그입니다.
+위치와 상관없이 동작하며, 변환작업에서 다른 태그보다 나중에 동작해서 다른 태그로 생성된 알파벳도 변환하게 됩니다.
+또한 이 태그들은 규칙에 여러개가 존재할 필요가 없기때문에 가시성을 위해서 규칙에 하나만 존재하도록 설계했습니다.</p>
+<h4 id="이중-변환saferename-구현" style="position:relative;"><a href="#%EC%9D%B4%EC%A4%91-%EB%B3%80%ED%99%98saferename-%EA%B5%AC%ED%98%84" aria-label="이중 변환saferename 구현 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>이중 변환(SafeRename) 구현</h4>
+<p>Windows 파일 시스템(NTFS)은 대소문자를 구분하지 않습니다(Case-insensitive).
+그래서 <code class="language-text">image.png</code>를 <code class="language-text">IMAGE.PNG</code>로 이름을 바꾸려고 시도하면, 윈도우는 해당 이름 변경을 수행하지 않습니다.</p>
+<p>이를 해결하기 위해 <strong>이중 변환(SafeRename)</strong> 로직을 구현했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">private</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">SafeRename</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> sourcePath<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">string</span></span> destPath<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>destPath<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>sourcePath <span class="token operator">==</span> destPath<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 대소문자만 다른 경우 (Case-only rename)</span>
+    <span class="token class-name"><span class="token keyword">bool</span></span> isCaseOnlyChange <span class="token operator">=</span> <span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">Equals</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">,</span> destPath<span class="token punctuation">,</span> StringComparison<span class="token punctuation">.</span>OrdinalIgnoreCase<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                            <span class="token operator">!</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">Equals</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">,</span> destPath<span class="token punctuation">,</span> StringComparison<span class="token punctuation">.</span>Ordinal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isCaseOnlyChange<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// 임시 파일명으로 변경 후 최종 이름으로 변경</span>
+        <span class="token class-name"><span class="token keyword">string</span></span> tempPath <span class="token operator">=</span> sourcePath <span class="token operator">+</span> <span class="token string">".tmp_"</span> <span class="token operator">+</span> Environment<span class="token punctuation">.</span>TickCount64<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token string">"X"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        _fileService<span class="token punctuation">.</span><span class="token function">RenameFile</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">,</span> tempPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        _fileService<span class="token punctuation">.</span><span class="token function">RenameFile</span><span class="token punctuation">(</span>tempPath<span class="token punctuation">,</span> destPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">{</span>
+        _fileService<span class="token punctuation">.</span><span class="token function">RenameFile</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">,</span> destPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p>대소문자만 변경되는 경우인지 확인(<code class="language-text">isCaseOnlyChange</code>)하고, 맞다면 중간에 임시 파일명을 거치도록 하여 파일 시스템이 변경 사항을 인식하도록 만들었습니다.</p>
+</blockquote>
+<h3 id="onlynumber-onlyletter-태그-개발" style="position:relative;"><a href="#onlynumber-onlyletter-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C" aria-label="onlynumber onlyletter 태그 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>[OnlyNumber], [OnlyLetter] 태그 개발</h3>
+<p>이 태그들은 파일명에서 특정 문자만 남기거나 제거하는 '필터' 역할을 수행합니다.</p>
+<p>이 태그들도 [ToUpper], [ToLower] 태그처럼 서로 규칙에 동시에 존재하면 안되기 때문에 같은 로직을 적용시켰습니다.</p>
+<p>문제는 [OnlyNumber]와 [OnlyLetter]가 [ToUpper]/[ToLower] 태그와의 상호작용이 서로 다르다는 것이였습니다.<br>
+[OnlyNumber]와 [OnlyLetter]를 동시에 쓰면 아무것도 남지않기때문에 절대 같이 사용할 수 없게 해야 했습니다.
+그리고,  [OnlyNumber]는 [ToUpper],[ToLower]가 규칙에서 필요 없어지는데, [OnlyLetter]는 [ToUpper],[ToLower] 같이 동작하는게 가능합니다.</p>
+<h4 id="배타적-속성-도입" style="position:relative;"><a href="#%EB%B0%B0%ED%83%80%EC%A0%81-%EC%86%8D%EC%84%B1-%EB%8F%84%EC%9E%85" aria-label="배타적 속성 도입 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>배타적 속성 도입</h4>
+<p>[ToUpper]와 [ToLower]를 먼저 개발했고 그때는 복잡한 상호작용이 없었기 때문에 로직 자체가 단순했습니다.
+그러나 [OnlyNumber]와 [OnlyLetter]가 추가되면서 상호작용이 복잡해져 로직은 변경해야했습니다.</p>
+<p>그래서 <code class="language-text">TagItem</code> 모델에 두 가지 속성을 추가했습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TagItem</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">bool</span></span> IsUnique <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>           <span class="token comment">// 중복 추가 불가 (예: [ToUpper]는 하나만 있으면 됨)</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">string</span></span> ExclusiveGroup <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>   <span class="token comment">// 배타적 그룹 (예: "FilterGroup")</span>
+<span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p><code class="language-text">IsUnique</code>는 규칙 내에 해당 태그가 하나만 존재하도록 보장</p>
+</blockquote>
+<blockquote>
+<p><code class="language-text">ExclusiveGroup</code>은 그룹 별로 묶어 배타적으로 밀어낼 수 있도록 보장</p>
+</blockquote>
+<h4 id="베타적-그룹-로직-구현" style="position:relative;"><a href="#%EB%B2%A0%ED%83%80%EC%A0%81-%EA%B7%B8%EB%A3%B9-%EB%A1%9C%EC%A7%81-%EA%B5%AC%ED%98%84" aria-label="베타적 그룹 로직 구현 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>베타적 그룹 로직 구현</h4>
+<p>베타적 그룹 속성에 맞춰 규칙 내에 같은 그룹의 태그가 추가되면 검증하는 구조입니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">partial</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">OnRuleFormatChanged</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span><span class="token punctuation">?</span></span> oldValue<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword">string</span></span> newValue<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+    <span class="token comment">// 2. ExclusiveGroup 태그 상호 배타성 처리</span>
+    <span class="token class-name"><span class="token keyword">var</span></span> groupedTags <span class="token operator">=</span> TagManager<span class="token punctuation">.</span>CreatedTags
+        <span class="token punctuation">.</span><span class="token function">Where</span><span class="token punctuation">(</span>t <span class="token operator">=></span> <span class="token operator">!</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span>ExclusiveGroup<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">ToList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">var</span></span> <span class="token keyword">group</span> <span class="token keyword">in</span> groupedTags<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token class-name"><span class="token keyword">var</span></span> presentTags <span class="token operator">=</span> tagsInGroup
+            <span class="token punctuation">.</span><span class="token function">Where</span><span class="token punctuation">(</span>t <span class="token operator">=></span> cleaned<span class="token punctuation">.</span><span class="token function">IndexOf</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span>TagName<span class="token punctuation">,</span> StringComparison<span class="token punctuation">.</span>OrdinalIgnoreCase<span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">ToList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>presentTags<span class="token punctuation">.</span>Count <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">// 같은 그룹 태그가 2개 이상이면</span>
+        <span class="token punctuation">{</span>
+             <span class="token comment">// 새로 입력된(oldValue에는 없었던) 태그를 찾아서 유지</span>
+            <span class="token class-name">TagItem<span class="token punctuation">?</span></span> preserveTag <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>oldValue<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                preserveTag <span class="token operator">=</span> presentTags<span class="token punctuation">.</span><span class="token function">FirstOrDefault</span><span class="token punctuation">(</span>t <span class="token operator">=></span>
+                    oldValue<span class="token punctuation">.</span><span class="token function">IndexOf</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span>TagName<span class="token punctuation">,</span> StringComparison<span class="token punctuation">.</span>OrdinalIgnoreCase<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">// ... 찾은 태그(preserveTag)를 제외한 나머지 배타적 태그들을 제거 ...</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>사용자 경험상 **"마지막으로 추가한 태그"**를 남기는게 좋을것이라 판단해서 <code class="language-text">oldValue</code>와 <code class="language-text">newValue</code>를 통해 마지막 태그가 밀어내도록 구현했습니다.
+예를 들어 <code class="language-text">[OnlyLetter]</code>와 <code class="language-text">[ToUpper]</code>가 있는 상태에서 <code class="language-text">[OnlyNumber]</code>를 입력하면 <code class="language-text">[OnlyNumber]</code>만 남게됩니다.</p>
+<h3 id="nametrim-태그-개발" style="position:relative;"><a href="#nametrim-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C" aria-label="nametrim 태그 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>[Name.trim] 태그 개발</h3>
+<p>파일명의 특정 부분을 잘라내거나 남기는 기능을 담당하는 태그입니다.</p>
+<p><strong>UI 구성</strong></p>
+<ul>
+<li><strong>시작/끝 입력</strong> : 문자의 인덱스를 지정하는 숫자 입력 필드 (1부터 시작)</li>
+<li><strong>방향 토글</strong> : [앞에서] / [뒤에서]</li>
+<li><strong>동작 토글</strong> : [삭제] (선택 범위 제거) / [남기기] (선택 범위만 유지)</li>
+</ul>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">case</span> TagType<span class="token punctuation">.</span>NameTrim<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>tag<span class="token punctuation">.</span>Params <span class="token keyword">is</span> <span class="token class-name">NameTrimTagParams</span> splitP<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// 1. 방향(앞/뒤)에 따라 실제 시작/끝 인덱스 계산</span>
+        <span class="token class-name"><span class="token keyword">int</span></span> startIndex<span class="token punctuation">,</span> endIndex<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>splitP<span class="token punctuation">.</span>IsFromBack<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            endIndex <span class="token operator">=</span> length <span class="token operator">-</span> start<span class="token punctuation">;</span>
+            startIndex <span class="token operator">=</span> length <span class="token operator">-</span> end<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+            startIndex <span class="token operator">=</span> start <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// 1-based -> 0-based</span>
+            endIndex <span class="token operator">=</span> end <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 2. 인덱스 유효성 보정</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startIndex <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> startIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>endIndex <span class="token operator">>=</span> length<span class="token punctuation">)</span> endIndex <span class="token operator">=</span> length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 3. 잘못된 범위 처리 (교차되거나 범위 밖)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startIndex <span class="token operator">></span> endIndex <span class="token operator">||</span> startIndex <span class="token operator">>=</span> length <span class="token operator">||</span> endIndex <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// 삭제 모드면 원본 유지, 남기기 모드면 빈 문자열 반환</span>
+            replacement <span class="token operator">=</span> splitP<span class="token punctuation">.</span>IsKeep <span class="token punctuation">?</span> <span class="token string">""</span> <span class="token punctuation">:</span> name<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// 4. 동작 수행</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>splitP<span class="token punctuation">.</span>IsKeep<span class="token punctuation">)</span>
+                replacement <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">Substring</span><span class="token punctuation">(</span>startIndex<span class="token punctuation">,</span> endIndex <span class="token operator">-</span> startIndex <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                replacement <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">Remove</span><span class="token punctuation">(</span>startIndex<span class="token punctuation">,</span> endIndex <span class="token operator">-</span> startIndex <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span></code></pre></div>
+<p>이렇게 함으로써, <code class="language-text">[Name.trim]</code> 태그 하나로 "확장자 앞 3글자 지우기", "파일명 맨 앞 4글자만 남기기" 등 다양한 패턴을 모두 커버할 수 있게 되었습니다.</p>
+<p><img src="./_assets/tag_name.trim.jpg" alt="tag_name.trim"></p>
+<h1 id="개별-변경-모드-개발" style="position:relative;"><a href="#%EA%B0%9C%EB%B3%84-%EB%B3%80%EA%B2%BD-%EB%AA%A8%EB%93%9C-%EA%B0%9C%EB%B0%9C" aria-label="개별 변경 모드 개발 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>개별 변경 모드 개발</h1>
+<p>일괄 변경 규칙을 사용하면서도 특정 파일만 예외적으로 수정이 필요한 경우가 있습니다.
+이를 위해 <strong>개별 변경 모드</strong>를 구현했습니다.</p>
+<h3 id="기획-및-동작-로직" style="position:relative;"><a href="#%EA%B8%B0%ED%9A%8D-%EB%B0%8F-%EB%8F%99%EC%9E%91-%EB%A1%9C%EC%A7%81" aria-label="기획 및 동작 로직 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>기획 및 동작 로직</h3>
+<p>사이드바에서 "개별 변경 모드" 옵션을 활성화하고 리스트에서 수정하고싶은 항목을 <em>더블 클릭</em>하면 해당 항목의 '미리보기' 필드가 <code class="language-text">TextBox</code>로 변환되어 개별 변경 화면을 띄웁니다.</p>
+<h4 id="규칙-기반-변경과-개별-변경이-병행될-때" style="position:relative;"><a href="#%EA%B7%9C%EC%B9%99-%EA%B8%B0%EB%B0%98-%EB%B3%80%EA%B2%BD%EA%B3%BC-%EA%B0%9C%EB%B3%84-%EB%B3%80%EA%B2%BD%EC%9D%B4-%EB%B3%91%ED%96%89%EB%90%A0-%EB%95%8C" aria-label="규칙 기반 변경과 개별 변경이 병행될 때 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>규칙 기반 변경과 개별 변경이 병행될 때</h4>
+<p><strong>규칙 우선</strong>: 사용자가 상단 규칙 텍스트 박스를 수정하면, 개별 변경된 내용이 초기화되고 일괄 규칙이 다시 적용됩니다. (일괄 적용의 편의성 보장)
+<strong>개별 우선</strong>: 규칙이 적용된 상태에서 개별 파일을 수정하면, 그 파일만 수동 입력된 이름을 유지하고 나머지 파일들은 여전히 규칙을 따릅니다.</p>
+<p>수동 입력창을 내용을 모두 지우면, 이름 변경 대상에서 제외하는 것으로 간주하거나 원래 이름으로 되돌립니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d7347cc1fa749feae71d7bb199e5d0b6/35969/SelfRename_release.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB3aoB/8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQABBQJf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGRABAQADAQAAAAAAAAAAAAAAAREAECEx/9oACAEBAAE/IbyuDTmpSPcAPCa//9oADAMBAAIAAwAAABCAz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABoQAQEBAQADAAAAAAAAAAAAAAEAESExUWH/2gAIAQEAAT8QMNOEBKs9wFAD5HsLhD4ZN//Z'); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/d7347cc1fa749feae71d7bb199e5d0b6/94563/SelfRename_release.webp 163w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/647a8/SelfRename_release.webp 325w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/c1dc5/SelfRename_release.webp 650w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/5bf28/SelfRename_release.webp 953w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/d7347cc1fa749feae71d7bb199e5d0b6/d2f63/SelfRename_release.jpg 163w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/c989d/SelfRename_release.jpg 325w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/6aca1/SelfRename_release.jpg 650w,
+/static/d7347cc1fa749feae71d7bb199e5d0b6/35969/SelfRename_release.jpg 953w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/d7347cc1fa749feae71d7bb199e5d0b6/6aca1/SelfRename_release.jpg"
+            alt="SelfRename_release"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h1 id="스낵바-ui-구현-및-예외처리" style="position:relative;"><a href="#%EC%8A%A4%EB%82%B5%EB%B0%94-ui-%EA%B5%AC%ED%98%84-%EB%B0%8F-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC" aria-label="스낵바 ui 구현 및 예외처리 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>스낵바 UI 구현 및 예외처리</h1>
+<p>1000개 이하의 파일을 처리할때는 상관없지만, 그 이상의 파일을 변경하는데는 어느정도 시간이 소요됩니다.
+이때 작업이 진행중이라는 걸 알려주는 UI가 필요했습니다.</p>
+<p>기존에 예외처리에 대한 UI로 MessageBox를 사용하고 있었는데, 통합해서 표현할 UI를 고민하다가 스낵바를 도입하게 되었습니다.</p>
+<ul>
+<li><strong>성공(초록)</strong>: "N개의 이름 변경 완료"</li>
+<li><strong>경고(노랑)</strong>: "10개 중 8개 성공, 2개 실패" (일부 실패 시)</li>
+<li><strong>실패(빨강)</strong>: "이름 변경 실패" (치명적 오류)</li>
+</ul>
+<p>특히 대량 작업은 비동기(<code class="language-text">async/await</code>)로 처리되므로, 작업이 끝난 후 UI 스레드(<code class="language-text">Dispatcher</code>)로 복귀하여 안전하게 스낵바를 띄우는 구조로 개발했습니다. 이를 통해 사용자는 작업을 방해받지 않으면서도 결과를 명확히 인지할 수 있게 되었습니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 650px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/d562bc478dcafc0f4a292419991d6213/35969/Snackbar_release.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 62.576687116564415%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAECBf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAHt1tIF/8QAGRAAAwADAAAAAAAAAAAAAAAAAQIQESEx/9oACAEBAAEFAhsBcReT/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFhAAAwAAAAAAAAAAAAAAAAAAACAh/9oACAEBAAY/AiL/AP/EABgQAAIDAAAAAAAAAAAAAAAAAAABESDR/9oACAEBAAE/IZCpdVP/2gAMAwEAAgADAAAAEDTP/8QAFREBAQAAAAAAAAAAAAAAAAAAEBH/2gAIAQMBAT8Qh//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAAIDAAAAAAAAAAAAAAEAESExQVFxsf/aAAgBAQABPxDlLbaesiMCLV2n7Aa3mZ8vcuLs/9k='); background-size: cover; display: block;"
+  ></span>
+  <picture>
+          <source
+              srcset="/static/d562bc478dcafc0f4a292419991d6213/94563/Snackbar_release.webp 163w,
+/static/d562bc478dcafc0f4a292419991d6213/647a8/Snackbar_release.webp 325w,
+/static/d562bc478dcafc0f4a292419991d6213/c1dc5/Snackbar_release.webp 650w,
+/static/d562bc478dcafc0f4a292419991d6213/5bf28/Snackbar_release.webp 953w"
+              sizes="(max-width: 650px) 100vw, 650px"
+              type="image/webp"
+            />
+          <source
+            srcset="/static/d562bc478dcafc0f4a292419991d6213/d2f63/Snackbar_release.jpg 163w,
+/static/d562bc478dcafc0f4a292419991d6213/c989d/Snackbar_release.jpg 325w,
+/static/d562bc478dcafc0f4a292419991d6213/6aca1/Snackbar_release.jpg 650w,
+/static/d562bc478dcafc0f4a292419991d6213/35969/Snackbar_release.jpg 953w"
+            sizes="(max-width: 650px) 100vw, 650px"
+            type="image/jpeg"
+          />
+          <img
+            class="gatsby-resp-image-image"
+            src="/static/d562bc478dcafc0f4a292419991d6213/6aca1/Snackbar_release.jpg"
+            alt="Snackbar_release"
+            title=""
+            loading="lazy"
+            decoding="async"
+            style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+          />
+        </picture>
+  </a>
+    </span></p>
+<h1 id="다량의-파일을-위한-구조-변경-및-최적화" style="position:relative;"><a href="#%EB%8B%A4%EB%9F%89%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD-%EB%B0%8F-%EC%B5%9C%EC%A0%81%ED%99%94" aria-label="다량의 파일을 위한 구조 변경 및 최적화 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>다량의 파일을 위한 구조 변경 및 최적화</h1>
+<p>수만 개의 파일을 처리할 때 UI가 멈추거나(Freezing) 미리보기가 느려지는 문제가 발생했습니다.</p>
+<h3 id="대량-추가-시-중복-검사-최적화" style="position:relative;"><a href="#%EB%8C%80%EB%9F%89-%EC%B6%94%EA%B0%80-%EC%8B%9C-%EC%A4%91%EB%B3%B5-%EA%B2%80%EC%82%AC-%EC%B5%9C%EC%A0%81%ED%99%94" aria-label="대량 추가 시 중복 검사 최적화 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>대량 추가 시 중복 검사 최적화</h3>
+<p>파일을 목록에 추가할 때마다 전체 리스트를 순회하며 중복을 확인하는건 리스트가 커질수록 속도가 급격히 느려집니다.(대략 O(N²))</p>
+<p>이를 해결하기 위해 <code class="language-text">HashSet</code>을 도입하여 중복 검사를 **O(1)**로 처리하는 <code class="language-text">AddRange</code> 메서드를 구현했습니다.
+WPF <code class="language-text">ObservableCollection</code>의 특성상 아이템 추가 시마다 UI 알림이 발생하지만, 가장 큰 병목 구간인 중복 검사 로직을 최적화하는 것만으로도 5만 개 이상의 파일을 끊김 없이 목록에 담을 수 있게 되었습니다.</p>
+<div class="gatsby-highlight" data-language="csharp"><pre class="language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> <span class="token function">AddRange</span><span class="token punctuation">(</span><span class="token class-name">IEnumerable<span class="token punctuation">&lt;</span>FileItem<span class="token punctuation">></span></span> newItems<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token class-name"><span class="token keyword">int</span></span> addedCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">var</span></span> item <span class="token keyword">in</span> newItems<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>_pathSet<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>Path<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            item<span class="token punctuation">.</span>AddIndex <span class="token operator">=</span> _nextAddIndex<span class="token operator">++</span><span class="token punctuation">;</span>
+            Items<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            _pathSet<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>Path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            addedCount<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> addedCount<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<blockquote>
+<p>WPF의 <code class="language-text">ObservableCollection</code>은 <code class="language-text">AddRange</code>가 없으므로 순회하며 추가하되, 대량 추가 시의 중복 체크 성능을 보장합니다.</p>
+</blockquote>
+<h3 id="정규식regex-제거" style="position:relative;"><a href="#%EC%A0%95%EA%B7%9C%EC%8B%9Dregex-%EC%A0%9C%EA%B1%B0" aria-label="정규식regex 제거 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>정규식(Regex) 제거</h3>
+<p>초기에는 태그 패턴 매칭(<code class="language-text">[Number]</code>, <code class="language-text">[Today]</code> 등)을 모두 정규식(<code class="language-text">Regex</code>)으로 처리했습니다.</p>
+<p>하지만 정규식 엔진은 복잡한 패턴 매칭을 위해 백트래킹 등을 수행하므로, 최악의 경우 **O(2^N)**에 가까운 성능 저하가 발생할 수 있습니다.<br>
+파일이 1만 개(<code class="language-text">N=10,000</code>)일 때 매 키 입력마다 정규식을 돌리는 것은 <strong>O(M * N)</strong> (M은 패턴 길이) 이상의 부하를 주어 UI 스레드를 차단(Block)하게 됩니다.</p>
+<p>이를 단순 문자열 연산(<code class="language-text">IndexOf</code>, <code class="language-text">Replace</code> 등)으로 교체했습니다.<br>
+문자열 치환은 일반적으로 <strong>O(N)</strong> 의 선형 시간 복잡도를 가지며, 오버헤드가 훨씬 적습니다.<br></p>
+<p>앞서 진행한 최적화를 통해 10만개 이상의 파일도 목록에 추가하고 파일명은 변경하는게 가능해졌지만, 안정적인 작동을 위해 추가할 수 있는 파일을 최대 5만개로 제한했습니다.</p>
+<hr>
+<p><strong>TagNamer</strong>의 개발 일지는 이것으로 마칩니다.
+프로젝트를 진행하며 WPF의 특성, 파일 시스템의 예외 상황, 그리고 대량 데이터 처리 시의 최적화 기법에 대해 많은 것을 배울 수 있었습니다.</p></div><div class="sc-drVZOg gnqMvA"></div><div class="sc-jIyAiq bbisrQ giscus"></div></div><div class="sc-dEkLRj cGcpJS"><div class="sc-kZrBCu fSvquJ"><button width="32" height="32" class="sc-blHHSb jJzVYQ"><svg viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zm64 0l0 64 64 0 0-64L64 96zm384 0L192 96l0 64 256 0 0-64zM64 224l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64zM64 352l0 64 64 0 0-64-64 0zm384 0l-256 0 0 64 256 0 0-64z"></path></svg></button><h3 class="sc-diYFot jmJGFq">목차</h3></div><div class="sc-kEfuZE QztIu"><ul>
+<li>
+<p><a href="#%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C">다운로드</a></p>
+<ul>
+<li>
+<ul>
+<li><a href="#%EB%93%A4%EC%96%B4%EA%B0%80%EA%B8%B0%EC%97%90-%EC%95%9E%EC%84%9C">들어가기에 앞서</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95-%ED%99%94%EB%A9%B4-%EA%B5%AC%EC%84%B1">규칙 설정 화면 구성</a></p>
+<ul>
+<li>
+<p><a href="#%EA%B7%9C%EC%B9%99-%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%B0%95%EC%8A%A4">규칙 텍스트 박스</a></p>
+</li>
+<li>
+<p><a href="#%ED%83%9C%EA%B7%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%84%A4%EA%B3%84">태그 시스템 설계</a></p>
+<ul>
+<li><a href="#number-atoz-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C">[Number], [AtoZ] 태그 개발</a></li>
+<li><a href="#today-timenow-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C">[Today], [Time.now] 태그 개발</a></li>
+<li><a href="#toupper-tolower-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C">[ToUpper], [ToLower] 태그 개발</a></li>
+<li><a href="#onlynumber-onlyletter-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C">[OnlyNumber], [OnlyLetter] 태그 개발</a></li>
+<li><a href="#nametrim-%ED%83%9C%EA%B7%B8-%EA%B0%9C%EB%B0%9C">[Name.trim] 태그 개발</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%EA%B0%9C%EB%B3%84-%EB%B3%80%EA%B2%BD-%EB%AA%A8%EB%93%9C-%EA%B0%9C%EB%B0%9C">개별 변경 모드 개발</a></p>
+<ul>
+<li>
+<ul>
+<li><a href="#%EA%B8%B0%ED%9A%8D-%EB%B0%8F-%EB%8F%99%EC%9E%91-%EB%A1%9C%EC%A7%81">기획 및 동작 로직</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%EC%8A%A4%EB%82%B5%EB%B0%94-ui-%EA%B5%AC%ED%98%84-%EB%B0%8F-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC">스낵바 UI 구현 및 예외처리</a></p>
+</li>
+<li>
+<p><a href="#%EB%8B%A4%EB%9F%89%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B5%AC%EC%A1%B0-%EB%B3%80%EA%B2%BD-%EB%B0%8F-%EC%B5%9C%EC%A0%81%ED%99%94">다량의 파일을 위한 구조 변경 및 최적화</a></p>
+<ul>
+<li>
+<ul>
+<li><a href="#%EB%8C%80%EB%9F%89-%EC%B6%94%EA%B0%80-%EC%8B%9C-%EC%A4%91%EB%B3%B5-%EA%B2%80%EC%82%AC-%EC%B5%9C%EC%A0%81%ED%99%94">대량 추가 시 중복 검사 최적화</a></li>
+<li><a href="#%EC%A0%95%EA%B7%9C%EC%8B%9Dregex-%EC%A0%9C%EA%B1%B0">정규식(Regex) 제거</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></div></div></article></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/post/04/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-8d9b3211922090f5a049.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-79e53f6051d389951a8f.js\"],\"component---src-pages-about-js\":[\"/component---src-pages-about-js-2db541a804b8d7836e0e.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-49d505776a701e376923.js\"],\"component---src-pages-search-js\":[\"/component---src-pages-search-js-65ed6ad5adde7da79873.js\"],\"component---src-templates-category-template-js\":[\"/component---src-templates-category-template-js-4b033d4628284d020ce6.js\"],\"component---src-templates-post-template-js\":[\"/component---src-templates-post-template-js-f51656638ccd0a9e3d4f.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="5bc5874e011dc2295bae";</script><script src="/webpack-runtime-bb511f298f7573c52606.js" async></script><script src="/framework-fa9a75ceb59e8cf58443.js" async></script><script src="/app-8d9b3211922090f5a049.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
