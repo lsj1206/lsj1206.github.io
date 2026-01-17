@@ -3,5 +3,5 @@ Allow: /
 Allow: /post/
 Disallow: /404/
 Disallow: /dev-404-page/
-Sitemap: https://lsj1206.github.io/sitemap-index.xml
+Sitemap: https://lsj1206.github.io/sitemap.xml
 Host: https://lsj1206.github.io
