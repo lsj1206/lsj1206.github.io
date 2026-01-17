@@ -64,20 +64,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-sitemap`,
-      options: {
-        exclude: [`/404/`, `/dev-404-page/`],
-        serialize: ({ path }) => ({
-          url: `https://lsj1206.github.io${path}`, // 도메인을 강제
-          lastmod: new Date().toISOString().split(".")[0] + "Z", // 밀리초 제거 (권장 규격)
-        }),
-      },
-    },
-    {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
         host: `https://lsj1206.github.io`,
-        sitemap: `https://lsj1206.github.io/sitemap-index.xml`,
+        sitemap: `https://lsj1206.github.io/sitemap.xml`,
         policy: [
           {
             userAgent: `*`,
