@@ -66,7 +66,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        host: `https://lsj1206.github.io`,
+        host: `https://lsj1206.github.io/`,
         sitemap: `https://lsj1206.github.io/sitemap.xml`,
         policy: [
           {
