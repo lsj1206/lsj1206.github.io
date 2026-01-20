@@ -4,7 +4,7 @@ coverImage: "./_assets/TagNamer_cover.jpg"
 category: "C-sharp"
 tag: ["C-sharp", ".NET10", "ModernWpf", "TagNamer"]
 createDate: "2026-01-15"
-lastDate: "2026-01-17"
+lastDate: "2026-01-20"
 ---
 
 Windows에서 사용가능한 파일명 변경 프로그램인 **TagNamer**의 개발과정을 담은 첫 포스트입니다.
@@ -15,7 +15,7 @@ Windows에서 사용가능한 파일명 변경 프로그램인 **TagNamer**의 �
 
 # 다운로드
 
-- [TagNamer v1.0.0 다운로드 링크](https://github.com/lsj1206/TagNamer/releases/tag/v1.0.0)
+- [TagNamer v1.0.0 다운로드 링크](https://github.com/lsj1206/TagNamer/releases)
 - 자세한 정보 : [GitHub](https://github.com/lsj1206/TagNamer)
 - 라이센스 : [MIT License](https://github.com/lsj1206/TagNamer?tab=License-1-ov-file)
 
